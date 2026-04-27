@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credo Capital — Equipment Finance</title>
+<style>
+  :root{
+    --forest:#1a3d2e;
+    --forest-dark:#0f2a1f;
+    --forest-light:#2d5016;
+    --gold:#b8860b;
+    --gold-light:#d4a574;
+    --gold-pale:#f0e6d2;
+    --cream:#faf8f3;
+    --paper:#f5f1e8;
+    --ink:#1a1a1a;
+    --muted:#6b6b6b;
+    --border:#e0dcd0;
+    --white:#ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Helvetica Neue',Arial,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{font-family:Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-0.01em;line-height:1.2}
+  a{color:inherit;text-decoration:none}
+
+  /* NAV */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--forest-dark);border-bottom:1px solid rgba(184,134,11,0.3)}
+  .nav-inner{max-width:1280px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between}
+  .nav-logo{display:flex;align-items:center;gap:.75rem;color:var(--white)}
+  .nav-logo svg{width:40px;height:40px}
+  .nav-logo-text{font-family:Georgia,serif;font-size:1.2rem;letter-spacing:.15em;font-weight:700}
+  .nav-logo-text span{color:var(--gold-light);display:block;font-size:.65rem;letter-spacing:.3em;margin-top:2px}
+  .nav-links{display:flex;gap:2.5rem;align-items:center}
+  .nav-links a{color:var(--cream);font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;transition:color .2s;padding:.5rem 0}
+  .nav-links a:hover{color:var(--gold-light)}
+  .nav-links a.active{color:var(--gold-light)}
+  .nav-cta{background:var(--gold);color:var(--forest-dark)!important;padding:.7rem 1.5rem!important;border-radius:2px;font-weight:700;transition:background .2s}
+  .nav-cta:hover{background:var(--gold-light)}
+  .nav-toggle{display:none;background:none;border:none;color:var(--cream);cursor:pointer;padding:.5rem}
+  .nav-toggle svg{width:24px;height:24px}
+
+  /* PAGES */
+  .page{display:none;padding-top:72px;min-height:100vh}
+  .page.active{display:block}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,var(--forest-dark) 0%,var(--forest) 60%,var(--forest-light) 100%);color:var(--cream);padding:6rem 2rem 7rem;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(184,134,11,.15) 0%,transparent 70%)}
+  .hero-inner{max-width:1180px;margin:0 auto;position:relative;z-index:2;display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:center}
+  .hero-eyebrow{display:inline-block;color:var(--gold-light);font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(212,165,116,.3)}
+  .hero h1{font-size:clamp(2.5rem,5vw,4rem);margin-bottom:1.5rem;color:var(--white)}
+  .hero h1 em{color:var(--gold-light);font-style:italic}
+  .hero-lede{font-size:1.15rem;line-height:1.7;margin-bottom:2.5rem;color:#e8e4d5;max-width:540px}
+  .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
+  .btn-primary{background:var(--gold);color:var(--forest-dark);padding:1rem 2.25rem;font-size:.9rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;transition:all .2s;border-radius:2px;display:inline-block}
+  .btn-primary:hover{background:var(--gold-light);transform:translateY(-1px)}
+  .btn-secondary{background:transparent;color:var(--cream);padding:1rem 2.25rem;font-size:.9rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--gold-light);cursor:pointer;transition:all .2s;border-radius:2px}
+  .btn-secondary:hover{background:rgba(212,165,116,.1)}
+  .hero-visual{display:flex;align-items:center;justify-content:center}
+  .hero-wheel{width:100%;max-width:380px;animation:rotate 60s linear infinite}
+  @keyframes rotate{to{transform:rotate(360deg)}}
+
+  /* SECTIONS */
+  .section{padding:6rem 2rem}
+  .section-inner{max-width:1180px;margin:0 auto}
+  .section-header{text-align:center;margin-bottom:4rem}
+  .section-eyebrow{color:var(--gold);font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:1rem;display:block}
+  .section-header h2{font-size:clamp(1.8rem,3.5vw,2.75rem);color:var(--forest-dark);margin-bottom:1rem}
+  .section-header p{color:var(--muted);max-width:640px;margin:0 auto;font-size:1.05rem}
+  .divider{width:60px;height:2px;background:var(--gold);margin:1.5rem auto}
+
+  /* VALUES STRIP */
+  .values-strip{background:var(--paper);padding:3rem 2rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .values-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+  .value-item{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+  .value-item-label{font-family:Georgia,serif;font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+  .value-item-text{font-family:Georgia,serif;font-size:1.1rem;color:var(--forest-dark);font-style:italic}
+
+  /* EQUIPMENT GRID */
+  .equipment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+  .equipment-card{background:var(--white);padding:2.5rem 2rem;border:1px solid var(--border);border-top:3px solid var(--gold);transition:all .3s}
+  .equipment-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(26,61,46,.1)}
+  .equipment-icon{width:48px;height:48px;color:var(--forest);margin-bottom:1.5rem}
+  .equipment-card h3{font-size:1.3rem;color:var(--forest-dark);margin-bottom:.75rem}
+  .equipment-card p{color:var(--muted);font-size:.95rem;line-height:1.7}
+
+  /* PROCESS */
+  .process{background:var(--forest-dark);color:var(--cream);padding:6rem 2rem}
+  .process .section-header h2{color:var(--white)}
+  .process .section-header p{color:#c5c0b0}
+  .process .section-eyebrow{color:var(--gold-light)}
+  .process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:3rem}
+  .process-step{text-align:center}
+  .process-number{font-family:Georgia,serif;font-size:3rem;color:var(--gold);font-style:italic;margin-bottom:1rem;line-height:1}
+  .process-step h3{color:var(--white);font-size:1.2rem;margin-bottom:.75rem}
+  .process-step p{color:#c5c0b0;font-size:.92rem;line-height:1.7}
+
+  /* CTA BANNER */
+  .cta-banner{background:linear-gradient(135deg,var(--forest) 0%,var(--forest-light) 100%);padding:5rem 2rem;text-align:center;color:var(--cream)}
+  .cta-banner-inner{max-width:720px;margin:0 auto}
+  .cta-banner h2{color:var(--white);font-size:clamp(1.8rem,3.5vw,2.5rem);margin-bottom:1rem}
+  .cta-banner p{font-size:1.1rem;margin-bottom:2rem;color:#e8e4d5}
+  .cta-verse{font-family:Georgia,serif;font-style:italic;color:var(--gold-light);font-size:.95rem;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(212,165,116,.3);max-width:560px;margin-left:auto;margin-right:auto}
+
+  /* ABOUT */
+  .about-hero{background:var(--forest-dark);color:var(--cream);padding:5rem 2rem 4rem;text-align:center}
+  .about-hero-inner{max-width:760px;margin:0 auto}
+  .about-hero h1{font-size:clamp(2.5rem,5vw,3.75rem);color:var(--white);margin-bottom:1rem}
+  .about-hero h1 em{color:var(--gold-light);font-style:italic}
+  .about-hero-lede{font-family:Georgia,serif;font-size:1.3rem;font-style:italic;color:var(--gold-light)}
+  .about-content{padding:5rem 2rem;background:var(--cream)}
+  .about-inner{max-width:880px;margin:0 auto}
+  .about-inner h2{color:var(--forest-dark);font-size:2rem;margin:2.5rem 0 1rem}
+  .about-inner h2:first-child{margin-top:0}
+  .about-inner p{font-size:1.05rem;line-height:1.8;color:#3a3a3a;margin-bottom:1.25rem}
+  .about-quote{font-family:Georgia,serif;font-style:italic;font-size:1.3rem;color:var(--forest);padding:2rem;border-left:3px solid var(--gold);background:var(--paper);margin:2.5rem 0;line-height:1.6}
+  .about-quote-attr{display:block;font-size:.85rem;color:var(--muted);margin-top:1rem;font-style:normal;letter-spacing:.1em;text-transform:uppercase}
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin:3rem 0}
+  .pillar{padding:2rem;border:1px solid var(--border);border-top:3px solid var(--gold);background:var(--white)}
+  .pillar h3{color:var(--forest-dark);font-size:1.25rem;margin-bottom:.75rem}
+  .pillar p{color:var(--muted);font-size:.95rem;line-height:1.7}
+
+  /* CONTACT */
+  .contact-page{padding:5rem 2rem;background:var(--cream);min-height:calc(100vh - 72px)}
+  .contact-inner{max-width:1080px;margin:0 auto}
+  .contact-header{text-align:center;margin-bottom:4rem}
+  .contact-header h1{font-size:clamp(2.25rem,4vw,3.25rem);color:var(--forest-dark);margin-bottom:1rem}
+  .contact-header p{color:var(--muted);font-size:1.1rem;max-width:560px;margin:0 auto}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+  .contact-methods{display:flex;flex-direction:column;gap:1.5rem}
+  .contact-card{background:var(--white);padding:2rem;border:1px solid var(--border);border-left:4px solid var(--gold);display:flex;align-items:flex-start;gap:1.25rem}
+  .contact-card-icon{width:44px;height:44px;background:var(--forest-dark);color:var(--gold-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:2px}
+  .contact-card-icon svg{width:22px;height:22px}
+  .contact-card-label{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.35rem;display:block;font-weight:700}
+  .contact-card-value{font-family:Georgia,serif;font-size:1.3rem;color:var(--forest-dark);display:block;margin-bottom:.25rem;line-height:1.3;word-break:break-word}
+  .contact-card-sub{color:var(--muted);font-size:.85rem}
+  .contact-form-box{background:var(--white);padding:2.5rem;border:1px solid var(--border);border-top:3px solid var(--gold)}
+  .contact-form-box h3{color:var(--forest-dark);font-size:1.4rem;margin-bottom:.5rem}
+  .contact-form-box .form-intro{color:var(--muted);font-size:.9rem;margin-bottom:1.75rem}
+  .contact-form .field{margin-bottom:1.25rem}
+  .contact-form label{display:block;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--forest-dark);margin-bottom:.5rem;font-weight:700}
+  .contact-form input,.contact-form textarea{width:100%;padding:.85rem 1rem;border:1px solid var(--border);background:var(--cream);font-family:inherit;font-size:.95rem;color:var(--ink);border-radius:2px;transition:border .2s}
+  .contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--gold);background:var(--white)}
+  .contact-form textarea{min-height:130px;resize:vertical}
+  .contact-form .btn-primary{width:100%;margin-top:.5rem}
+
+  /* APPLY PAGE */
+  .apply-hero{background:linear-gradient(135deg,var(--forest-dark) 0%,var(--forest) 100%);color:var(--cream);padding:5rem 2rem;text-align:center}
+  .apply-hero-inner{max-width:720px;margin:0 auto}
+  .apply-hero h1{font-size:clamp(2.25rem,4vw,3.25rem);color:var(--white);margin-bottom:1rem}
+  .apply-hero h1 em{color:var(--gold-light);font-style:italic}
+  .apply-hero p{color:#e8e4d5;font-size:1.1rem;margin-bottom:2.5rem}
+  .apply-hero .btn-primary{font-size:1rem;padding:1.15rem 3rem}
+  .apply-info{padding:5rem 2rem;background:var(--cream)}
+  .apply-info-inner{max-width:1080px;margin:0 auto}
+  .apply-info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-bottom:4rem}
+  .apply-info-card{background:var(--white);padding:2rem;text-align:center;border:1px solid var(--border)}
+  .apply-info-card .num{font-family:Georgia,serif;font-size:2.5rem;color:var(--gold);font-style:italic;margin-bottom:.5rem;display:block}
+  .apply-info-card h3{color:var(--forest-dark);font-size:1.15rem;margin-bottom:.5rem}
+  .apply-info-card p{color:var(--muted);font-size:.9rem}
+  .apply-info .btn-wrap{text-align:center}
+  .apply-info .btn-primary{font-size:1rem;padding:1.15rem 3rem}
+
+  /* MODAL */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,42,31,.85);backdrop-filter:blur(4px);z-index:1000;padding:2rem 1rem;overflow-y:auto;align-items:flex-start;justify-content:center}
+  .modal-overlay.active{display:flex}
+  .modal{background:var(--cream);max-width:820px;width:100%;border-radius:4px;box-shadow:0 25px 60px rgba(0,0,0,.4);overflow:hidden;margin:auto;position:relative}
+  .modal-header{background:var(--forest-dark);color:var(--white);padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center}
+  .modal-header h2{font-size:1.25rem;color:var(--white);margin:0}
+  .modal-header h2 span{color:var(--gold-light);font-style:italic}
+  .modal-close{background:none;border:1px solid rgba(212,165,116,.4);color:var(--cream);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .modal-close:hover{background:var(--gold);color:var(--forest-dark);border-color:var(--gold)}
+  .progress-bar{background:var(--forest);padding:1.25rem 2rem;border-bottom:1px solid rgba(212,165,116,.2)}
+  .progress-track{display:flex;gap:.5rem;margin-bottom:.75rem}
+  .progress-seg{flex:1;height:3px;background:rgba(212,165,116,.2);transition:background .3s}
+  .progress-seg.done{background:var(--gold)}
+  .progress-seg.current{background:var(--gold-light)}
+  .progress-label{display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:#c5c0b0;letter-spacing:.15em;text-transform:uppercase}
+  .progress-label strong{color:var(--gold-light);font-weight:700}
+  .modal-body{padding:2.5rem;max-height:62vh;overflow-y:auto}
+  .form-step{display:none}
+  .form-step.active{display:block}
+  .form-step h3{color:var(--forest-dark);font-size:1.5rem;margin-bottom:.5rem}
+  .form-step>p{color:var(--muted);font-size:.95rem;margin-bottom:2rem}
+  .form-grid{display:grid;gap:1rem;margin-bottom:1rem}
+  .form-grid.cols-2{grid-template-columns:1fr 1fr}
+  .form-grid.cols-3{grid-template-columns:1fr 1fr 1fr}
+  .form-grid.cols-4{grid-template-columns:1fr 1fr 1fr 1fr}
+  .field-group{display:flex;flex-direction:column;gap:.35rem}
+  .field-group label{font-size:.68rem;color:var(--forest-dark);font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+  .field-group input,.field-group select,.field-group textarea{padding:.75rem .9rem;border:1px solid var(--border);background:var(--white);font-family:inherit;font-size:.9rem;color:var(--ink);border-radius:2px;transition:border .2s;width:100%}
+  .field-group input:focus,.field-group select:focus,.field-group textarea:focus{outline:none;border-color:var(--gold)}
+  .principal-card{background:var(--paper);padding:1.5rem;border-radius:3px;margin-bottom:1rem;border:1px solid var(--border)}
+  .principal-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+  .principal-card-title{font-size:.72rem;color:var(--gold);font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+  .remove-owner{background:none;border:1px solid var(--border);color:var(--muted);padding:.25rem .75rem;font-size:.7rem;cursor:pointer;border-radius:2px;letter-spacing:.1em;text-transform:uppercase;transition:all .2s}
+  .remove-owner:hover{border-color:#c44;color:#c44}
+  .add-owner-btn{background:transparent;border:1px dashed var(--gold);color:var(--forest-dark);padding:.9rem 1.5rem;font-size:.8rem;cursor:pointer;width:100%;letter-spacing:.15em;text-transform:uppercase;font-weight:700;transition:all .2s;margin-top:.5rem}
+  .add-owner-btn:hover{background:var(--gold-pale);border-style:solid}
+  .auth-box{background:var(--paper);border-left:3px solid var(--gold);padding:1.75rem;margin-bottom:1.5rem}
+  .auth-box p{font-size:.85rem;line-height:1.75;color:#3a3a3a}
+  .auth-check{display:flex;align-items:flex-start;gap:.75rem;padding:1rem;background:var(--white);border:1px solid var(--border);border-radius:2px;cursor:pointer;margin-bottom:1rem}
+  .auth-check input{margin-top:.15rem;accent-color:var(--forest);width:18px;height:18px;cursor:pointer;flex-shrink:0}
+  .auth-check label{font-size:.9rem;color:var(--forest-dark);cursor:pointer;line-height:1.5}
+  .review-section{background:var(--white);border:1px solid var(--border);padding:1.25rem;margin-bottom:1rem;border-radius:2px}
+  .review-section h4{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+  .review-row{display:grid;grid-template-columns:1fr 2fr;gap:1rem;padding:.4rem 0;font-size:.88rem}
+  .review-row span:first-child{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}
+  .review-row span:last-child{color:var(--forest-dark);font-weight:500}
+  .modal-footer{padding:1.5rem 2rem;background:var(--white);border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:1rem}
+  .btn-back,.btn-next,.btn-submit{padding:.85rem 2rem;font-size:.82rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;border:1px solid}
+  .btn-back{background:transparent;border-color:var(--border);color:var(--muted)}
+  .btn-back:hover{border-color:var(--forest);color:var(--forest)}
+  .btn-back:disabled{opacity:.4;cursor:not-allowed}
+  .btn-next,.btn-submit{background:var(--forest-dark);color:var(--white);border-color:var(--forest-dark);margin-left:auto}
+  .btn-next:hover,.btn-submit:hover{background:var(--forest)}
+  .btn-submit{background:var(--gold);color:var(--forest-dark);border-color:var(--gold)}
+  .btn-submit:hover{background:var(--gold-light)}
+
+  /* SIGNATURE PAD */
+  .sig-pad-wrap{margin-bottom:1.25rem}
+  .sig-pad-label{font-size:.68rem;color:var(--forest-dark);font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5rem;display:block}
+  .sig-pad-canvas{border:1px solid var(--border);background:var(--white);border-radius:2px;display:block;width:100%;cursor:crosshair;touch-action:none}
+  .sig-pad-canvas.signed{border-color:var(--gold)}
+  .sig-pad-actions{display:flex;gap:.75rem;margin-top:.5rem;align-items:center}
+  .sig-clear-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:.4rem 1rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s}
+  .sig-clear-btn:hover{border-color:var(--forest);color:var(--forest)}
+  .sig-status{font-size:.78rem;color:var(--muted);font-style:italic}
+  .sig-status.signed{color:var(--forest);font-style:normal;font-weight:600}
+
+  /* SUCCESS */
+  .success-screen{display:none;text-align:center;padding:3rem 2rem}
+  .success-screen.active{display:block}
+  .success-icon{width:72px;height:72px;background:var(--forest);color:var(--gold-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:2rem}
+  .success-screen h3{color:var(--forest-dark);font-size:1.75rem;margin-bottom:1rem}
+  .success-screen p{color:var(--muted);font-size:1rem;max-width:440px;margin:0 auto 2rem;line-height:1.7}
+
+  /* FOOTER */
+  .footer{background:var(--forest-dark);color:#c5c0b0;padding:4rem 2rem 2rem}
+  .footer-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+  .footer-brand{display:flex;flex-direction:column;gap:1rem}
+  .footer-logo{display:flex;align-items:center;gap:.75rem;color:var(--white)}
+  .footer-logo svg{width:36px;height:36px}
+  .footer-logo-text{font-family:Georgia,serif;font-size:1.1rem;letter-spacing:.15em;font-weight:700}
+  .footer-tagline{font-family:Georgia,serif;font-style:italic;color:var(--gold-light);font-size:.95rem;margin-top:.5rem}
+  .footer-brand p{font-size:.9rem;line-height:1.7;max-width:340px}
+  .footer h4{color:var(--white);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1rem;font-family:inherit;font-weight:700}
+  .footer-links{display:flex;flex-direction:column;gap:.6rem}
+  .footer-links a{color:#c5c0b0;font-size:.9rem;transition:color .2s}
+  .footer-links a:hover{color:var(--gold-light)}
+  .footer-contact{font-size:.9rem;line-height:1.8}
+  .footer-contact a{color:#c5c0b0;transition:color .2s;word-break:break-word}
+  .footer-contact a:hover{color:var(--gold-light)}
+  .footer-bottom{border-top:1px solid rgba(212,165,116,.2);padding-top:2rem;text-align:center;font-size:.8rem;color:#8b8778}
+  .footer-bottom .verse{font-family:Georgia,serif;font-style:italic;color:var(--gold-light);margin-bottom:.75rem}
+
+  /* RESPONSIVE */
+  @media(max-width:960px){
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--forest-dark);flex-direction:column;padding:1.5rem 2rem;gap:1.25rem;border-top:1px solid rgba(212,165,116,.2)}
+    .nav-links.open{display:flex}
+    .nav-toggle{display:block}
+    .hero-inner{grid-template-columns:1fr;gap:2.5rem;text-align:center}
+    .hero-ctas{justify-content:center}
+    .hero-visual{order:-1}
+    .hero-wheel{max-width:220px}
+    .equipment-grid,.pillars,.apply-info-grid,.process-steps{grid-template-columns:1fr 1fr}
+    .contact-grid{grid-template-columns:1fr}
+    .values-inner{grid-template-columns:1fr 1fr}
+    .footer-inner{grid-template-columns:1fr;gap:2rem}
+  }
+  @media(max-width:600px){
+    .section{padding:4rem 1.25rem}
+    .hero{padding:4rem 1.25rem 5rem}
+    .equipment-grid,.pillars,.apply-info-grid,.process-steps{grid-template-columns:1fr}
+    .form-grid.cols-2,.form-grid.cols-3,.form-grid.cols-4{grid-template-columns:1fr}
+    .modal-body{padding:1.75rem 1.25rem;max-height:55vh}
+    .modal-header{padding:1.25rem}
+    .modal-footer{padding:1.25rem;flex-direction:column-reverse}
+    .btn-back,.btn-next,.btn-submit{width:100%;margin-left:0}
+    .values-inner{grid-template-columns:1fr}
+    .review-row{grid-template-columns:1fr;gap:.25rem}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" onclick="showPage('home');return false;">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+        <circle cx="50" cy="50" r="45"/>
+        <line x1="50" y1="5" x2="50" y2="95"/>
+        <line x1="5" y1="50" x2="95" y2="50"/>
+        <line x1="18.2" y1="18.2" x2="81.8" y2="81.8"/>
+        <line x1="81.8" y1="18.2" x2="18.2" y2="81.8"/>
+      </svg>
+      <div class="nav-logo-text">CREDO<span>CAPITAL</span></div>
+    </a>
+    <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="#" onclick="showPage('home');return false;" data-nav="home">Home</a>
+      <a href="#" onclick="showPage('about');return false;" data-nav="about">Our Credo</a>
+      <a href="#" onclick="showPage('contact');return false;" data-nav="contact">Contact</a>
+      <a href="#" class="nav-cta" onclick="showPage('apply');return false;">Apply Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <span class="hero-eyebrow">Equipment Finance — Est. on Principle</span>
+        <h1>Capital you can <em>believe in.</em></h1>
+        <p class="hero-lede">Credo Capital provides equipment financing for the businesses that build America. We operate on a foundation of integrity, honoring our word as readily as we honor our commitments — because good stewardship is good business.</p>
+        <div class="hero-ctas">
+          <button class="btn-primary" onclick="showPage('apply')">Start Application</button>
+          <button class="btn-secondary" onclick="showPage('about')">Our Credo</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <svg class="hero-wheel" viewBox="0 0 100 100" fill="none" stroke="#d4a574" stroke-width="2">
+          <circle cx="50" cy="50" r="47"/>
+          <circle cx="50" cy="50" r="42" stroke-width=".5" opacity=".5"/>
+          <line x1="50" y1="3" x2="50" y2="97"/>
+          <line x1="3" y1="50" x2="97" y2="50"/>
+          <line x1="16.8" y1="16.8" x2="83.2" y2="83.2"/>
+          <line x1="83.2" y1="16.8" x2="16.8" y2="83.2"/>
+          <circle cx="50" cy="50" r="6" fill="#d4a574"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="values-strip">
+    <div class="values-inner">
+      <div class="value-item"><span class="value-item-label">Principle I</span><span class="value-item-text">Integrity</span></div>
+      <div class="value-item"><span class="value-item-label">Principle II</span><span class="value-item-text">Stewardship</span></div>
+      <div class="value-item"><span class="value-item-label">Principle III</span><span class="value-item-text">Transparency</span></div>
+      <div class="value-item"><span class="value-item-label">Principle IV</span><span class="value-item-text">Partnership</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">What We Finance</span>
+        <h2>Equipment Financing Across Industries</h2>
+        <div class="divider"></div>
+        <p>From a single excavator to a full fleet expansion, we structure financing that fits the realities of your operation — not the other way around.</p>
+      </div>
+      <div class="equipment-grid">
+        <div class="equipment-card">
+          <svg class="equipment-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 18h3l2-8h8l2 8h3M5 18v2M19 18v2M9 10V6h6v4M12 3v3"/><circle cx="8" cy="20" r="1.5"/><circle cx="16" cy="20" r="1.5"/></svg>
+          <h3>Construction & Heavy Equipment</h3>
+          <p>Excavators, bulldozers, loaders, cranes, skid steers, and specialty heavy machinery for contractors and developers.</p>
+        </div>
+        <div class="equipment-card">
+          <svg class="equipment-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 16h14V8H2zM16 10h4l2 3v3h-6M6 20a2 2 0 100-4 2 2 0 000 4zM18 20a2 2 0 100-4 2 2 0 000 4z"/></svg>
+          <h3>Trucking & Transportation</h3>
+          <p>Commercial trucks, trailers, vocational vehicles, and fleet financing for owner-operators and logistics companies.</p>
+        </div>
+        <div class="equipment-card">
+          <svg class="equipment-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21V9l9-6 9 6v12M9 21v-6h6v6M3 21h18"/></svg>
+          <h3>Agriculture & Farming</h3>
+          <p>Tractors, combines, implements, irrigation systems, and livestock equipment for working farms and ranches.</p>
+        </div>
+        <div class="equipment-card">
+          <svg class="equipment-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20h16M6 20V10l6-6 6 6v10M10 20v-5h4v5M8 10h8"/></svg>
+          <h3>Landscaping & Grounds</h3>
+          <p>Mowers, skid steers, mini excavators, chippers, and maintenance equipment for commercial landscape operations.</p>
+        </div>
+        <div class="equipment-card">
+          <svg class="equipment-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12l2-8h14l2 8M3 12v8h18v-8M3 12h18M7 16h2M15 16h2"/></svg>
+          <h3>Paving & Road Work</h3>
+          <p>Asphalt pavers, compactors, milling machines, and road construction equipment for infrastructure contractors.</p>
+        </div>
+        <div class="equipment-card">
+          <svg class="equipment-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3 6 6 1-4 5 1 7-6-3-6 3 1-7-4-5 6-1z"/></svg>
+          <h3>Specialty & Custom</h3>
+          <p>Quarry equipment, demolition gear, utility vehicles, and custom financing for unique industry needs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">The Process</span>
+        <h2>Simple, Straightforward, Honest</h2>
+        <div class="divider"></div>
+        <p>We believe your time is better spent running your business than chasing paperwork.</p>
+      </div>
+      <div class="process-steps">
+        <div class="process-step"><div class="process-number">I.</div><h3>Apply</h3><p>Complete our secure application in about 10 minutes. Clear, concise, no surprises.</p></div>
+        <div class="process-step"><div class="process-number">II.</div><h3>Review</h3><p>Our team matches your profile to our lender network to find the right terms for you.</p></div>
+        <div class="process-step"><div class="process-number">III.</div><h3>Decision</h3><p>Most approvals come back within 24–48 hours, with transparent terms laid out plainly.</p></div>
+        <div class="process-step"><div class="process-number">IV.</div><h3>Fund</h3><p>Sign, fund, and get to work. Your equipment vendor is paid directly upon closing.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <div class="cta-banner-inner">
+      <h2>Ready to move forward?</h2>
+      <p>Start your application today. A real person reviews every submission.</p>
+      <button class="btn-primary" onclick="showPage('apply')">Begin Your Application</button>
+      <p class="cta-verse">"Let your 'Yes' be 'Yes,' and your 'No,' 'No.'" — A standard worth building a business on.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="page-about">
+  <section class="about-hero">
+    <div class="about-hero-inner">
+      <h1>Our <em>Credo</em></h1>
+      <p class="about-hero-lede">"Credo" — from the Latin, meaning <em>"I believe."</em></p>
+    </div>
+  </section>
+  <section class="about-content">
+    <div class="about-inner">
+      <h2>A Firm Built on Conviction</h2>
+      <p>Credo Capital was founded on a simple conviction: that finance, done rightly, is an act of service. We help business owners acquire the equipment they need to do their work, grow their operations, and provide for their families and teams. That's no small responsibility — and we treat it accordingly.</p>
+      <p>In an industry that too often hides behind fine print and shifting quotes, we've built our firm on the opposite principle. Our word is our bond. The terms we quote are the terms we honor. The advice we give is the advice we would give our own family.</p>
+      <div class="about-quote">
+        "Whatever you do, work heartily, as for the Lord and not for men."
+        <span class="about-quote-attr">— Colossians 3:23 — a verse we take seriously in every transaction</span>
+      </div>
+      <h2>What Guides Our Work</h2>
+      <p>Our firm takes its name from the Apostles' Creed — a centuries-old statement of belief. While our work is secular and our clients come from every background and tradition, the character our name demands of us is not optional. We believe in doing honest work, keeping our commitments, telling the truth even when it costs us a deal, and treating every applicant — funded or not — with dignity.</p>
+      <div class="pillars">
+        <div class="pillar"><h3>Integrity</h3><p>We tell you what we can do and what we cannot. We do not overpromise to win your business, and we do not disappear when the work gets hard.</p></div>
+        <div class="pillar"><h3>Stewardship</h3><p>Capital is a tool entrusted to us to deploy wisely. We treat every dollar — yours and our lenders' — with the seriousness it deserves.</p></div>
+        <div class="pillar"><h3>Partnership</h3><p>A financing relationship is a long one. We show up after closing, through the good quarters and the hard ones. Your success is the point.</p></div>
+      </div>
+      <h2>Who We Serve</h2>
+      <p>Our clients are builders in the most literal sense — contractors, farmers, truckers, landscapers, excavators, and the working families who own and run these businesses. They are people who get up early, keep their word, take care of their crews, and expect their financing partner to do the same.</p>
+      <h2>A Word About Credit</h2>
+      <p>Strong credit makes financing easier, but it is not the only thing we look at. We work with business owners whose stories include seasons of difficulty — bankruptcies, divorces, downturns, hard years. A setback is not a verdict on character. If you are working honestly to build or rebuild, we want to hear from you.</p>
+      <h2>A Note from Our Founder</h2>
+      <p>Thank you for considering Credo Capital. Whether we earn your business today, next year, or not at all, you will be treated with straightforwardness and respect. If you have a question before applying, you are welcome to call me directly at (909) 705-2647.</p>
+      <p style="font-family:Georgia,serif;font-style:italic;color:var(--forest);margin-top:2rem">— Gavin, Credo Capital</p>
+    </div>
+  </section>
+  <section class="cta-banner">
+    <div class="cta-banner-inner">
+      <h2>Let's get to work.</h2>
+      <p>Start your application, or call to speak with us directly.</p>
+      <button class="btn-primary" onclick="showPage('apply')">Apply Now</button>
+    </div>
+  </section>
+</div>
+
+<!-- CONTACT -->
+<div class="page" id="page-contact">
+  <section class="contact-page">
+    <div class="contact-inner">
+      <div class="contact-header">
+        <h1>Get in Touch</h1>
+        <div class="divider"></div>
+        <p>We're here to answer your questions, walk through your options, and help you move forward with confidence.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-methods">
+          <a href="tel:9097052647" class="contact-card">
+            <div class="contact-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13 1.05.37 2.07.72 3.06a2 2 0 01-.45 2.11L8.09 10.2a16 16 0 006 6l1.31-1.31a2 2 0 012.11-.45c.99.35 2.01.59 3.06.72A2 2 0 0122 16.92z"/></svg></div>
+            <div><span class="contact-card-label">Call Direct</span><span class="contact-card-value">(909) 705-2647</span><span class="contact-card-sub">Monday – Friday, 8am – 6pm PT</span></div>
+          </a>
+          <a href="mailto:gavin.credocapital@gmail.com" class="contact-card">
+            <div class="contact-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><span class="contact-card-label">Email</span><span class="contact-card-value">gavin.credocapital@gmail.com</span><span class="contact-card-sub">Typical response within one business day</span></div>
+          </a>
+          <div class="contact-card">
+            <div class="contact-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><span class="contact-card-label">Service Area</span><span class="contact-card-value">Nationwide</span><span class="contact-card-sub">Licensed to serve clients across the United States</span></div>
+          </div>
+        </div>
+        <div class="contact-form-box">
+          <h3>Send a Message</h3>
+          <p class="form-intro">Have a question before applying? Fill out the form below and we'll be in touch.</p>
+          <form class="contact-form" onsubmit="handleContactSubmit(event)">
+            <div class="field"><label>Your Name</label><input type="text" name="name" required placeholder="Full name"></div>
+            <div class="field"><label>Email</label><input type="email" name="email" required placeholder="you@example.com"></div>
+            <div class="field"><label>Phone</label><input type="tel" name="phone" placeholder="(XXX) XXX-XXXX"></div>
+            <div class="field"><label>How Can We Help?</label><textarea name="message" required placeholder="Tell us about your equipment financing needs..."></textarea></div>
+            <button type="submit" class="btn-primary">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- APPLY PAGE -->
+<div class="page" id="page-apply">
+  <section class="apply-hero">
+    <div class="apply-hero-inner">
+      <h1>Begin Your <em>Application</em></h1>
+      <p>A guided, step-by-step process. Your information is handled securely and reviewed by a real person.</p>
+      <button class="btn-primary" onclick="openApplicationModal()">Start Application</button>
+    </div>
+  </section>
+  <section class="apply-info">
+    <div class="apply-info-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">What to Expect</span>
+        <h2 style="color:var(--forest-dark)">The Application Process</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="apply-info-grid">
+        <div class="apply-info-card"><span class="num">~10</span><h3>Minutes to Complete</h3><p>Six guided steps walk you through everything lenders need — nothing unnecessary, nothing missing.</p></div>
+        <div class="apply-info-card"><span class="num">24–48</span><h3>Hours for Most Decisions</h3><p>We review every submission promptly and return with clear next steps, not vague assurances.</p></div>
+        <div class="apply-info-card"><span class="num">100%</span><h3>Confidential & Secure</h3><p>Your information — including SSNs and financial details — is handled with the utmost care and used only to evaluate your request.</p></div>
+      </div>
+      <div class="btn-wrap">
+        <button class="btn-primary" onclick="openApplicationModal()">Begin Application</button>
+        <p style="margin-top:1.5rem;color:var(--muted);font-size:.9rem">Questions first? Call Gavin at <a href="tel:9097052647" style="color:var(--forest);font-weight:700;border-bottom:1px solid var(--gold)">(909) 705-2647</a></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- APPLICATION MODAL -->
+<div class="modal-overlay" id="appModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Credit <span>Application</span></h2>
+      <button class="modal-close" onclick="closeApplicationModal()">×</button>
+    </div>
+    <div class="progress-bar" id="progressBar">
+      <div class="progress-track">
+        <div class="progress-seg current"></div>
+        <div class="progress-seg"></div>
+        <div class="progress-seg"></div>
+        <div class="progress-seg"></div>
+        <div class="progress-seg"></div>
+        <div class="progress-seg"></div>
+      </div>
+      <div class="progress-label">
+        <span>Step <strong id="currentStepNum">1</strong> of 6</span>
+        <span id="currentStepName">Business Information</span>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         ZOHO WEBFORM CONFIGURATION
+         Replace YOUR_ZOHO_WEBFORM_URL with your Zoho webform URL
+         Paste your hidden input tokens where indicated below
+         ============================================================ -->
+    <form id="applicationForm" action="YOUR_ZOHO_WEBFORM_URL" method="POST" accept-charset="UTF-8" onsubmit="return handleFormSubmit(event)">
+
+      <!-- PASTE ZOHO HIDDEN TOKENS HERE:
+      <input type="hidden" name="xnQsjsdp" value="...">
+      <input type="hidden" name="xmIwtLD" value="...">
+      <input type="hidden" name="actionType" value="TGVhZHM=">
+      -->
+
+      <!-- Hidden field to capture full app data for Description field -->
+      <input type="hidden" name="Description" id="descriptionField">
+      <!-- Hidden fields for signature images -->
+      <input type="hidden" name="LEADCF62" id="sig1Data">
+      <input type="hidden" name="LEADCF65" id="sig2Data">
+      <input type="hidden" name="LEADCF68" id="sig3Data">
+
+      <div class="modal-body">
+
+        <!-- STEP 1: BUSINESS INFORMATION -->
+        <div class="form-step active" data-step="1">
+          <h3>Business Information</h3>
+          <p>Tell us about your business. All fields marked * are required.</p>
+          <div class="form-grid cols-2">
+            <div class="field-group"><label>Legal Business Name *</label><input type="text" name="Company" required placeholder="Legal business name"></div>
+            <div class="field-group"><label>DBA Name</label><input type="text" name="LEADCF1" placeholder="DBA (if applicable)"></div>
+          </div>
+          <div class="form-grid cols-2">
+            <div class="field-group"><label>Physical Address *</label><input type="text" name="Street" required placeholder="Street, city, state, zip"></div>
+            <div class="field-group"><label>Federal Tax ID (EIN) *</label><input type="text" name="LEADCF2" required placeholder="XX-XXXXXXX"></div>
+          </div>
+          <div class="form-grid cols-2">
+            <div class="field-group"><label>Years in Business *</label><input type="text" name="LEADCF3" required placeholder="e.g. 8"></div>
+            <div class="field-group"><label>Business Phone *</label><input type="tel" name="Phone" required placeholder="(XXX) XXX-XXXX"></div>
+          </div>
+          <div class="form-grid cols-2">
+            <div class="field-group"><label>Annual Revenue *</label><input type="text" name="Annual_Revenue" required placeholder="$"></div>
+            <div class="field-group">
+              <label>Company Structure *</label>
+              <select name="LEADCF5" required>
+                <option value="">Select...</option>
+                <option>Sole Proprietorship</option>
+                <option>Partnership</option>
+                <option>LLC</option>
+                <option>S-Corporation</option>
+                <option>C-Corporation</option>
+                <option>Non-Profit</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="field-group">
+              <label>Business Industry *</label>
+              <select name="Industry" required>
+                <option value="">Select...</option>
+                <option>Construction</option>
+                <option>Agriculture</option>
+                <option>Landscaping</option>
+                <option>Excavation / Grading</option>
+                <option>Paving / Road Construction</option>
+                <option>Land Development</option>
+                <option>Trucking / Hauling</option>
+                <option>Mining / Quarry</option>
+                <option>Demolition</option>
+                <option>Utilities</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: BUSINESS PRINCIPALS -->
+        <div class="form-step" data-step="2">
+          <h3>Business Principals</h3>
+          <p>All owners with 20% or greater ownership stake. Contact information is collected here in lieu of a separate contact section.</p>
+          <div id="ownersContainer">
+            <div class="principal-card" data-owner="1">
+              <div class="principal-card-header">
+                <span class="principal-card-title">Owner 1 — Primary Contact</span>
+              </div>
+              <div class="form-grid cols-2">
+                <div class="field-group"><label>Full Name *</label><input type="text" name="Last_Name" required placeholder="Full name"></div>
+                <div class="field-group"><label>Title *</label><input type="text" name="LEADCF12" required placeholder="e.g. President / CEO"></div>
+              </div>
+              <div class="form-grid cols-2">
+                <div class="field-group"><label>Email *</label><input type="email" name="Email" required placeholder="email@example.com"></div>
+                <div class="field-group"><label>Mobile Phone *</label><input type="tel" name="Mobile" required placeholder="(XXX) XXX-XXXX"></div>
+              </div>
+              <div class="form-grid cols-3">
+                <div class="field-group"><label>% Ownership *</label><input type="text" name="LEADCF13" required placeholder="e.g. 100%"></div>
+                <div class="field-group"><label>Date of Birth *</label><input type="text" name="LEADCF17" required placeholder="MM/DD/YYYY"></div>
+                <div class="field-group"><label>SSN *</label><input type="text" name="LEADCF16" required placeholder="XXX-XX-XXXX"></div>
+              </div>
+              <div class="form-grid">
+                <div class="field-group"><label>Home Address *</label><input type="text" name="LEADCF14" required placeholder="Street, city, state, zip"></div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="add-owner-btn" onclick="addOwner()" id="addOwnerBtn">+ Add Another Owner</button>
+        </div>
+
+        <!-- STEP 3: EQUIPMENT -->
+        <div class="form-step" data-step="3">
+          <h3>Equipment Information</h3>
+          <p>Details about the equipment you're looking to finance.</p>
+          <div class="form-grid cols-3">
+            <div class="field-group"><label>Year *</label><input type="text" name="LEADCF40" required placeholder="YYYY"></div>
+            <div class="field-group"><label>Make *</label><input type="text" name="LEADCF41" required placeholder="e.g. Caterpillar"></div>
+            <div class="field-group"><label>Model *</label><input type="text" name="LEADCF42" required placeholder="e.g. 320"></div>
+          </div>
+          <div class="form-grid cols-2">
+            <div class="field-group"><label>Equipment Cost *</label><input type="text" name="LEADCF43" required placeholder="$"></div>
+            <div class="field-group"><label>Vendor / Dealer Name *</label><input type="text" name="LEADCF44" required placeholder="Dealer name"></div>
+          </div>
+          <div class="form-grid">
+            <div class="field-group"><label>Additional Notes</label><textarea name="LEADCF45" placeholder="Attachments, multiple units, condition, timing needs, etc." style="min-height:90px"></textarea></div>
+          </div>
+        </div>
+
+        <!-- STEP 4: EQUIPMENT (renumbered, bank removed) -->
+        <div class="form-step" data-step="4">
+          <h3>Additional Details</h3>
+          <p>Any additional notes about the equipment or transaction that would help us place your financing.</p>
+          <div class="form-grid">
+            <div class="field-group"><label>Additional Notes</label><textarea name="LEADCF45" placeholder="Attachments, multiple units, condition, timing needs, seller info, etc." style="min-height:140px"></textarea></div>
+          </div>
+        </div>
+
+        <!-- STEP 5: AUTHORIZATION & SIGNATURES -->
+        <div class="form-step" data-step="5">
+          <h3>Authorization & Signatures</h3>
+          <p>Please read the authorization carefully, then sign below using your mouse or finger.</p>
+          <div class="auth-box">
+            <p>The undersigned represents that all information provided with this Application is true and correct and hereby authorizes Lessor/Secured party to obtain from third parties, including Applicant's bank, information it deems necessary to arrive at a decision regarding this application. By signing below, the undersigned individual(s) as principal of and/or guarantor for the applicant, authorizes Lessor/Secured party, its designee, assigns or potential assigns, to review his/her personal credit profile provided by a national credit bureau in considering this application and for the purpose of update, renewal, or extension of credit to the Applicant or the collection of any resultant accounts. I authorize all deposit, borrowing, financial and trade information to be released to Lessor/Secured Party. A photocopy or electronic copy of this authorization shall be valid as the original.</p>
+          </div>
+          <label class="auth-check">
+            <input type="checkbox" id="authConsent" required>
+            <label for="authConsent">I have read and agree to the authorization above. All information provided is true and correct to the best of my knowledge.</label>
+          </label>
+
+          <!-- Owner 1 Signature -->
+          <div class="principal-card">
+            <div class="principal-card-header"><span class="principal-card-title">Owner 1 Signature</span></div>
+            <div class="form-grid cols-2" style="margin-bottom:1rem">
+              <div class="field-group"><label>Print Name</label><input type="text" name="LEADCF60" placeholder="Print full name" id="sig1Name"></div>
+              <div class="field-group"><label>Date</label><input type="date" name="LEADCF61" id="sig1Date"></div>
+            </div>
+            <div class="sig-pad-wrap">
+              <span class="sig-pad-label">Signature — draw below</span>
+              <canvas class="sig-pad-canvas" id="sigPad1" height="120"></canvas>
+              <div class="sig-pad-actions">
+                <button type="button" class="sig-clear-btn" onclick="clearSig(1)">Clear</button>
+                <span class="sig-status" id="sigStatus1">Not yet signed</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Owner 2 Signature -->
+          <div class="principal-card" id="owner2Sig" style="display:none">
+            <div class="principal-card-header"><span class="principal-card-title">Owner 2 Signature</span></div>
+            <div class="form-grid cols-2" style="margin-bottom:1rem">
+              <div class="field-group"><label>Print Name</label><input type="text" name="LEADCF63" placeholder="Print full name"></div>
+              <div class="field-group"><label>Date</label><input type="date" name="LEADCF64"></div>
+            </div>
+            <div class="sig-pad-wrap">
+              <span class="sig-pad-label">Signature — draw below</span>
+              <canvas class="sig-pad-canvas" id="sigPad2" height="120"></canvas>
+              <div class="sig-pad-actions">
+                <button type="button" class="sig-clear-btn" onclick="clearSig(2)">Clear</button>
+                <span class="sig-status" id="sigStatus2">Not yet signed</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Owner 3 Signature -->
+          <div class="principal-card" id="owner3Sig" style="display:none">
+            <div class="principal-card-header"><span class="principal-card-title">Owner 3 Signature</span></div>
+            <div class="form-grid cols-2" style="margin-bottom:1rem">
+              <div class="field-group"><label>Print Name</label><input type="text" name="LEADCF66" placeholder="Print full name"></div>
+              <div class="field-group"><label>Date</label><input type="date" name="LEADCF67"></div>
+            </div>
+            <div class="sig-pad-wrap">
+              <span class="sig-pad-label">Signature — draw below</span>
+              <canvas class="sig-pad-canvas" id="sigPad3" height="120"></canvas>
+              <div class="sig-pad-actions">
+                <button type="button" class="sig-clear-btn" onclick="clearSig(3)">Clear</button>
+                <span class="sig-status" id="sigStatus3">Not yet signed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 6: REVIEW -->
+        <div class="form-step" data-step="6">
+          <h3>Review & Submit</h3>
+          <p>Please confirm your information before submitting. Once submitted, a Credo Capital representative will be in touch within 24–48 hours.</p>
+          <div id="reviewContainer"></div>
+          <p style="font-size:.85rem;color:var(--muted);margin-top:1rem;padding:1rem;background:var(--paper);border-radius:3px;line-height:1.6">
+            By submitting this application you confirm all information is accurate and authorize Credo Capital to process your request and submit to lending partners on your behalf.
+          </p>
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="success-screen" id="successScreen">
+          <div class="success-icon">✓</div>
+          <h3>Application Received</h3>
+          <p>Thank you for trusting Credo Capital. Your application has been submitted and a member of our team will be in touch within one to two business days. For time-sensitive matters, call Gavin directly at (909) 705-2647.</p>
+          <button class="btn-primary" onclick="closeApplicationModal()">Close</button>
+        </div>
+
+      </div><!-- end modal-body -->
+
+      <div class="modal-footer" id="modalFooter">
+        <button type="button" class="btn-back" onclick="prevStep()" id="btnBack" disabled>← Back</button>
+        <button type="button" class="btn-next" onclick="nextStep()" id="btnNext">Continue →</button>
+        <button type="submit" class="btn-submit" id="btnSubmit" style="display:none">Submit Application</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3"><circle cx="50" cy="50" r="45"/><line x1="50" y1="5" x2="50" y2="95"/><line x1="5" y1="50" x2="95" y2="50"/><line x1="18.2" y1="18.2" x2="81.8" y2="81.8"/><line x1="81.8" y1="18.2" x2="18.2" y2="81.8"/></svg>
+        <div class="footer-logo-text">CREDO CAPITAL</div>
+      </div>
+      <p class="footer-tagline">Capital you can believe in.</p>
+      <p>Equipment finance brokerage serving businesses nationwide. Built on integrity, transparency, and the conviction that your word should mean something.</p>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <div class="footer-links">
+        <a href="#" onclick="showPage('home');return false;">Home</a>
+        <a href="#" onclick="showPage('about');return false;">Our Credo</a>
+        <a href="#" onclick="showPage('contact');return false;">Contact</a>
+        <a href="#" onclick="showPage('apply');return false;">Apply Now</a>
+      </div>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <div class="footer-contact">
+        <a href="tel:9097052647">(909) 705-2647</a><br>
+        <a href="mailto:gavin.credocapital@gmail.com">gavin.credocapital@gmail.com</a><br>
+        <span style="color:#8b8778">Mon – Fri, 8am – 6pm PT</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="verse">"In all your ways acknowledge Him, and He shall direct your paths." — Proverbs 3:6</p>
+    <p>© 2026 Credo Capital. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+// ============= PAGE NAV =============
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.nav-links a[data-nav]').forEach(a=>a.classList.toggle('active',a.getAttribute('data-nav')===id));
+  document.getElementById('navLinks').classList.remove('open');
+  window.scrollTo({top:0,behavior:'instant'});
+}
+
+// ============= MODAL =============
+let currentStep=1, totalSteps=6, ownerCount=1;
+
+function openApplicationModal(){
+  document.getElementById('appModal').classList.add('active');
+  document.body.style.overflow='hidden';
+  currentStep=1;
+  updateStep();
+  // Set today's date on sig date fields
+  const today=new Date().toISOString().split('T')[0];
+  ['sig1Date'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=today});
+  // Init sig pads after modal visible
+  setTimeout(()=>initSigPads(),100);
+}
+
+function closeApplicationModal(){
+  document.getElementById('appModal').classList.remove('active');
+  document.body.style.overflow='';
+  currentStep=1;
+  document.getElementById('applicationForm').reset();
+  document.getElementById('successScreen').classList.remove('active');
+  document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
+  document.querySelector('.form-step[data-step="1"]').classList.add('active');
+  document.getElementById('modalFooter').style.display='flex';
+  document.getElementById('progressBar').style.display='block';
+  while(ownerCount>1)removeOwner(ownerCount);
+  sigStates={1:false,2:false,3:false};
+  ['sigPad1','sigPad2','sigPad3'].forEach(id=>{
+    const c=document.getElementById(id);
+    if(c){const ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);}
+  });
+  updateSigStatuses();
+  updateStep();
+}
+
+document.getElementById('appModal').addEventListener('click',function(e){if(e.target===this)closeApplicationModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('appModal').classList.contains('active'))closeApplicationModal()});
+
+const stepNames={1:'Business Information',2:'Business Principals',3:'Equipment Information',4:'Additional Details',5:'Authorization & Signatures',6:'Review & Submit'};
+
+function updateStep(){
+  document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
+  document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
+  const segs=document.querySelectorAll('.progress-seg');
+  segs.forEach((seg,i)=>{
+    seg.classList.remove('done','current');
+    if(i<currentStep-1)seg.classList.add('done');
+    else if(i===currentStep-1)seg.classList.add('current');
+  });
+  document.getElementById('currentStepNum').textContent=currentStep;
+  document.getElementById('currentStepName').textContent=stepNames[currentStep];
+  document.getElementById('btnBack').disabled=currentStep===1;
+  if(currentStep===totalSteps){
+    document.getElementById('btnNext').style.display='none';
+    document.getElementById('btnSubmit').style.display='inline-block';
+    populateReview();
+  } else {
+    document.getElementById('btnNext').style.display='inline-block';
+    document.getElementById('btnSubmit').style.display='none';
+  }
+  document.getElementById('owner2Sig').style.display=ownerCount>=2?'block':'none';
+  document.getElementById('owner3Sig').style.display=ownerCount>=3?'block':'none';
+  document.querySelector('.modal-body').scrollTop=0;
+  // Resize canvases when step 5 is shown
+  if(currentStep===5)setTimeout(()=>resizeSigPads(),50);
+}
+
+function nextStep(){
+  // Validate all required fields on current step (except DBA which has no required attr)
+  const stepEl=document.querySelector(`.form-step[data-step="${currentStep}"]`);
+  const reqFields=stepEl.querySelectorAll('[required]');
+  let ok=true;
+  reqFields.forEach(f=>{
+    const empty=f.tagName==='SELECT'?f.value===''||f.value==null:!f.value.trim();
+    if(empty){f.style.borderColor='#c44';ok=false;}
+    else f.style.borderColor='';
+  });
+  if(!ok){alert('Please complete all required fields (marked *) before continuing.');return;}
+
+  if(currentStep===5){
+    if(!document.getElementById('authConsent').checked){alert('Please acknowledge the authorization before continuing.');return;}
+    if(!sigStates[1]){alert('Owner 1 signature is required.');return;}
+  }
+  if(currentStep<totalSteps){currentStep++;updateStep();}
+}
+
+function prevStep(){if(currentStep>1){currentStep--;updateStep();}}
+
+// ============= OWNERS =============
+function addOwner(){
+  if(ownerCount>=3){alert('Maximum of 3 owners supported.');return;}
+  ownerCount++;
+  const n=ownerCount, base=n===2?20:30;
+  const c=document.getElementById('ownersContainer');
+  const card=document.createElement('div');
+  card.className='principal-card';
+  card.setAttribute('data-owner',n);
+  card.innerHTML=`
+    <div class="principal-card-header">
+      <span class="principal-card-title">Owner ${n}</span>
+      <button type="button" class="remove-owner" onclick="removeOwner(${n})">Remove</button>
+    </div>
+    <div class="form-grid cols-2">
+      <div class="field-group"><label>Full Name</label><input type="text" name="LEADCF${base}" placeholder="Full name"></div>
+      <div class="field-group"><label>Title</label><input type="text" name="LEADCF${base+2}" placeholder="Title"></div>
+    </div>
+    <div class="form-grid cols-2">
+      <div class="field-group"><label>Email</label><input type="email" name="LEADCF${base+1}" placeholder="Email"></div>
+      <div class="field-group"><label>Mobile Phone</label><input type="tel" name="LEADCF${base+5}" placeholder="(XXX) XXX-XXXX"></div>
+    </div>
+    <div class="form-grid cols-3">
+      <div class="field-group"><label>% Ownership</label><input type="text" name="LEADCF${base+3}" placeholder="e.g. 50%"></div>
+      <div class="field-group"><label>Date of Birth</label><input type="text" name="LEADCF${base+7}" placeholder="MM/DD/YYYY"></div>
+      <div class="field-group"><label>SSN</label><input type="text" name="LEADCF${base+6}" placeholder="XXX-XX-XXXX"></div>
+    </div>
+    <div class="form-grid">
+      <div class="field-group"><label>Home Address</label><input type="text" name="LEADCF${base+4}" placeholder="Street, city, state, zip"></div>
+    </div>`;
+  c.appendChild(card);
+  if(ownerCount>=3)document.getElementById('addOwnerBtn').style.display='none';
+}
+
+function removeOwner(n){
+  const card=document.querySelector(`.principal-card[data-owner="${n}"]`);
+  if(card)card.remove();
+  ownerCount--;
+  document.getElementById('addOwnerBtn').style.display='block';
+}
+
+// ============= SIGNATURE PADS =============
+let sigStates={1:false,2:false,3:false};
+let sigDrawing={1:false,2:false,3:false};
+let sigLastPos={1:null,2:null,3:null};
+
+function initSigPads(){
+  [1,2,3].forEach(n=>initPad(n));
+}
+
+function resizeSigPads(){
+  [1,2,3].forEach(n=>{
+    const canvas=document.getElementById(`sigPad${n}`);
+    if(!canvas)return;
+    const w=canvas.offsetWidth;
+    if(w>0&&canvas.width!==w){
+      // Save existing drawing
+      const tmp=document.createElement('canvas');
+      tmp.width=canvas.width;tmp.height=canvas.height;
+      tmp.getContext('2d').drawImage(canvas,0,0);
+      canvas.width=w;
+      canvas.height=120;
+      if(sigStates[n])canvas.getContext('2d').drawImage(tmp,0,0);
+    }
+  });
+}
+
+function initPad(n){
+  const canvas=document.getElementById(`sigPad${n}`);
+  if(!canvas)return;
+  canvas.width=canvas.offsetWidth||500;
+  canvas.height=120;
+  const ctx=canvas.getContext('2d');
+  ctx.strokeStyle='#1a2744';
+  ctx.lineWidth=2;
+  ctx.lineCap='round';
+  ctx.lineJoin='round';
+
+  // Mouse events
+  canvas.addEventListener('mousedown',e=>{sigDrawing[n]=true;sigLastPos[n]=getPos(canvas,e);});
+  canvas.addEventListener('mousemove',e=>{if(!sigDrawing[n])return;draw(n,getPos(canvas,e));});
+  canvas.addEventListener('mouseup',()=>{if(sigDrawing[n]){sigDrawing[n]=false;markSigned(n);}});
+  canvas.addEventListener('mouseleave',()=>{sigDrawing[n]=false;});
+
+  // Touch events
+  canvas.addEventListener('touchstart',e=>{e.preventDefault();sigDrawing[n]=true;sigLastPos[n]=getPos(canvas,e.touches[0]);},{passive:false});
+  canvas.addEventListener('touchmove',e=>{e.preventDefault();if(!sigDrawing[n])return;draw(n,getPos(canvas,e.touches[0]));},{passive:false});
+  canvas.addEventListener('touchend',e=>{e.preventDefault();if(sigDrawing[n]){sigDrawing[n]=false;markSigned(n);}},{passive:false});
+}
+
+function getPos(canvas,e){
+  const r=canvas.getBoundingClientRect();
+  return{x:(e.clientX-r.left)*(canvas.width/r.width),y:(e.clientY-r.top)*(canvas.height/r.height)};
+}
+
+function draw(n,pos){
+  const canvas=document.getElementById(`sigPad${n}`);
+  const ctx=canvas.getContext('2d');
+  ctx.beginPath();
+  ctx.moveTo(sigLastPos[n].x,sigLastPos[n].y);
+  ctx.lineTo(pos.x,pos.y);
+  ctx.stroke();
+  sigLastPos[n]=pos;
+}
+
+function markSigned(n){
+  const canvas=document.getElementById(`sigPad${n}`);
+  // Check if anything was drawn
+  const ctx=canvas.getContext('2d');
+  const data=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+  const hasContent=data.some((v,i)=>i%4===3&&v>0);
+  sigStates[n]=hasContent;
+  canvas.classList.toggle('signed',hasContent);
+  updateSigStatuses();
+  // Store signature as data URL in hidden field
+  if(hasContent){
+    const hid=document.getElementById(`sig${n}Data`);
+    if(hid)hid.value=canvas.toDataURL('image/png');
+  }
+}
+
+function clearSig(n){
+  const canvas=document.getElementById(`sigPad${n}`);
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  sigStates[n]=false;
+  canvas.classList.remove('signed');
+  const hid=document.getElementById(`sig${n}Data`);
+  if(hid)hid.value='';
+  updateSigStatuses();
+}
+
+function updateSigStatuses(){
+  [1,2,3].forEach(n=>{
+    const el=document.getElementById(`sigStatus${n}`);
+    if(!el)return;
+    el.textContent=sigStates[n]?'✓ Signed':'Not yet signed';
+    el.className='sig-status'+(sigStates[n]?' signed':'');
+  });
+}
+
+// ============= REVIEW =============
+function populateReview(){
+  const form=document.getElementById('applicationForm');
+  const v=name=>{const el=form.elements[name];return el&&el.value?el.value:'—';};
+
+  // Build description for unmapped fields
+  const desc=[
+    `=== EQUIPMENT ===`,
+    `Year/Make/Model: ${v('LEADCF40')} ${v('LEADCF41')} ${v('LEADCF42')}`,
+    `Cost: ${v('LEADCF43')} | Vendor: ${v('LEADCF44')}`,
+    `Notes: ${v('LEADCF45')}`,
+    ``,`=== OWNER 1 ===`,
+    `DOB: ${v('LEADCF17')} | SSN: ${v('LEADCF16')}`,
+    `Home Address: ${v('LEADCF14')}`,
+  ];
+  if(ownerCount>=2){
+    desc.push('','=== OWNER 2 ===',
+      `Name: ${v('LEADCF20')} | Title: ${v('LEADCF22')} | Ownership: ${v('LEADCF23')}`,
+      `Email: ${v('LEADCF21')} | Phone: ${v('LEADCF25')}`,
+      `DOB: ${v('LEADCF27')} | SSN: ${v('LEADCF26')} | Address: ${v('LEADCF24')}`);
+  }
+  if(ownerCount>=3){
+    desc.push('','=== OWNER 3 ===',
+      `Name: ${v('LEADCF30')} | Title: ${v('LEADCF32')} | Ownership: ${v('LEADCF33')}`,
+      `Email: ${v('LEADCF31')} | Phone: ${v('LEADCF35')}`,
+      `DOB: ${v('LEADCF37')} | SSN: ${v('LEADCF36')} | Address: ${v('LEADCF34')}`);
+  }
+  desc.push('','=== BANK ===',
+    `Bank: ${v('LEADCF50')} | Contact: ${v('LEADCF51')}`,
+    `Email: ${v('LEADCF52')} | Phone: ${v('LEADCF53')}`,
+    `Notes: ${v('LEADCF54')}`);
+  desc.push('','=== SIGNATURES ===',
+    `Owner 1 signed: ${sigStates[1]?'YES':'NO'}`,
+    ownerCount>=2?`Owner 2 signed: ${sigStates[2]?'YES':'NO'}`:'',
+    ownerCount>=3?`Owner 3 signed: ${sigStates[3]?'YES':'NO'}`:'');
+  document.getElementById('descriptionField').value=desc.filter(Boolean).join('\n');
+
+  const rows=(label,val)=>`<div class="review-row"><span>${label}</span><span>${val}</span></div>`;
+  let html=`
+    <div class="review-section"><h4>Business Information</h4>
+      ${rows('Legal Name',v('Company'))}${rows('DBA',v('LEADCF1'))}
+      ${rows('Address',v('Street'))}${rows('Tax ID',v('LEADCF2'))}
+      ${rows('Years in Business',v('LEADCF3'))}${rows('Phone',v('Phone'))}
+      ${rows('Annual Revenue',v('Annual_Revenue'))}${rows('Structure',v('LEADCF5'))}
+      ${rows('Industry',v('Industry'))}
+    </div>
+    <div class="review-section"><h4>Owner 1 — Primary Contact</h4>
+      ${rows('Name',v('Last_Name'))}${rows('Title',v('LEADCF12'))}
+      ${rows('Email',v('Email'))}${rows('Phone',v('Mobile'))}
+      ${rows('Ownership',v('LEADCF13'))}${rows('DOB',v('LEADCF17'))}
+      ${rows('Home Address',v('LEADCF14'))}
+    </div>`;
+  if(ownerCount>=2)html+=`
+    <div class="review-section"><h4>Owner 2</h4>
+      ${rows('Name',v('LEADCF20'))}${rows('Email',v('LEADCF21'))}
+      ${rows('Phone',v('LEADCF25'))}${rows('Ownership',v('LEADCF23'))}
+    </div>`;
+  if(ownerCount>=3)html+=`
+    <div class="review-section"><h4>Owner 3</h4>
+      ${rows('Name',v('LEADCF30'))}${rows('Email',v('LEADCF31'))}
+      ${rows('Phone',v('LEADCF35'))}${rows('Ownership',v('LEADCF33'))}
+    </div>`;
+  html+=`
+    <div class="review-section"><h4>Equipment</h4>
+      ${rows('Year / Make / Model',`${v('LEADCF40')} ${v('LEADCF41')} ${v('LEADCF42')}`)}
+      ${rows('Cost',v('LEADCF43'))}${rows('Vendor',v('LEADCF44'))}
+    </div>
+    <div class="review-section"><h4>Bank Information</h4>
+      ${rows('Bank',v('LEADCF50'))}${rows('Contact',v('LEADCF51'))}
+      ${rows('Phone',v('LEADCF53'))}
+    </div>
+    <div class="review-section"><h4>Signatures</h4>
+      ${rows('Owner 1',sigStates[1]?'✓ Signed':'Not signed')}
+      ${ownerCount>=2?rows('Owner 2',sigStates[2]?'✓ Signed':'Not signed'):''}
+      ${ownerCount>=3?rows('Owner 3',sigStates[3]?'✓ Signed':'Not signed'):''}
+    </div>`;
+  document.getElementById('reviewContainer').innerHTML=html;
+}
+
+// ============= SUBMIT =============
+function handleFormSubmit(e){
+  const form=document.getElementById('applicationForm');
+  if(form.action.includes('YOUR_ZOHO_WEBFORM_URL')){
+    e.preventDefault();
+    showSuccessScreen();
+    return false;
+  }
+  return true;
+}
+
+function showSuccessScreen(){
+  document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('successScreen').classList.add('active');
+  document.getElementById('modalFooter').style.display='none';
+  document.getElementById('progressBar').style.display='none';
+}
+
+function handleContactSubmit(e){
+  e.preventDefault();
+  alert(`Thank you — your message has been received. We'll be in touch shortly.`);
+  e.target.reset();
+}
+</script>
+</body>
+</html>
