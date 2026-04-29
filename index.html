@@ -549,22 +549,17 @@
       </div>
     </div>
 
-    <!-- ============================================================
-         ZOHO WEBFORM CONFIGURATION
-         Replace YOUR_ZOHO_WEBFORM_URL with your Zoho webform URL
-         Paste your hidden input tokens where indicated below
-         All field names match your Zoho CRM Lead module API names
-         ============================================================ -->
-    <form id="applicationForm" action="YOUR_ZOHO_WEBFORM_URL" method="POST" accept-charset="UTF-8" onsubmit="return handleFormSubmit(event)">
+    <form id="applicationForm" action="https://crm.zoho.com/crm/WebToLeadForm" method="POST" accept-charset="UTF-8" onsubmit="return handleFormSubmit(event)">
 
-      <!-- PASTE YOUR ZOHO HIDDEN TOKENS HERE:
-      <input type="hidden" name="xnQsjsdp" value="...">
-      <input type="hidden" name="xmIwtLD" value="...">
-      <input type="hidden" name="actionType" value="TGVhZHM=">
-      -->
+      <!-- ZOHO HIDDEN TOKENS -->
+      <input type="text" style="display:none;" name="xnQsjsdp" value="afadbe33c24c6c8aa6bb65358e10b46cf79b378d297709cc384880429563e7e6">
+      <input type="hidden" name="zc_gad" id="zc_gad" value="">
+      <input type="text" style="display:none;" name="xmIwtLD" value="2708be9f813bdc8aa943144d8efcd434f4f05ae48de6571b471726f974fbb69a8843e72c3f072a160a8c310bb1eae4d6">
+      <input type="text" style="display:none;" name="actionType" value="TGVhZHM=">
+      <input type="text" style="display:none;" name="returnURL" value="null">
 
       <input type="hidden" name="Description" id="descriptionField">
-      <input type="hidden" name="Signature_Status" id="signatureStatusField" value="Not Signed">
+      <input type="hidden" name="LEADCF31" id="signatureStatusField" value="Not Signed">
 
       <div class="modal-body">
 
@@ -574,23 +569,23 @@
           <p>Tell us about your business. All fields are required.</p>
           <div class="form-grid cols-2">
             <div class="field-group"><label>Legal Business Name *</label><input type="text" name="Company" required placeholder="Legal business name"></div>
-            <div class="field-group"><label>Federal Tax ID (EIN) *</label><input type="text" name="Federal_Tax_ID" required placeholder="XX-XXXXXXX"></div>
+            <div class="field-group"><label>Federal Tax ID (EIN) *</label><input type="text" name="LEADCF4" required placeholder="XX-XXXXXXX"></div>
           </div>
           <div class="form-grid"><div class="field-group"><label>Business Street Address *</label><input type="text" name="Street" required placeholder="Street address"></div></div>
           <div class="form-grid cols-3">
             <div class="field-group"><label>City *</label><input type="text" name="City" required placeholder="City"></div>
             <div class="field-group"><label>State *</label><input type="text" name="State" required placeholder="State"></div>
-            <div class="field-group"><label>Zip Code *</label><input type="text" name="Zip_Code" required placeholder="Zip"></div>
+            <div class="field-group"><label>Zip Code *</label><input type="text" name="Zip Code" required placeholder="Zip"></div>
           </div>
           <div class="form-grid cols-2">
-            <div class="field-group"><label>Years in Business *</label><input type="text" name="Years_in_Business" required placeholder="e.g. 8"></div>
+            <div class="field-group"><label>Years in Business *</label><input type="text" name="LEADCF5" required placeholder="e.g. 8"></div>
             <div class="field-group"><label>Business Phone *</label><input type="tel" name="Phone" required placeholder="(XXX) XXX-XXXX"></div>
           </div>
           <div class="form-grid cols-2">
-            <div class="field-group"><label>Annual Revenue *</label><input type="text" name="Annual_Revenue" required placeholder="$"></div>
+            <div class="field-group"><label>Annual Revenue *</label><input type="text" name="Annual Revenue" required placeholder="$"></div>
             <div class="field-group">
               <label>Business Structure *</label>
-              <select name="Business_Structure" required>
+              <select name="LEADCF30" required>
                 <option value="">Select...</option>
                 <option>LLC</option><option>S-Corp</option><option>C-Corp</option>
                 <option>Sole Proprietorship</option><option>Partnership</option>
@@ -620,26 +615,26 @@
           <div class="principal-card">
             <div class="principal-card-header"><span class="principal-card-title">Primary Owner / Guarantor</span></div>
             <div class="form-grid cols-2">
-              <div class="field-group"><label>First Name *</label><input type="text" name="First_Name" required placeholder="First name"></div>
-              <div class="field-group"><label>Last Name *</label><input type="text" name="Last_Name" required placeholder="Last name"></div>
+              <div class="field-group"><label>First Name *</label><input type="text" name="First Name" required placeholder="First name"></div>
+              <div class="field-group"><label>Last Name *</label><input type="text" name="Last Name" required placeholder="Last name"></div>
             </div>
             <div class="form-grid cols-2">
               <div class="field-group"><label>Title *</label><input type="text" name="Designation" required placeholder="e.g. President / CEO"></div>
-              <div class="field-group"><label>% Ownership *</label><input type="text" name="of_Ownership" required placeholder="e.g. 100"></div>
+              <div class="field-group"><label>% Ownership *</label><input type="text" name="LEADCF67" required placeholder="e.g. 100"></div>
             </div>
             <div class="form-grid cols-2">
               <div class="field-group"><label>Email *</label><input type="email" name="Email" required placeholder="email@example.com"></div>
               <div class="field-group"><label>Mobile Phone *</label><input type="tel" name="Mobile" required placeholder="(XXX) XXX-XXXX"></div>
             </div>
             <div class="form-grid cols-2">
-              <div class="field-group"><label>Date of Birth *</label><input type="date" name="Birthday" required></div>
-              <div class="field-group"><label>SSN *</label><input type="text" name="SSN" required placeholder="XXX-XX-XXXX"></div>
+              <div class="field-group"><label>Date of Birth *</label><input type="text" name="LEADCF116" required placeholder="MMM D, YYYY"></div>
+              <div class="field-group"><label>SSN *</label><input type="text" name="LEADCF6" required placeholder="XXX-XX-XXXX"></div>
             </div>
-            <div class="form-grid"><div class="field-group"><label>Home Street Address *</label><input type="text" name="Personal_Street" required placeholder="Street address"></div></div>
+            <div class="form-grid"><div class="field-group"><label>Home Street Address *</label><input type="text" name="LEADCF8" required placeholder="Street address"></div></div>
             <div class="form-grid cols-3">
-              <div class="field-group"><label>City *</label><input type="text" name="Personal_City" required placeholder="City"></div>
-              <div class="field-group"><label>State *</label><input type="text" name="Personal_State" required placeholder="State"></div>
-              <div class="field-group"><label>Zip Code *</label><input type="text" name="Personal_Zip_Code" required placeholder="Zip"></div>
+              <div class="field-group"><label>City *</label><input type="text" name="LEADCF10" required placeholder="City"></div>
+              <div class="field-group"><label>State *</label><input type="text" name="LEADCF9" required placeholder="State"></div>
+              <div class="field-group"><label>Zip Code *</label><input type="text" name="LEADCF11" required placeholder="Zip"></div>
             </div>
           </div>
         </div>
@@ -649,16 +644,16 @@
           <h3>Equipment Information</h3>
           <p>Details about the equipment you're looking to finance.</p>
           <div class="form-grid cols-3">
-            <div class="field-group"><label>Year *</label><input type="text" name="Equipment_Information" required placeholder="YYYY"></div>
-            <div class="field-group"><label>Make *</label><input type="text" name="Equipment_Make" required placeholder="e.g. Caterpillar"></div>
-            <div class="field-group"><label>Model *</label><input type="text" name="Equipment_Model" required placeholder="e.g. 320"></div>
+            <div class="field-group"><label>Year *</label><input type="text" name="LEADCF26" required placeholder="YYYY"></div>
+            <div class="field-group"><label>Make *</label><input type="text" name="LEADCF28" required placeholder="e.g. Caterpillar"></div>
+            <div class="field-group"><label>Model *</label><input type="text" name="LEADCF29" required placeholder="e.g. 320"></div>
           </div>
           <div class="form-grid cols-2">
-            <div class="field-group"><label>Equipment Cost *</label><input type="text" name="Equipment_Cost" required placeholder="$"></div>
-            <div class="field-group"><label>Vendor / Dealer Name *</label><input type="text" name="Vendor_Name" required placeholder="Dealer name"></div>
+            <div class="field-group"><label>Equipment Cost *</label><input type="text" name="LEADCF66" required placeholder="$"></div>
+            <div class="field-group"><label>Vendor / Dealer Name *</label><input type="text" name="LEADCF3" required placeholder="Dealer name"></div>
           </div>
           <div class="form-grid">
-            <div class="field-group"><label>Additional Notes</label><textarea name="Equipment_Notes" placeholder="Attachments, multiple units, condition, timing needs, etc." style="min-height:100px"></textarea></div>
+            <div class="field-group"><label>Additional Notes</label><textarea name="LEADCF27" placeholder="Attachments, multiple units, condition, timing needs, etc." style="min-height:100px"></textarea></div>
           </div>
         </div>
 
@@ -677,13 +672,13 @@
             <div class="principal-card-header"><span class="principal-card-title">Owner Signature</span></div>
             <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.6">By typing your full legal name below, you are providing your electronic signature, which has the same legal effect as a handwritten signature under the federal E-SIGN Act.</p>
             <div class="form-grid cols-2" style="margin-bottom:1rem">
-              <div class="field-group"><label>Print Name *</label><input type="text" name="Signature_Print_Name" id="sigPrintName" required placeholder="Print full legal name"></div>
-              <div class="field-group"><label>Date *</label><input type="date" name="Signature_Date" id="sigDate" required></div>
+              <div class="field-group"><label>Print Name *</label><input type="text" name="LEADCF33" id="sigPrintName" required placeholder="Print full legal name"></div>
+              <div class="field-group"><label>Date *</label><input type="text" name="LEADCF117" id="sigDate" required placeholder="MMM D, YYYY"></div>
             </div>
             <div class="form-grid">
               <div class="field-group">
                 <label>Type Full Name as Signature *</label>
-                <input type="text" name="Signature" id="sigTyped" required placeholder="Type your full legal name to sign" style="font-family:Georgia,serif;font-style:italic;font-size:1.15rem;color:var(--forest-dark);padding:.9rem 1rem">
+                <input type="text" name="LEADCF32" id="sigTyped" required placeholder="Type your full legal name to sign" style="font-family:Georgia,serif;font-style:italic;font-size:1.15rem;color:var(--forest-dark);padding:.9rem 1rem">
                 <span class="sig-status" id="sigStatusLabel">Not yet signed</span>
               </div>
             </div>
@@ -901,12 +896,9 @@ function populateReview(){
 
 // ============= SUBMIT =============
 function handleFormSubmit(e){
-  const form=document.getElementById('applicationForm');
-  if(form.action.includes('YOUR_ZOHO_WEBFORM_URL')){
-    e.preventDefault();
-    showSuccessScreen();
-    return false;
-  }
+  // Form is live — submits directly to Zoho
+  document.getElementById('signatureStatusField').value = sigSigned ? 'Signed' : 'Not Signed';
+  showSuccessScreen();
   return true;
 }
 
