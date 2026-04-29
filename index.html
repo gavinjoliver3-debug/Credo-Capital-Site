@@ -697,7 +697,7 @@
         <div class="success-screen" id="successScreen">
           <div class="success-icon">✓</div>
           <h3>Application Received</h3>
-          <p>Thank you for trusting Credo Capital. Your application has been submitted and a member of our team will be in touch within one to two business days. For time-sensitive matters, call Gavin directly at (909) 705-2647.</p>
+          <p>Thank you for trusting Credo Capital with your financing. We will be in touch with you as soon as possible. For time-sensitive matters, call Gavin directly at (909) 705-2647.</p>
           <button class="btn-primary" onclick="closeApplicationModal()">Close</button>
         </div>
 
@@ -857,49 +857,70 @@ function updateSigStatus(){
 function populateReview(){
   const form=document.getElementById('applicationForm');
   const v=name=>{const el=form.elements[name];return el&&el.value?el.value:'—';};
-  const bizAddr=`${v('Street')}, ${v('City')}, ${v('State')} ${v('Zip_Code')}`;
-  const homeAddr=`${v('Personal_Street')}, ${v('Personal_City')}, ${v('Personal_State')} ${v('Personal_Zip_Code')}`;
-  // Build description for overflow
+  const bizAddr=`${v('Street')}, ${v('City')}, ${v('State')} ${v('Zip Code')}`;
+  const homeAddr=`${v('LEADCF8')}, ${v('LEADCF10')}, ${v('LEADCF9')} ${v('LEADCF11')}`;
   document.getElementById('descriptionField').value=[
     `Signature: ${sigSigned?'Signed':'Not Signed'}`,
-    `Signature Print Name: ${v('Signature_Print_Name')}`,
-    `Signature Date: ${v('Signature_Date')}`,
-    `Equipment Notes: ${v('Equipment_Notes')}`
+    `Signature Print Name: ${v('LEADCF33')}`,
+    `Signature Date: ${v('LEADCF117')}`,
+    `Equipment Notes: ${v('LEADCF27')}`
   ].join('\n');
   const rows=(l,val)=>`<div class="review-row"><span>${l}</span><span>${val||'—'}</span></div>`;
   document.getElementById('reviewContainer').innerHTML=`
     <div class="review-section"><h4>Business Information</h4>
-      ${rows('Legal Name',v('Company'))}${rows('Address',bizAddr)}
-      ${rows('Tax ID (EIN)',v('Federal_Tax_ID'))}${rows('Years in Business',v('Years_in_Business'))}
-      ${rows('Business Phone',v('Phone'))}${rows('Annual Revenue',v('Annual_Revenue'))}
-      ${rows('Structure',v('Business_Structure'))}${rows('Industry',v('Industry'))}
+      ${rows('Legal Name',v('Company'))}
+      ${rows('Address',bizAddr)}
+      ${rows('Tax ID (EIN)',v('LEADCF4'))}
+      ${rows('Years in Business',v('LEADCF5'))}
+      ${rows('Business Phone',v('Phone'))}
+      ${rows('Annual Revenue',v('Annual Revenue'))}
+      ${rows('Structure',v('LEADCF30'))}
+      ${rows('Industry',v('Industry'))}
     </div>
     <div class="review-section"><h4>Primary Owner / Guarantor</h4>
-      ${rows('First Name',v('First_Name'))}${rows('Last Name',v('Last_Name'))}
-      ${rows('Title',v('Designation'))}${rows('% Ownership',v('of_Ownership'))}
-      ${rows('Email',v('Email'))}${rows('Mobile Phone',v('Mobile'))}
-      ${rows('Date of Birth',v('Birthday'))}${rows('SSN',v('SSN'))}
+      ${rows('First Name',v('First Name'))}
+      ${rows('Last Name',v('Last Name'))}
+      ${rows('Title',v('Designation'))}
+      ${rows('% Ownership',v('LEADCF67'))}
+      ${rows('Email',v('Email'))}
+      ${rows('Mobile Phone',v('Mobile'))}
+      ${rows('Date of Birth',v('LEADCF116'))}
+      ${rows('SSN',v('LEADCF6'))}
       ${rows('Home Address',homeAddr)}
     </div>
     <div class="review-section"><h4>Equipment Information</h4>
-      ${rows('Year',v('Equipment_Information'))}${rows('Make',v('Equipment_Make'))}
-      ${rows('Model',v('Equipment_Model'))}${rows('Cost',v('Equipment_Cost'))}
-      ${rows('Vendor / Dealer',v('Vendor_Name'))}${rows('Notes',v('Equipment_Notes'))}
+      ${rows('Year',v('LEADCF26'))}
+      ${rows('Make',v('LEADCF28'))}
+      ${rows('Model',v('LEADCF29'))}
+      ${rows('Equipment Cost',v('LEADCF66'))}
+      ${rows('Vendor / Dealer',v('LEADCF3'))}
+      ${rows('Additional Notes',v('LEADCF27'))}
     </div>
     <div class="review-section"><h4>Signature</h4>
       ${rows('Status',sigSigned?'✓ Signed':'Not signed')}
-      ${rows('Print Name',v('Signature_Print_Name'))}
-      ${rows('Signature',`<span style="font-family:Georgia,serif;font-style:italic">${v('Signature')}</span>`)}
-      ${rows('Date',v('Signature_Date'))}
+      ${rows('Print Name',v('LEADCF33'))}
+      ${rows('Signature',`<span style="font-family:Georgia,serif;font-style:italic">${v('LEADCF32')}</span>`)}
+      ${rows('Date',v('LEADCF117'))}
     </div>`;
 }
 
 // ============= SUBMIT =============
 function handleFormSubmit(e){
-  // Form is live — submits directly to Zoho
-  document.getElementById('signatureStatusField').value = sigSigned ? 'Signed' : 'Not Signed';
+  e.preventDefault();
+  // Build form data
+  const form = document.getElementById('applicationForm');
+  const formData = new FormData(form);
+  // Set signature status
+  formData.set('LEADCF31', sigSigned ? 'Signed' : 'Not Signed');
+  // Submit to Zoho via AJAX so we stay on the page
+  fetch('https://crm.zoho.com/crm/WebToLeadForm', {
+    method: 'POST',
+    body: formData,
+    mode: 'no-cors'
+  }).catch(()=>{});
+  // Show our own success screen immediately regardless
   showSuccessScreen();
-  return true;
+  return false;
 }
 
 function showSuccessScreen(){
