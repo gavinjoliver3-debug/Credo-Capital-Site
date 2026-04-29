@@ -4,6 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Credo Capital — Equipment Finance</title>
+
+<!-- ============================================================
+     CREDO CAPITAL WEBSITE
+
+     ZOHO CRM INTEGRATION — PASTE YOUR CREDENTIALS HERE:
+     ============================================================
+     1. In Zoho CRM: Setup → Developer Space → Webforms
+     2. Create a webform mapped to Leads module
+     3. Replace YOUR_ZOHO_WEBFORM_URL below with your form action URL
+     4. Paste your two hidden input tokens where indicated
+     ============================================================ -->
+
 <style>
   :root{
     --forest:#1a3d2e;
@@ -187,7 +199,6 @@
   .form-grid{display:grid;gap:1rem;margin-bottom:1rem}
   .form-grid.cols-2{grid-template-columns:1fr 1fr}
   .form-grid.cols-3{grid-template-columns:1fr 1fr 1fr}
-  .form-grid.cols-4{grid-template-columns:1fr 1fr 1fr 1fr}
   .field-group{display:flex;flex-direction:column;gap:.35rem}
   .field-group label{font-size:.68rem;color:var(--forest-dark);font-weight:700;letter-spacing:.15em;text-transform:uppercase}
   .field-group input,.field-group select,.field-group textarea{padding:.75rem .9rem;border:1px solid var(--border);background:var(--white);font-family:inherit;font-size:.9rem;color:var(--ink);border-radius:2px;transition:border .2s;width:100%}
@@ -195,10 +206,6 @@
   .principal-card{background:var(--paper);padding:1.5rem;border-radius:3px;margin-bottom:1rem;border:1px solid var(--border)}
   .principal-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
   .principal-card-title{font-size:.72rem;color:var(--gold);font-weight:700;letter-spacing:.2em;text-transform:uppercase}
-  .remove-owner{background:none;border:1px solid var(--border);color:var(--muted);padding:.25rem .75rem;font-size:.7rem;cursor:pointer;border-radius:2px;letter-spacing:.1em;text-transform:uppercase;transition:all .2s}
-  .remove-owner:hover{border-color:#c44;color:#c44}
-  .add-owner-btn{background:transparent;border:1px dashed var(--gold);color:var(--forest-dark);padding:.9rem 1.5rem;font-size:.8rem;cursor:pointer;width:100%;letter-spacing:.15em;text-transform:uppercase;font-weight:700;transition:all .2s;margin-top:.5rem}
-  .add-owner-btn:hover{background:var(--gold-pale);border-style:solid}
   .auth-box{background:var(--paper);border-left:3px solid var(--gold);padding:1.75rem;margin-bottom:1.5rem}
   .auth-box p{font-size:.85rem;line-height:1.75;color:#3a3a3a}
   .auth-check{display:flex;align-items:flex-start;gap:.75rem;padding:1rem;background:var(--white);border:1px solid var(--border);border-radius:2px;cursor:pointer;margin-bottom:1rem}
@@ -219,15 +226,8 @@
   .btn-submit{background:var(--gold);color:var(--forest-dark);border-color:var(--gold)}
   .btn-submit:hover{background:var(--gold-light)}
 
-  /* SIGNATURE PAD */
-  .sig-pad-wrap{margin-bottom:1.25rem}
-  .sig-pad-label{font-size:.68rem;color:var(--forest-dark);font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5rem;display:block}
-  .sig-pad-canvas{border:1px solid var(--border);background:var(--white);border-radius:2px;display:block;width:100%;cursor:crosshair;touch-action:none}
-  .sig-pad-canvas.signed{border-color:var(--gold)}
-  .sig-pad-actions{display:flex;gap:.75rem;margin-top:.5rem;align-items:center}
-  .sig-clear-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:.4rem 1rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s}
-  .sig-clear-btn:hover{border-color:var(--forest);color:var(--forest)}
-  .sig-status{font-size:.78rem;color:var(--muted);font-style:italic}
+  /* SIGNATURE */
+  .sig-status{font-size:.78rem;color:var(--muted);font-style:italic;margin-top:.5rem;display:block}
   .sig-status.signed{color:var(--forest);font-style:normal;font-weight:600}
 
   /* SUCCESS */
@@ -274,7 +274,7 @@
     .section{padding:4rem 1.25rem}
     .hero{padding:4rem 1.25rem 5rem}
     .equipment-grid,.pillars,.apply-info-grid,.process-steps{grid-template-columns:1fr}
-    .form-grid.cols-2,.form-grid.cols-3,.form-grid.cols-4{grid-template-columns:1fr}
+    .form-grid.cols-2,.form-grid.cols-3{grid-template-columns:1fr}
     .modal-body{padding:1.75rem 1.25rem;max-height:55vh}
     .modal-header{padding:1.25rem}
     .modal-footer{padding:1.25rem;flex-direction:column-reverse}
@@ -378,13 +378,13 @@
         </div>
         <div class="equipment-card">
           <svg class="equipment-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12l2-8h14l2 8M3 12v8h18v-8M3 12h18M7 16h2M15 16h2"/></svg>
-          <h3>Paving & Road Work</h3>
-          <p>Asphalt pavers, compactors, milling machines, and road construction equipment for infrastructure contractors.</p>
+          <h3>Demolition & Site Work</h3>
+          <p>Excavation equipment, demolition gear, utility vehicles, and grading machinery for site preparation.</p>
         </div>
         <div class="equipment-card">
           <svg class="equipment-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3 6 6 1-4 5 1 7-6-3-6 3 1-7-4-5 6-1z"/></svg>
           <h3>Specialty & Custom</h3>
-          <p>Quarry equipment, demolition gear, utility vehicles, and custom financing for unique industry needs.</p>
+          <p>Quarry equipment, utility services equipment, and custom financing for unique industry needs.</p>
         </div>
       </div>
     </div>
@@ -516,7 +516,7 @@
         <div class="divider"></div>
       </div>
       <div class="apply-info-grid">
-        <div class="apply-info-card"><span class="num">~10</span><h3>Minutes to Complete</h3><p>Six guided steps walk you through everything lenders need — nothing unnecessary, nothing missing.</p></div>
+        <div class="apply-info-card"><span class="num">~10</span><h3>Minutes to Complete</h3><p>Five guided steps walk you through everything lenders need — nothing unnecessary, nothing missing.</p></div>
         <div class="apply-info-card"><span class="num">24–48</span><h3>Hours for Most Decisions</h3><p>We review every submission promptly and return with clear next steps, not vague assurances.</p></div>
         <div class="apply-info-card"><span class="num">100%</span><h3>Confidential & Secure</h3><p>Your information — including SSNs and financial details — is handled with the utmost care and used only to evaluate your request.</p></div>
       </div>
@@ -542,10 +542,9 @@
         <div class="progress-seg"></div>
         <div class="progress-seg"></div>
         <div class="progress-seg"></div>
-        <div class="progress-seg"></div>
       </div>
       <div class="progress-label">
-        <span>Step <strong id="currentStepNum">1</strong> of 6</span>
+        <span>Step <strong id="currentStepNum">1</strong> of 5</span>
         <span id="currentStepName">Business Information</span>
       </div>
     </div>
@@ -554,105 +553,95 @@
          ZOHO WEBFORM CONFIGURATION
          Replace YOUR_ZOHO_WEBFORM_URL with your Zoho webform URL
          Paste your hidden input tokens where indicated below
+         All field names match your Zoho CRM Lead module API names
          ============================================================ -->
     <form id="applicationForm" action="YOUR_ZOHO_WEBFORM_URL" method="POST" accept-charset="UTF-8" onsubmit="return handleFormSubmit(event)">
 
-      <!-- PASTE ZOHO HIDDEN TOKENS HERE:
+      <!-- PASTE YOUR ZOHO HIDDEN TOKENS HERE:
       <input type="hidden" name="xnQsjsdp" value="...">
       <input type="hidden" name="xmIwtLD" value="...">
       <input type="hidden" name="actionType" value="TGVhZHM=">
       -->
 
-      <!-- Hidden field to capture full app data for Description field -->
       <input type="hidden" name="Description" id="descriptionField">
-      <!-- Hidden fields for signature images -->
-      <input type="hidden" name="LEADCF62" id="sig1Data">
-      <input type="hidden" name="LEADCF65" id="sig2Data">
-      <input type="hidden" name="LEADCF68" id="sig3Data">
+      <input type="hidden" name="Signature_Status" id="signatureStatusField" value="Not Signed">
 
       <div class="modal-body">
 
         <!-- STEP 1: BUSINESS INFORMATION -->
         <div class="form-step active" data-step="1">
           <h3>Business Information</h3>
-          <p>Tell us about your business. All fields marked * are required.</p>
+          <p>Tell us about your business. All fields are required.</p>
           <div class="form-grid cols-2">
             <div class="field-group"><label>Legal Business Name *</label><input type="text" name="Company" required placeholder="Legal business name"></div>
-            <div class="field-group"><label>DBA Name</label><input type="text" name="LEADCF1" placeholder="DBA (if applicable)"></div>
+            <div class="field-group"><label>Federal Tax ID (EIN) *</label><input type="text" name="Federal_Tax_ID" required placeholder="XX-XXXXXXX"></div>
+          </div>
+          <div class="form-grid"><div class="field-group"><label>Business Street Address *</label><input type="text" name="Street" required placeholder="Street address"></div></div>
+          <div class="form-grid cols-3">
+            <div class="field-group"><label>City *</label><input type="text" name="City" required placeholder="City"></div>
+            <div class="field-group"><label>State *</label><input type="text" name="State" required placeholder="State"></div>
+            <div class="field-group"><label>Zip Code *</label><input type="text" name="Zip_Code" required placeholder="Zip"></div>
           </div>
           <div class="form-grid cols-2">
-            <div class="field-group"><label>Physical Address *</label><input type="text" name="Street" required placeholder="Street, city, state, zip"></div>
-            <div class="field-group"><label>Federal Tax ID (EIN) *</label><input type="text" name="LEADCF2" required placeholder="XX-XXXXXXX"></div>
-          </div>
-          <div class="form-grid cols-2">
-            <div class="field-group"><label>Years in Business *</label><input type="text" name="LEADCF3" required placeholder="e.g. 8"></div>
+            <div class="field-group"><label>Years in Business *</label><input type="text" name="Years_in_Business" required placeholder="e.g. 8"></div>
             <div class="field-group"><label>Business Phone *</label><input type="tel" name="Phone" required placeholder="(XXX) XXX-XXXX"></div>
           </div>
           <div class="form-grid cols-2">
             <div class="field-group"><label>Annual Revenue *</label><input type="text" name="Annual_Revenue" required placeholder="$"></div>
             <div class="field-group">
-              <label>Company Structure *</label>
-              <select name="LEADCF5" required>
+              <label>Business Structure *</label>
+              <select name="Business_Structure" required>
                 <option value="">Select...</option>
-                <option>Sole Proprietorship</option>
-                <option>Partnership</option>
-                <option>LLC</option>
-                <option>S-Corporation</option>
-                <option>C-Corporation</option>
-                <option>Non-Profit</option>
-                <option>Other</option>
+                <option>LLC</option><option>S-Corp</option><option>C-Corp</option>
+                <option>Sole Proprietorship</option><option>Partnership</option>
+                <option>Non-Profit</option><option>Other</option>
               </select>
             </div>
           </div>
           <div class="form-grid">
             <div class="field-group">
-              <label>Business Industry *</label>
+              <label>Industry *</label>
               <select name="Industry" required>
                 <option value="">Select...</option>
-                <option>Construction</option>
-                <option>Agriculture</option>
-                <option>Landscaping</option>
-                <option>Excavation / Grading</option>
-                <option>Paving / Road Construction</option>
-                <option>Land Development</option>
-                <option>Trucking / Hauling</option>
-                <option>Mining / Quarry</option>
-                <option>Demolition</option>
-                <option>Utilities</option>
-                <option>Other</option>
+                <option>General Construction</option><option>Grading</option>
+                <option>Excavation</option><option>Landscaping</option>
+                <option>Development</option><option>Local Haul</option>
+                <option>Long Haul</option><option>Demolition</option>
+                <option>Utilities</option><option>Other</option>
               </select>
             </div>
           </div>
         </div>
 
-        <!-- STEP 2: BUSINESS PRINCIPALS -->
+        <!-- STEP 2: BUSINESS PRINCIPAL -->
         <div class="form-step" data-step="2">
-          <h3>Business Principals</h3>
-          <p>All owners with 20% or greater ownership stake. Contact information is collected here in lieu of a separate contact section.</p>
-          <div id="ownersContainer">
-            <div class="principal-card" data-owner="1">
-              <div class="principal-card-header">
-                <span class="principal-card-title">Owner 1 — Primary Contact</span>
-              </div>
-              <div class="form-grid cols-2">
-                <div class="field-group"><label>Full Name *</label><input type="text" name="Last_Name" required placeholder="Full name"></div>
-                <div class="field-group"><label>Title *</label><input type="text" name="LEADCF12" required placeholder="e.g. President / CEO"></div>
-              </div>
-              <div class="form-grid cols-2">
-                <div class="field-group"><label>Email *</label><input type="email" name="Email" required placeholder="email@example.com"></div>
-                <div class="field-group"><label>Mobile Phone *</label><input type="tel" name="Mobile" required placeholder="(XXX) XXX-XXXX"></div>
-              </div>
-              <div class="form-grid cols-3">
-                <div class="field-group"><label>% Ownership *</label><input type="text" name="LEADCF13" required placeholder="e.g. 100%"></div>
-                <div class="field-group"><label>Date of Birth *</label><input type="text" name="LEADCF17" required placeholder="MM/DD/YYYY"></div>
-                <div class="field-group"><label>SSN *</label><input type="text" name="LEADCF16" required placeholder="XXX-XX-XXXX"></div>
-              </div>
-              <div class="form-grid">
-                <div class="field-group"><label>Home Address *</label><input type="text" name="LEADCF14" required placeholder="Street, city, state, zip"></div>
-              </div>
+          <h3>Business Principal</h3>
+          <p>Information about the primary owner / guarantor. Additional owners can be added during follow-up if needed.</p>
+          <div class="principal-card">
+            <div class="principal-card-header"><span class="principal-card-title">Primary Owner / Guarantor</span></div>
+            <div class="form-grid cols-2">
+              <div class="field-group"><label>First Name *</label><input type="text" name="First_Name" required placeholder="First name"></div>
+              <div class="field-group"><label>Last Name *</label><input type="text" name="Last_Name" required placeholder="Last name"></div>
+            </div>
+            <div class="form-grid cols-2">
+              <div class="field-group"><label>Title *</label><input type="text" name="Designation" required placeholder="e.g. President / CEO"></div>
+              <div class="field-group"><label>% Ownership *</label><input type="text" name="of_Ownership" required placeholder="e.g. 100"></div>
+            </div>
+            <div class="form-grid cols-2">
+              <div class="field-group"><label>Email *</label><input type="email" name="Email" required placeholder="email@example.com"></div>
+              <div class="field-group"><label>Mobile Phone *</label><input type="tel" name="Mobile" required placeholder="(XXX) XXX-XXXX"></div>
+            </div>
+            <div class="form-grid cols-2">
+              <div class="field-group"><label>Date of Birth *</label><input type="date" name="Birthday" required></div>
+              <div class="field-group"><label>SSN *</label><input type="text" name="SSN" required placeholder="XXX-XX-XXXX"></div>
+            </div>
+            <div class="form-grid"><div class="field-group"><label>Home Street Address *</label><input type="text" name="Personal_Street" required placeholder="Street address"></div></div>
+            <div class="form-grid cols-3">
+              <div class="field-group"><label>City *</label><input type="text" name="Personal_City" required placeholder="City"></div>
+              <div class="field-group"><label>State *</label><input type="text" name="Personal_State" required placeholder="State"></div>
+              <div class="field-group"><label>Zip Code *</label><input type="text" name="Personal_Zip_Code" required placeholder="Zip"></div>
             </div>
           </div>
-          <button type="button" class="add-owner-btn" onclick="addOwner()" id="addOwnerBtn">+ Add Another Owner</button>
         </div>
 
         <!-- STEP 3: EQUIPMENT -->
@@ -660,100 +649,53 @@
           <h3>Equipment Information</h3>
           <p>Details about the equipment you're looking to finance.</p>
           <div class="form-grid cols-3">
-            <div class="field-group"><label>Year *</label><input type="text" name="LEADCF40" required placeholder="YYYY"></div>
-            <div class="field-group"><label>Make *</label><input type="text" name="LEADCF41" required placeholder="e.g. Caterpillar"></div>
-            <div class="field-group"><label>Model *</label><input type="text" name="LEADCF42" required placeholder="e.g. 320"></div>
+            <div class="field-group"><label>Year *</label><input type="text" name="Equipment_Information" required placeholder="YYYY"></div>
+            <div class="field-group"><label>Make *</label><input type="text" name="Equipment_Make" required placeholder="e.g. Caterpillar"></div>
+            <div class="field-group"><label>Model *</label><input type="text" name="Equipment_Model" required placeholder="e.g. 320"></div>
           </div>
           <div class="form-grid cols-2">
-            <div class="field-group"><label>Equipment Cost *</label><input type="text" name="LEADCF43" required placeholder="$"></div>
-            <div class="field-group"><label>Vendor / Dealer Name *</label><input type="text" name="LEADCF44" required placeholder="Dealer name"></div>
+            <div class="field-group"><label>Equipment Cost *</label><input type="text" name="Equipment_Cost" required placeholder="$"></div>
+            <div class="field-group"><label>Vendor / Dealer Name *</label><input type="text" name="Vendor_Name" required placeholder="Dealer name"></div>
           </div>
           <div class="form-grid">
-            <div class="field-group"><label>Additional Notes</label><textarea name="LEADCF45" placeholder="Attachments, multiple units, condition, timing needs, etc." style="min-height:90px"></textarea></div>
+            <div class="field-group"><label>Additional Notes</label><textarea name="Equipment_Notes" placeholder="Attachments, multiple units, condition, timing needs, etc." style="min-height:100px"></textarea></div>
           </div>
         </div>
 
-        <!-- STEP 4: EQUIPMENT (renumbered, bank removed) -->
+        <!-- STEP 4: AUTHORIZATION & SIGNATURE -->
         <div class="form-step" data-step="4">
-          <h3>Additional Details</h3>
-          <p>Any additional notes about the equipment or transaction that would help us place your financing.</p>
-          <div class="form-grid">
-            <div class="field-group"><label>Additional Notes</label><textarea name="LEADCF45" placeholder="Attachments, multiple units, condition, timing needs, seller info, etc." style="min-height:140px"></textarea></div>
-          </div>
-        </div>
-
-        <!-- STEP 5: AUTHORIZATION & SIGNATURES -->
-        <div class="form-step" data-step="5">
-          <h3>Authorization & Signatures</h3>
-          <p>Please read the authorization carefully, then sign below using your mouse or finger.</p>
+          <h3>Authorization & Signature</h3>
+          <p>Please read the authorization carefully, then sign below.</p>
           <div class="auth-box">
-            <p>The undersigned represents that all information provided with this Application is true and correct and hereby authorizes Lessor/Secured party to obtain from third parties, including Applicant's bank, information it deems necessary to arrive at a decision regarding this application. By signing below, the undersigned individual(s) as principal of and/or guarantor for the applicant, authorizes Lessor/Secured party, its designee, assigns or potential assigns, to review his/her personal credit profile provided by a national credit bureau in considering this application and for the purpose of update, renewal, or extension of credit to the Applicant or the collection of any resultant accounts. I authorize all deposit, borrowing, financial and trade information to be released to Lessor/Secured Party. A photocopy or electronic copy of this authorization shall be valid as the original.</p>
+            <p>The undersigned represents that all information provided with this Application is true and correct and hereby authorizes Lessor/Secured party to obtain from third parties, including Applicant's bank, information it deems necessary to arrive at a decision regarding this application. By signing below, the undersigned individual(s) as principal of and/or guarantor for the applicant, authorizes Lessor/Secured party, its designee, assigns or potential assigns, to review his/her personal credit profile provided by a national credit bureau in considering this application and for the purpose of update, renewal, or extension of credit to the Applicant or the collection of any resultant accounts. I authorize all deposit, borrowing, financial and trade information to be released to Lessor/Secured Party by telephone or fax. A photocopy or fax of this authorization shall be valid as the original. To help fight terrorism and money laundering, the information you provide may be verified to allow us to identify you.</p>
           </div>
           <label class="auth-check">
             <input type="checkbox" id="authConsent" required>
             <label for="authConsent">I have read and agree to the authorization above. All information provided is true and correct to the best of my knowledge.</label>
           </label>
-
-          <!-- Owner 1 Signature -->
           <div class="principal-card">
-            <div class="principal-card-header"><span class="principal-card-title">Owner 1 Signature</span></div>
+            <div class="principal-card-header"><span class="principal-card-title">Owner Signature</span></div>
+            <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.6">By typing your full legal name below, you are providing your electronic signature, which has the same legal effect as a handwritten signature under the federal E-SIGN Act.</p>
             <div class="form-grid cols-2" style="margin-bottom:1rem">
-              <div class="field-group"><label>Print Name</label><input type="text" name="LEADCF60" placeholder="Print full name" id="sig1Name"></div>
-              <div class="field-group"><label>Date</label><input type="date" name="LEADCF61" id="sig1Date"></div>
+              <div class="field-group"><label>Print Name *</label><input type="text" name="Signature_Print_Name" id="sigPrintName" required placeholder="Print full legal name"></div>
+              <div class="field-group"><label>Date *</label><input type="date" name="Signature_Date" id="sigDate" required></div>
             </div>
-            <div class="sig-pad-wrap">
-              <span class="sig-pad-label">Signature — draw below</span>
-              <canvas class="sig-pad-canvas" id="sigPad1" height="120"></canvas>
-              <div class="sig-pad-actions">
-                <button type="button" class="sig-clear-btn" onclick="clearSig(1)">Clear</button>
-                <span class="sig-status" id="sigStatus1">Not yet signed</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Owner 2 Signature -->
-          <div class="principal-card" id="owner2Sig" style="display:none">
-            <div class="principal-card-header"><span class="principal-card-title">Owner 2 Signature</span></div>
-            <div class="form-grid cols-2" style="margin-bottom:1rem">
-              <div class="field-group"><label>Print Name</label><input type="text" name="LEADCF63" placeholder="Print full name"></div>
-              <div class="field-group"><label>Date</label><input type="date" name="LEADCF64"></div>
-            </div>
-            <div class="sig-pad-wrap">
-              <span class="sig-pad-label">Signature — draw below</span>
-              <canvas class="sig-pad-canvas" id="sigPad2" height="120"></canvas>
-              <div class="sig-pad-actions">
-                <button type="button" class="sig-clear-btn" onclick="clearSig(2)">Clear</button>
-                <span class="sig-status" id="sigStatus2">Not yet signed</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Owner 3 Signature -->
-          <div class="principal-card" id="owner3Sig" style="display:none">
-            <div class="principal-card-header"><span class="principal-card-title">Owner 3 Signature</span></div>
-            <div class="form-grid cols-2" style="margin-bottom:1rem">
-              <div class="field-group"><label>Print Name</label><input type="text" name="LEADCF66" placeholder="Print full name"></div>
-              <div class="field-group"><label>Date</label><input type="date" name="LEADCF67"></div>
-            </div>
-            <div class="sig-pad-wrap">
-              <span class="sig-pad-label">Signature — draw below</span>
-              <canvas class="sig-pad-canvas" id="sigPad3" height="120"></canvas>
-              <div class="sig-pad-actions">
-                <button type="button" class="sig-clear-btn" onclick="clearSig(3)">Clear</button>
-                <span class="sig-status" id="sigStatus3">Not yet signed</span>
+            <div class="form-grid">
+              <div class="field-group">
+                <label>Type Full Name as Signature *</label>
+                <input type="text" name="Signature" id="sigTyped" required placeholder="Type your full legal name to sign" style="font-family:Georgia,serif;font-style:italic;font-size:1.15rem;color:var(--forest-dark);padding:.9rem 1rem">
+                <span class="sig-status" id="sigStatusLabel">Not yet signed</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- STEP 6: REVIEW -->
-        <div class="form-step" data-step="6">
+        <!-- STEP 5: REVIEW -->
+        <div class="form-step" data-step="5">
           <h3>Review & Submit</h3>
-          <p>Please confirm your information before submitting. Once submitted, a Credo Capital representative will be in touch within 24–48 hours.</p>
+          <p>Please confirm your information before submitting. A Credo Capital representative will be in touch within 24–48 hours.</p>
           <div id="reviewContainer"></div>
-          <p style="font-size:.85rem;color:var(--muted);margin-top:1rem;padding:1rem;background:var(--paper);border-radius:3px;line-height:1.6">
-            By submitting this application you confirm all information is accurate and authorize Credo Capital to process your request and submit to lending partners on your behalf.
-          </p>
+          <p style="font-size:.85rem;color:var(--muted);margin-top:1rem;padding:1rem;background:var(--paper);border-radius:3px;line-height:1.6">By submitting this application you confirm all information is accurate and authorize Credo Capital to process your request and submit to lending partners on your behalf.</p>
         </div>
 
         <!-- SUCCESS -->
@@ -764,7 +706,7 @@
           <button class="btn-primary" onclick="closeApplicationModal()">Close</button>
         </div>
 
-      </div><!-- end modal-body -->
+      </div>
 
       <div class="modal-footer" id="modalFooter">
         <button type="button" class="btn-back" onclick="prevStep()" id="btnBack" disabled>← Back</button>
@@ -821,44 +763,42 @@ function showPage(id){
 }
 
 // ============= MODAL =============
-let currentStep=1, totalSteps=6, ownerCount=1;
+let currentStep=1, totalSteps=5, sigSigned=false;
+const stepNames={1:'Business Information',2:'Business Principal',3:'Equipment Information',4:'Authorization & Signature',5:'Review & Submit'};
 
 function openApplicationModal(){
   document.getElementById('appModal').classList.add('active');
   document.body.style.overflow='hidden';
   currentStep=1;
   updateStep();
-  // Set today's date on sig date fields
   const today=new Date().toISOString().split('T')[0];
-  ['sig1Date'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=today});
-  // Init sig pads after modal visible
-  setTimeout(()=>initSigPads(),100);
+  const sd=document.getElementById('sigDate');
+  if(sd)sd.value=today;
+  // Attach signature listener
+  setTimeout(()=>{
+    const s=document.getElementById('sigTyped');
+    if(s&&!s._init){s.addEventListener('input',handleTypedSig);s._init=true;}
+  },100);
 }
 
 function closeApplicationModal(){
   document.getElementById('appModal').classList.remove('active');
   document.body.style.overflow='';
   currentStep=1;
+  sigSigned=false;
   document.getElementById('applicationForm').reset();
   document.getElementById('successScreen').classList.remove('active');
   document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
   document.querySelector('.form-step[data-step="1"]').classList.add('active');
   document.getElementById('modalFooter').style.display='flex';
   document.getElementById('progressBar').style.display='block';
-  while(ownerCount>1)removeOwner(ownerCount);
-  sigStates={1:false,2:false,3:false};
-  ['sigPad1','sigPad2','sigPad3'].forEach(id=>{
-    const c=document.getElementById(id);
-    if(c){const ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);}
-  });
-  updateSigStatuses();
+  document.getElementById('signatureStatusField').value='Not Signed';
+  updateSigStatus();
   updateStep();
 }
 
 document.getElementById('appModal').addEventListener('click',function(e){if(e.target===this)closeApplicationModal()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('appModal').classList.contains('active'))closeApplicationModal()});
-
-const stepNames={1:'Business Information',2:'Business Principals',3:'Equipment Information',4:'Additional Details',5:'Authorization & Signatures',6:'Review & Submit'};
 
 function updateStep(){
   document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
@@ -880,15 +820,10 @@ function updateStep(){
     document.getElementById('btnNext').style.display='inline-block';
     document.getElementById('btnSubmit').style.display='none';
   }
-  document.getElementById('owner2Sig').style.display=ownerCount>=2?'block':'none';
-  document.getElementById('owner3Sig').style.display=ownerCount>=3?'block':'none';
   document.querySelector('.modal-body').scrollTop=0;
-  // Resize canvases when step 5 is shown
-  if(currentStep===5)setTimeout(()=>resizeSigPads(),50);
 }
 
 function nextStep(){
-  // Validate all required fields on current step (except DBA which has no required attr)
   const stepEl=document.querySelector(`.form-step[data-step="${currentStep}"]`);
   const reqFields=stepEl.querySelectorAll('[required]');
   let ok=true;
@@ -898,234 +833,70 @@ function nextStep(){
     else f.style.borderColor='';
   });
   if(!ok){alert('Please complete all required fields (marked *) before continuing.');return;}
-
-  if(currentStep===5){
+  if(currentStep===4){
     if(!document.getElementById('authConsent').checked){alert('Please acknowledge the authorization before continuing.');return;}
-    if(!sigStates[1]){alert('Owner 1 signature is required.');return;}
+    if(!sigSigned){alert('Please type your full name in the signature field before continuing.');return;}
   }
   if(currentStep<totalSteps){currentStep++;updateStep();}
 }
 
 function prevStep(){if(currentStep>1){currentStep--;updateStep();}}
 
-// ============= OWNERS =============
-function addOwner(){
-  if(ownerCount>=3){alert('Maximum of 3 owners supported.');return;}
-  ownerCount++;
-  const n=ownerCount, base=n===2?20:30;
-  const c=document.getElementById('ownersContainer');
-  const card=document.createElement('div');
-  card.className='principal-card';
-  card.setAttribute('data-owner',n);
-  card.innerHTML=`
-    <div class="principal-card-header">
-      <span class="principal-card-title">Owner ${n}</span>
-      <button type="button" class="remove-owner" onclick="removeOwner(${n})">Remove</button>
-    </div>
-    <div class="form-grid cols-2">
-      <div class="field-group"><label>Full Name</label><input type="text" name="LEADCF${base}" placeholder="Full name"></div>
-      <div class="field-group"><label>Title</label><input type="text" name="LEADCF${base+2}" placeholder="Title"></div>
-    </div>
-    <div class="form-grid cols-2">
-      <div class="field-group"><label>Email</label><input type="email" name="LEADCF${base+1}" placeholder="Email"></div>
-      <div class="field-group"><label>Mobile Phone</label><input type="tel" name="LEADCF${base+5}" placeholder="(XXX) XXX-XXXX"></div>
-    </div>
-    <div class="form-grid cols-3">
-      <div class="field-group"><label>% Ownership</label><input type="text" name="LEADCF${base+3}" placeholder="e.g. 50%"></div>
-      <div class="field-group"><label>Date of Birth</label><input type="text" name="LEADCF${base+7}" placeholder="MM/DD/YYYY"></div>
-      <div class="field-group"><label>SSN</label><input type="text" name="LEADCF${base+6}" placeholder="XXX-XX-XXXX"></div>
-    </div>
-    <div class="form-grid">
-      <div class="field-group"><label>Home Address</label><input type="text" name="LEADCF${base+4}" placeholder="Street, city, state, zip"></div>
-    </div>`;
-  c.appendChild(card);
-  if(ownerCount>=3)document.getElementById('addOwnerBtn').style.display='none';
+// ============= TYPED SIGNATURE =============
+function handleTypedSig(){
+  const s=document.getElementById('sigTyped');
+  if(!s)return;
+  sigSigned=s.value.trim().length>=2;
+  document.getElementById('signatureStatusField').value=sigSigned?'Signed':'Not Signed';
+  updateSigStatus();
 }
 
-function removeOwner(n){
-  const card=document.querySelector(`.principal-card[data-owner="${n}"]`);
-  if(card)card.remove();
-  ownerCount--;
-  document.getElementById('addOwnerBtn').style.display='block';
-}
-
-// ============= SIGNATURE PADS =============
-let sigStates={1:false,2:false,3:false};
-let sigDrawing={1:false,2:false,3:false};
-let sigLastPos={1:null,2:null,3:null};
-
-function initSigPads(){
-  [1,2,3].forEach(n=>initPad(n));
-}
-
-function resizeSigPads(){
-  [1,2,3].forEach(n=>{
-    const canvas=document.getElementById(`sigPad${n}`);
-    if(!canvas)return;
-    const w=canvas.offsetWidth;
-    if(w>0&&canvas.width!==w){
-      // Save existing drawing
-      const tmp=document.createElement('canvas');
-      tmp.width=canvas.width;tmp.height=canvas.height;
-      tmp.getContext('2d').drawImage(canvas,0,0);
-      canvas.width=w;
-      canvas.height=120;
-      if(sigStates[n])canvas.getContext('2d').drawImage(tmp,0,0);
-    }
-  });
-}
-
-function initPad(n){
-  const canvas=document.getElementById(`sigPad${n}`);
-  if(!canvas)return;
-  canvas.width=canvas.offsetWidth||500;
-  canvas.height=120;
-  const ctx=canvas.getContext('2d');
-  ctx.strokeStyle='#1a2744';
-  ctx.lineWidth=2;
-  ctx.lineCap='round';
-  ctx.lineJoin='round';
-
-  // Mouse events
-  canvas.addEventListener('mousedown',e=>{sigDrawing[n]=true;sigLastPos[n]=getPos(canvas,e);});
-  canvas.addEventListener('mousemove',e=>{if(!sigDrawing[n])return;draw(n,getPos(canvas,e));});
-  canvas.addEventListener('mouseup',()=>{if(sigDrawing[n]){sigDrawing[n]=false;markSigned(n);}});
-  canvas.addEventListener('mouseleave',()=>{sigDrawing[n]=false;});
-
-  // Touch events
-  canvas.addEventListener('touchstart',e=>{e.preventDefault();sigDrawing[n]=true;sigLastPos[n]=getPos(canvas,e.touches[0]);},{passive:false});
-  canvas.addEventListener('touchmove',e=>{e.preventDefault();if(!sigDrawing[n])return;draw(n,getPos(canvas,e.touches[0]));},{passive:false});
-  canvas.addEventListener('touchend',e=>{e.preventDefault();if(sigDrawing[n]){sigDrawing[n]=false;markSigned(n);}},{passive:false});
-}
-
-function getPos(canvas,e){
-  const r=canvas.getBoundingClientRect();
-  return{x:(e.clientX-r.left)*(canvas.width/r.width),y:(e.clientY-r.top)*(canvas.height/r.height)};
-}
-
-function draw(n,pos){
-  const canvas=document.getElementById(`sigPad${n}`);
-  const ctx=canvas.getContext('2d');
-  ctx.beginPath();
-  ctx.moveTo(sigLastPos[n].x,sigLastPos[n].y);
-  ctx.lineTo(pos.x,pos.y);
-  ctx.stroke();
-  sigLastPos[n]=pos;
-}
-
-function markSigned(n){
-  const canvas=document.getElementById(`sigPad${n}`);
-  // Check if anything was drawn
-  const ctx=canvas.getContext('2d');
-  const data=ctx.getImageData(0,0,canvas.width,canvas.height).data;
-  const hasContent=data.some((v,i)=>i%4===3&&v>0);
-  sigStates[n]=hasContent;
-  canvas.classList.toggle('signed',hasContent);
-  updateSigStatuses();
-  // Store signature as data URL in hidden field
-  if(hasContent){
-    const hid=document.getElementById(`sig${n}Data`);
-    if(hid)hid.value=canvas.toDataURL('image/png');
-  }
-}
-
-function clearSig(n){
-  const canvas=document.getElementById(`sigPad${n}`);
-  const ctx=canvas.getContext('2d');
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  sigStates[n]=false;
-  canvas.classList.remove('signed');
-  const hid=document.getElementById(`sig${n}Data`);
-  if(hid)hid.value='';
-  updateSigStatuses();
-}
-
-function updateSigStatuses(){
-  [1,2,3].forEach(n=>{
-    const el=document.getElementById(`sigStatus${n}`);
-    if(!el)return;
-    el.textContent=sigStates[n]?'✓ Signed':'Not yet signed';
-    el.className='sig-status'+(sigStates[n]?' signed':'');
-  });
+function updateSigStatus(){
+  const el=document.getElementById('sigStatusLabel');
+  if(!el)return;
+  el.textContent=sigSigned?'✓ Signed':'Not yet signed';
+  el.className='sig-status'+(sigSigned?' signed':'');
 }
 
 // ============= REVIEW =============
 function populateReview(){
   const form=document.getElementById('applicationForm');
   const v=name=>{const el=form.elements[name];return el&&el.value?el.value:'—';};
-
-  // Build description for unmapped fields
-  const desc=[
-    `=== EQUIPMENT ===`,
-    `Year/Make/Model: ${v('LEADCF40')} ${v('LEADCF41')} ${v('LEADCF42')}`,
-    `Cost: ${v('LEADCF43')} | Vendor: ${v('LEADCF44')}`,
-    `Notes: ${v('LEADCF45')}`,
-    ``,`=== OWNER 1 ===`,
-    `DOB: ${v('LEADCF17')} | SSN: ${v('LEADCF16')}`,
-    `Home Address: ${v('LEADCF14')}`,
-  ];
-  if(ownerCount>=2){
-    desc.push('','=== OWNER 2 ===',
-      `Name: ${v('LEADCF20')} | Title: ${v('LEADCF22')} | Ownership: ${v('LEADCF23')}`,
-      `Email: ${v('LEADCF21')} | Phone: ${v('LEADCF25')}`,
-      `DOB: ${v('LEADCF27')} | SSN: ${v('LEADCF26')} | Address: ${v('LEADCF24')}`);
-  }
-  if(ownerCount>=3){
-    desc.push('','=== OWNER 3 ===',
-      `Name: ${v('LEADCF30')} | Title: ${v('LEADCF32')} | Ownership: ${v('LEADCF33')}`,
-      `Email: ${v('LEADCF31')} | Phone: ${v('LEADCF35')}`,
-      `DOB: ${v('LEADCF37')} | SSN: ${v('LEADCF36')} | Address: ${v('LEADCF34')}`);
-  }
-  desc.push('','=== BANK ===',
-    `Bank: ${v('LEADCF50')} | Contact: ${v('LEADCF51')}`,
-    `Email: ${v('LEADCF52')} | Phone: ${v('LEADCF53')}`,
-    `Notes: ${v('LEADCF54')}`);
-  desc.push('','=== SIGNATURES ===',
-    `Owner 1 signed: ${sigStates[1]?'YES':'NO'}`,
-    ownerCount>=2?`Owner 2 signed: ${sigStates[2]?'YES':'NO'}`:'',
-    ownerCount>=3?`Owner 3 signed: ${sigStates[3]?'YES':'NO'}`:'');
-  document.getElementById('descriptionField').value=desc.filter(Boolean).join('\n');
-
-  const rows=(label,val)=>`<div class="review-row"><span>${label}</span><span>${val}</span></div>`;
-  let html=`
+  const bizAddr=`${v('Street')}, ${v('City')}, ${v('State')} ${v('Zip_Code')}`;
+  const homeAddr=`${v('Personal_Street')}, ${v('Personal_City')}, ${v('Personal_State')} ${v('Personal_Zip_Code')}`;
+  // Build description for overflow
+  document.getElementById('descriptionField').value=[
+    `Signature: ${sigSigned?'Signed':'Not Signed'}`,
+    `Signature Print Name: ${v('Signature_Print_Name')}`,
+    `Signature Date: ${v('Signature_Date')}`,
+    `Equipment Notes: ${v('Equipment_Notes')}`
+  ].join('\n');
+  const rows=(l,val)=>`<div class="review-row"><span>${l}</span><span>${val||'—'}</span></div>`;
+  document.getElementById('reviewContainer').innerHTML=`
     <div class="review-section"><h4>Business Information</h4>
-      ${rows('Legal Name',v('Company'))}${rows('DBA',v('LEADCF1'))}
-      ${rows('Address',v('Street'))}${rows('Tax ID',v('LEADCF2'))}
-      ${rows('Years in Business',v('LEADCF3'))}${rows('Phone',v('Phone'))}
-      ${rows('Annual Revenue',v('Annual_Revenue'))}${rows('Structure',v('LEADCF5'))}
-      ${rows('Industry',v('Industry'))}
+      ${rows('Legal Name',v('Company'))}${rows('Address',bizAddr)}
+      ${rows('Tax ID (EIN)',v('Federal_Tax_ID'))}${rows('Years in Business',v('Years_in_Business'))}
+      ${rows('Business Phone',v('Phone'))}${rows('Annual Revenue',v('Annual_Revenue'))}
+      ${rows('Structure',v('Business_Structure'))}${rows('Industry',v('Industry'))}
     </div>
-    <div class="review-section"><h4>Owner 1 — Primary Contact</h4>
-      ${rows('Name',v('Last_Name'))}${rows('Title',v('LEADCF12'))}
-      ${rows('Email',v('Email'))}${rows('Phone',v('Mobile'))}
-      ${rows('Ownership',v('LEADCF13'))}${rows('DOB',v('LEADCF17'))}
-      ${rows('Home Address',v('LEADCF14'))}
-    </div>`;
-  if(ownerCount>=2)html+=`
-    <div class="review-section"><h4>Owner 2</h4>
-      ${rows('Name',v('LEADCF20'))}${rows('Email',v('LEADCF21'))}
-      ${rows('Phone',v('LEADCF25'))}${rows('Ownership',v('LEADCF23'))}
-    </div>`;
-  if(ownerCount>=3)html+=`
-    <div class="review-section"><h4>Owner 3</h4>
-      ${rows('Name',v('LEADCF30'))}${rows('Email',v('LEADCF31'))}
-      ${rows('Phone',v('LEADCF35'))}${rows('Ownership',v('LEADCF33'))}
-    </div>`;
-  html+=`
-    <div class="review-section"><h4>Equipment</h4>
-      ${rows('Year / Make / Model',`${v('LEADCF40')} ${v('LEADCF41')} ${v('LEADCF42')}`)}
-      ${rows('Cost',v('LEADCF43'))}${rows('Vendor',v('LEADCF44'))}
+    <div class="review-section"><h4>Primary Owner / Guarantor</h4>
+      ${rows('First Name',v('First_Name'))}${rows('Last Name',v('Last_Name'))}
+      ${rows('Title',v('Designation'))}${rows('% Ownership',v('of_Ownership'))}
+      ${rows('Email',v('Email'))}${rows('Mobile Phone',v('Mobile'))}
+      ${rows('Date of Birth',v('Birthday'))}${rows('SSN',v('SSN'))}
+      ${rows('Home Address',homeAddr)}
     </div>
-    <div class="review-section"><h4>Bank Information</h4>
-      ${rows('Bank',v('LEADCF50'))}${rows('Contact',v('LEADCF51'))}
-      ${rows('Phone',v('LEADCF53'))}
+    <div class="review-section"><h4>Equipment Information</h4>
+      ${rows('Year',v('Equipment_Information'))}${rows('Make',v('Equipment_Make'))}
+      ${rows('Model',v('Equipment_Model'))}${rows('Cost',v('Equipment_Cost'))}
+      ${rows('Vendor / Dealer',v('Vendor_Name'))}${rows('Notes',v('Equipment_Notes'))}
     </div>
-    <div class="review-section"><h4>Signatures</h4>
-      ${rows('Owner 1',sigStates[1]?'✓ Signed':'Not signed')}
-      ${ownerCount>=2?rows('Owner 2',sigStates[2]?'✓ Signed':'Not signed'):''}
-      ${ownerCount>=3?rows('Owner 3',sigStates[3]?'✓ Signed':'Not signed'):''}
+    <div class="review-section"><h4>Signature</h4>
+      ${rows('Status',sigSigned?'✓ Signed':'Not signed')}
+      ${rows('Print Name',v('Signature_Print_Name'))}
+      ${rows('Signature',`<span style="font-family:Georgia,serif;font-style:italic">${v('Signature')}</span>`)}
+      ${rows('Date',v('Signature_Date'))}
     </div>`;
-  document.getElementById('reviewContainer').innerHTML=html;
 }
 
 // ============= SUBMIT =============
@@ -1148,7 +919,7 @@ function showSuccessScreen(){
 
 function handleContactSubmit(e){
   e.preventDefault();
-  alert(`Thank you — your message has been received. We'll be in touch shortly.`);
+  alert('Thank you — your message has been received. We\'ll be in touch shortly.');
   e.target.reset();
 }
 </script>
