@@ -152,6 +152,9 @@
   .contact-form-box h3{color:var(--forest-dark);font-size:1.4rem;margin-bottom:.5rem}
   .contact-form-box .form-intro{color:var(--muted);font-size:.9rem;margin-bottom:1.75rem}
   .contact-form .field{margin-bottom:1.25rem}
+  .contact-form .field-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0}
+  .contact-form .field-row .field{margin-bottom:1.25rem}
+  @media(max-width:600px){.contact-form .field-row{grid-template-columns:1fr;gap:0}}
   .contact-form label{display:block;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--forest-dark);margin-bottom:.5rem;font-weight:700}
   .contact-form input,.contact-form textarea{width:100%;padding:.85rem 1rem;border:1px solid var(--border);background:var(--cream);font-family:inherit;font-size:.95rem;color:var(--ink);border-radius:2px;transition:border .2s}
   .contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--gold);background:var(--white)}
@@ -474,9 +477,9 @@
             <div class="contact-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13 1.05.37 2.07.72 3.06a2 2 0 01-.45 2.11L8.09 10.2a16 16 0 006 6l1.31-1.31a2 2 0 012.11-.45c.99.35 2.01.59 3.06.72A2 2 0 0122 16.92z"/></svg></div>
             <div><span class="contact-card-label">Call Direct</span><span class="contact-card-value">(909) 705-2647</span><span class="contact-card-sub">Monday – Friday, 8am – 6pm PT</span></div>
           </a>
-          <a href="mailto:gavin.credocapital@gmail.com" class="contact-card">
+          <a href="mailto:gavin@credocapitalca.com" class="contact-card">
             <div class="contact-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-            <div><span class="contact-card-label">Email</span><span class="contact-card-value">gavin.credocapital@gmail.com</span><span class="contact-card-sub">Typical response within one business day</span></div>
+            <div><span class="contact-card-label">Email</span><span class="contact-card-value">gavin@credocapitalca.com</span><span class="contact-card-sub">Typical response within one business day</span></div>
           </a>
           <div class="contact-card">
             <div class="contact-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
@@ -486,13 +489,21 @@
         <div class="contact-form-box">
           <h3>Send a Message</h3>
           <p class="form-intro">Have a question before applying? Fill out the form below and we'll be in touch.</p>
-          <form class="contact-form" onsubmit="handleContactSubmit(event)">
-            <div class="field"><label>Your Name</label><input type="text" name="name" required placeholder="Full name"></div>
-            <div class="field"><label>Email</label><input type="email" name="email" required placeholder="you@example.com"></div>
-            <div class="field"><label>Phone</label><input type="tel" name="phone" placeholder="(XXX) XXX-XXXX"></div>
-            <div class="field"><label>How Can We Help?</label><textarea name="message" required placeholder="Tell us about your equipment financing needs..."></textarea></div>
+          <form class="contact-form" id="contactForm" action="https://forms.zohopublic.com/truemachinerybrokeragegm1/form/CustomerContactRequestForm/formperma/zraOJkVKDh4HDdvji96Mw5RWka9NmlFCLbL75676cZw/htmlRecords/submit" method="POST" enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="handleContactSubmit(event)" target="hidden_iframe">
+            <input type="hidden" name="zf_referrer_name" value="credocapitalca.com">
+            <input type="hidden" name="zf_redirect_url" value="">
+            <input type="hidden" name="zc_gad" value="">
+            <div class="field-row">
+              <div class="field"><label>First Name</label><input type="text" name="SingleLine" maxlength="255" required placeholder="First name"></div>
+              <div class="field"><label>Last Name</label><input type="text" name="SingleLine1" maxlength="255" required placeholder="Last name"></div>
+            </div>
+            <div class="field"><label>Email</label><input type="email" name="Email" maxlength="255" required placeholder="you@example.com"></div>
+            <div class="field"><label>Phone</label><input type="tel" name="PhoneNumber_countrycode" maxlength="20" placeholder="(XXX) XXX-XXXX"></div>
+            <div class="field"><label>Company Name</label><input type="text" name="SingleLine2" maxlength="255" required placeholder="Your business name"></div>
+            <div class="field"><label>How Can We Help?</label><textarea name="MultiLine" maxlength="65535" required placeholder="Tell us about your equipment financing needs..."></textarea></div>
             <button type="submit" class="btn-primary">Send Message</button>
           </form>
+          <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
         </div>
       </div>
     </div>
@@ -736,7 +747,7 @@
       <h4>Contact</h4>
       <div class="footer-contact">
         <a href="tel:9097052647">(909) 705-2647</a><br>
-        <a href="mailto:gavin.credocapital@gmail.com">gavin.credocapital@gmail.com</a><br>
+        <a href="mailto:gavin@credocapitalca.com">gavin@credocapitalca.com</a><br>
         <span style="color:#8b8778">Mon – Fri, 8am – 6pm PT</span>
       </div>
     </div>
@@ -931,9 +942,20 @@ function showSuccessScreen(){
 }
 
 function handleContactSubmit(e){
-  e.preventDefault();
-  alert('Thank you — your message has been received. We\'ll be in touch shortly.');
-  e.target.reset();
+  // Form submits to hidden iframe; we just show feedback and reset
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
+  const originalText = btn.textContent;
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  // Give iframe time to receive the post, then show success
+  setTimeout(() => {
+    alert('Thank you — your message has been received. We\'ll be in touch shortly.');
+    form.reset();
+    btn.textContent = originalText;
+    btn.disabled = false;
+  }, 1500);
 }
 </script>
 </body>
