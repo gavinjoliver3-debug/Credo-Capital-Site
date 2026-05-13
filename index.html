@@ -483,6 +483,17 @@
             <div class="field"><label>Phone</label><input type="tel" name="PhoneNumber_countrycode" maxlength="20" placeholder="(XXX) XXX-XXXX"></div>
             <div class="field"><label>Company Name</label><input type="text" name="SingleLine2" maxlength="255" required placeholder="Your business name"></div>
             <div class="field"><label>How Can We Help?</label><textarea name="MultiLine" maxlength="65535" required placeholder="Tell us about your equipment financing needs..."></textarea></div>
+            <!-- reCAPTCHA v2 checkbox -->
+            <div style="margin-bottom:1rem">
+              <div class="g-recaptcha"
+                   data-sitekey="6LenlOgsAAAAAMDRyPR-ZUuufJGalHAWrmOzjvmu"
+                   data-theme="light"
+                   data-callback="onContactRecaptchaSuccess"
+                   data-expired-callback="onContactRecaptchaExpired"
+                   id="contactRecaptcha">
+              </div>
+              <p id="contactRecaptchaError" style="display:none;color:#c44;font-size:.8rem;margin-top:.4rem">Please complete the CAPTCHA before sending.</p>
+            </div>
             <button type="submit" class="btn-primary">Send Message</button>
           </form>
           <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
@@ -783,6 +794,11 @@ var recaptchaVerified = false;
 function onRecaptchaSuccess(token) { recaptchaVerified = true; document.getElementById('recaptchaError').style.display='none'; }
 function onRecaptchaExpired() { recaptchaVerified = false; }
 
+// reCAPTCHA state for contact form
+var contactRecaptchaVerified = false;
+function onContactRecaptchaSuccess(token) { contactRecaptchaVerified = true; document.getElementById('contactRecaptchaError').style.display='none'; }
+function onContactRecaptchaExpired() { contactRecaptchaVerified = false; }
+
 /**
  * Returns true if the contact form submission looks like a bot:
  *  - Honeypot field (#hp_website) is filled in, OR
@@ -973,6 +989,13 @@ function handleContactSubmit(e){
   const form=e.target;
   const btn=form.querySelector('button[type="submit"]');
   const orig=btn.textContent;
+
+  // reCAPTCHA check
+  if(!contactRecaptchaVerified){
+    document.getElementById('contactRecaptchaError').style.display='block';
+    return;
+  }
+
   btn.textContent='Sending...';
   btn.disabled=true;
 
@@ -981,6 +1004,8 @@ function handleContactSubmit(e){
     setTimeout(()=>{
       alert('Thank you — your message has been received. We\'ll be in touch shortly.');
       form.reset();
+      contactRecaptchaVerified=false;
+      if(window.grecaptcha){try{grecaptcha.reset(document.getElementById('contactRecaptcha'));}catch(e){}}
       document.getElementById('cf_ts').value=Date.now();
       btn.textContent=orig;
       btn.disabled=false;
@@ -993,6 +1018,8 @@ function handleContactSubmit(e){
   setTimeout(()=>{
     alert('Thank you — your message has been received. We\'ll be in touch shortly.');
     form.reset();
+    contactRecaptchaVerified=false;
+    if(window.grecaptcha){try{grecaptcha.reset(document.getElementById('contactRecaptcha'));}catch(e){}}
     document.getElementById('cf_ts').value=Date.now();
     btn.textContent=orig;
     btn.disabled=false;
