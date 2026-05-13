@@ -5,17 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Credo Capital — Equipment Finance</title>
 
-<!-- ============================================================
-     CREDO CAPITAL WEBSITE
-
-     ZOHO CRM INTEGRATION — PASTE YOUR CREDENTIALS HERE:
-     ============================================================
-     1. In Zoho CRM: Setup → Developer Space → Webforms
-     2. Create a webform mapped to Leads module
-     3. Replace YOUR_ZOHO_WEBFORM_URL below with your form action URL
-     4. Paste your two hidden input tokens where indicated
-     ============================================================ -->
-
 <style>
   :root{
     --forest:#1a3d2e;
@@ -36,8 +25,6 @@
   body{font-family:'Helvetica Neue',Arial,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased}
   h1,h2,h3,h4{font-family:Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-0.01em;line-height:1.2}
   a{color:inherit;text-decoration:none}
-
-  /* NAV */
   .nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--forest-dark);border-bottom:1px solid rgba(184,134,11,0.3)}
   .nav-inner{max-width:1280px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between}
   .nav-logo{display:flex;align-items:center;gap:.75rem;color:var(--white)}
@@ -52,12 +39,8 @@
   .nav-cta:hover{background:var(--gold-light)}
   .nav-toggle{display:none;background:none;border:none;color:var(--cream);cursor:pointer;padding:.5rem}
   .nav-toggle svg{width:24px;height:24px}
-
-  /* PAGES */
   .page{display:none;padding-top:72px;min-height:100vh}
   .page.active{display:block}
-
-  /* HERO */
   .hero{background:linear-gradient(135deg,var(--forest-dark) 0%,var(--forest) 60%,var(--forest-light) 100%);color:var(--cream);padding:6rem 2rem 7rem;position:relative;overflow:hidden}
   .hero::before{content:"";position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(184,134,11,.15) 0%,transparent 70%)}
   .hero-inner{max-width:1180px;margin:0 auto;position:relative;z-index:2;display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:center}
@@ -73,8 +56,6 @@
   .hero-visual{display:flex;align-items:center;justify-content:center}
   .hero-wheel{width:100%;max-width:380px;animation:rotate 60s linear infinite}
   @keyframes rotate{to{transform:rotate(360deg)}}
-
-  /* SECTIONS */
   .section{padding:6rem 2rem}
   .section-inner{max-width:1180px;margin:0 auto}
   .section-header{text-align:center;margin-bottom:4rem}
@@ -82,23 +63,17 @@
   .section-header h2{font-size:clamp(1.8rem,3.5vw,2.75rem);color:var(--forest-dark);margin-bottom:1rem}
   .section-header p{color:var(--muted);max-width:640px;margin:0 auto;font-size:1.05rem}
   .divider{width:60px;height:2px;background:var(--gold);margin:1.5rem auto}
-
-  /* VALUES STRIP */
   .values-strip{background:var(--paper);padding:3rem 2rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
   .values-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
   .value-item{display:flex;flex-direction:column;align-items:center;gap:.5rem}
   .value-item-label{font-family:Georgia,serif;font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
   .value-item-text{font-family:Georgia,serif;font-size:1.1rem;color:var(--forest-dark);font-style:italic}
-
-  /* EQUIPMENT GRID */
   .equipment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
   .equipment-card{background:var(--white);padding:2.5rem 2rem;border:1px solid var(--border);border-top:3px solid var(--gold);transition:all .3s}
   .equipment-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(26,61,46,.1)}
   .equipment-icon{width:48px;height:48px;color:var(--forest);margin-bottom:1.5rem}
   .equipment-card h3{font-size:1.3rem;color:var(--forest-dark);margin-bottom:.75rem}
   .equipment-card p{color:var(--muted);font-size:.95rem;line-height:1.7}
-
-  /* PROCESS */
   .process{background:var(--forest-dark);color:var(--cream);padding:6rem 2rem}
   .process .section-header h2{color:var(--white)}
   .process .section-header p{color:#c5c0b0}
@@ -108,15 +83,11 @@
   .process-number{font-family:Georgia,serif;font-size:3rem;color:var(--gold);font-style:italic;margin-bottom:1rem;line-height:1}
   .process-step h3{color:var(--white);font-size:1.2rem;margin-bottom:.75rem}
   .process-step p{color:#c5c0b0;font-size:.92rem;line-height:1.7}
-
-  /* CTA BANNER */
   .cta-banner{background:linear-gradient(135deg,var(--forest) 0%,var(--forest-light) 100%);padding:5rem 2rem;text-align:center;color:var(--cream)}
   .cta-banner-inner{max-width:720px;margin:0 auto}
   .cta-banner h2{color:var(--white);font-size:clamp(1.8rem,3.5vw,2.5rem);margin-bottom:1rem}
   .cta-banner p{font-size:1.1rem;margin-bottom:2rem;color:#e8e4d5}
   .cta-verse{font-family:Georgia,serif;font-style:italic;color:var(--gold-light);font-size:.95rem;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(212,165,116,.3);max-width:560px;margin-left:auto;margin-right:auto}
-
-  /* ABOUT */
   .about-hero{background:var(--forest-dark);color:var(--cream);padding:5rem 2rem 4rem;text-align:center}
   .about-hero-inner{max-width:760px;margin:0 auto}
   .about-hero h1{font-size:clamp(2.5rem,5vw,3.75rem);color:var(--white);margin-bottom:1rem}
@@ -133,8 +104,6 @@
   .pillar{padding:2rem;border:1px solid var(--border);border-top:3px solid var(--gold);background:var(--white)}
   .pillar h3{color:var(--forest-dark);font-size:1.25rem;margin-bottom:.75rem}
   .pillar p{color:var(--muted);font-size:.95rem;line-height:1.7}
-
-  /* CONTACT */
   .contact-page{padding:5rem 2rem;background:var(--cream);min-height:calc(100vh - 72px)}
   .contact-inner{max-width:1080px;margin:0 auto}
   .contact-header{text-align:center;margin-bottom:4rem}
@@ -160,8 +129,6 @@
   .contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--gold);background:var(--white)}
   .contact-form textarea{min-height:130px;resize:vertical}
   .contact-form .btn-primary{width:100%;margin-top:.5rem}
-
-  /* APPLY PAGE */
   .apply-hero{background:linear-gradient(135deg,var(--forest-dark) 0%,var(--forest) 100%);color:var(--cream);padding:5rem 2rem;text-align:center}
   .apply-hero-inner{max-width:720px;margin:0 auto}
   .apply-hero h1{font-size:clamp(2.25rem,4vw,3.25rem);color:var(--white);margin-bottom:1rem}
@@ -177,8 +144,6 @@
   .apply-info-card p{color:var(--muted);font-size:.9rem}
   .apply-info .btn-wrap{text-align:center}
   .apply-info .btn-primary{font-size:1rem;padding:1.15rem 3rem}
-
-  /* MODAL */
   .modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,42,31,.85);backdrop-filter:blur(4px);z-index:1000;padding:2rem 1rem;overflow-y:auto;align-items:flex-start;justify-content:center}
   .modal-overlay.active{display:flex}
   .modal{background:var(--cream);max-width:820px;width:100%;border-radius:4px;box-shadow:0 25px 60px rgba(0,0,0,.4);overflow:hidden;margin:auto;position:relative}
@@ -228,19 +193,13 @@
   .btn-next:hover,.btn-submit:hover{background:var(--forest)}
   .btn-submit{background:var(--gold);color:var(--forest-dark);border-color:var(--gold)}
   .btn-submit:hover{background:var(--gold-light)}
-
-  /* SIGNATURE */
   .sig-status{font-size:.78rem;color:var(--muted);font-style:italic;margin-top:.5rem;display:block}
   .sig-status.signed{color:var(--forest);font-style:normal;font-weight:600}
-
-  /* SUCCESS */
   .success-screen{display:none;text-align:center;padding:3rem 2rem}
   .success-screen.active{display:block}
   .success-icon{width:72px;height:72px;background:var(--forest);color:var(--gold-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:2rem}
   .success-screen h3{color:var(--forest-dark);font-size:1.75rem;margin-bottom:1rem}
   .success-screen p{color:var(--muted);font-size:1rem;max-width:440px;margin:0 auto 2rem;line-height:1.7}
-
-  /* FOOTER */
   .footer{background:var(--forest-dark);color:#c5c0b0;padding:4rem 2rem 2rem}
   .footer-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
   .footer-brand{display:flex;flex-direction:column;gap:1rem}
@@ -259,7 +218,14 @@
   .footer-bottom{border-top:1px solid rgba(212,165,116,.2);padding-top:2rem;text-align:center;font-size:.8rem;color:#8b8778}
   .footer-bottom .verse{font-family:Georgia,serif;font-style:italic;color:var(--gold-light);margin-bottom:.75rem}
 
-  /* RESPONSIVE */
+  /* =====================================================
+     HONEYPOT — positioned off-screen so bots see the
+     field in the DOM but real users never interact with it.
+     Using position:absolute off-screen is more reliable
+     than display:none (some bots skip display:none fields).
+  ===================================================== */
+  .hp-field{position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none}
+
   @media(max-width:960px){
     .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--forest-dark);flex-direction:column;padding:1.5rem 2rem;gap:1.25rem;border-top:1px solid rgba(212,165,116,.2)}
     .nav-links.open{display:flex}
@@ -489,10 +455,24 @@
         <div class="contact-form-box">
           <h3>Send a Message</h3>
           <p class="form-intro">Have a question before applying? Fill out the form below and we'll be in touch.</p>
+          <!--
+            BOT PROTECTION (Contact Form):
+            1. #hp_website — honeypot: must be empty on submit
+            2. #cf_ts — time check: must take >3s to fill out
+          -->
           <form class="contact-form" id="contactForm" action="https://forms.zohopublic.com/truemachinerybrokeragegm1/form/CustomerContactRequestForm/formperma/zraOJkVKDh4HDdvji96Mw5RWka9NmlFCLbL75676cZw/htmlRecords/submit" method="POST" enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="handleContactSubmit(event)" target="hidden_iframe">
             <input type="hidden" name="zf_referrer_name" value="credocapitalca.com">
             <input type="hidden" name="zf_redirect_url" value="">
             <input type="hidden" name="zc_gad" value="">
+
+            <!-- HONEYPOT: off-screen, invisible to humans; bots fill it automatically -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="hp_website">Leave this blank</label>
+              <input type="text" id="hp_website" name="hp_website" tabindex="-1" autocomplete="off" value="">
+            </div>
+            <!-- TIME STAMP: set on page load, checked on submit -->
+            <input type="hidden" id="cf_ts" value="">
+
             <div class="field-row">
               <div class="field"><label>First Name</label><input type="text" name="SingleLine" maxlength="255" required placeholder="First name"></div>
               <div class="field"><label>Last Name</label><input type="text" name="SingleLine1" maxlength="255" required placeholder="Last name"></div>
@@ -571,6 +551,19 @@
 
       <input type="hidden" name="Description" id="descriptionField">
       <input type="hidden" name="LEADCF31" id="signatureStatusField" value="Not Signed">
+
+      <!--
+        BOT PROTECTION (Application Form):
+        1. #hp_url — honeypot: must be empty on submit
+        2. #af_ts — time check: must take >5s (multi-step form)
+      -->
+      <!-- HONEYPOT: off-screen, invisible to humans; bots fill it automatically -->
+      <div class="hp-field" aria-hidden="true">
+        <label for="hp_url">Leave this blank</label>
+        <input type="text" id="hp_url" name="hp_url" tabindex="-1" autocomplete="off" value="">
+      </div>
+      <!-- TIME STAMP: set when modal opens, checked on final submit -->
+      <input type="hidden" id="af_ts" value="">
 
       <div class="modal-body">
 
@@ -768,6 +761,32 @@ function showPage(id){
   window.scrollTo({top:0,behavior:'instant'});
 }
 
+// ============= BOT PROTECTION =============
+// Stamp the contact form load time immediately
+document.getElementById('cf_ts').value = Date.now();
+
+/**
+ * Returns true if the contact form submission looks like a bot:
+ *  - Honeypot field (#hp_website) is filled in, OR
+ *  - Less than 3 seconds elapsed since the page loaded
+ */
+function isBotContact() {
+  if (document.getElementById('hp_website').value.trim() !== '') return true;
+  if (Date.now() - parseInt(document.getElementById('cf_ts').value, 10) < 3000) return true;
+  return false;
+}
+
+/**
+ * Returns true if the application form submission looks like a bot:
+ *  - Honeypot field (#hp_url) is filled in, OR
+ *  - Less than 5 seconds elapsed since the modal opened
+ */
+function isBotApplication() {
+  if (document.getElementById('hp_url').value.trim() !== '') return true;
+  if (Date.now() - parseInt(document.getElementById('af_ts').value, 10) < 5000) return true;
+  return false;
+}
+
 // ============= MODAL =============
 let currentStep=1, totalSteps=5, sigSigned=false;
 const stepNames={1:'Business Information',2:'Business Principal',3:'Equipment Information',4:'Authorization & Signature',5:'Review & Submit'};
@@ -775,12 +794,13 @@ const stepNames={1:'Business Information',2:'Business Principal',3:'Equipment In
 function openApplicationModal(){
   document.getElementById('appModal').classList.add('active');
   document.body.style.overflow='hidden';
+  // Record modal open time for bot time-check
+  document.getElementById('af_ts').value = Date.now();
   currentStep=1;
   updateStep();
   const today=new Date().toISOString().split('T')[0];
   const sd=document.getElementById('sigDate');
   if(sd)sd.value=today;
-  // Attach signature listener
   setTimeout(()=>{
     const s=document.getElementById('sigTyped');
     if(s&&!s._init){s.addEventListener('input',handleTypedSig);s._init=true;}
@@ -856,7 +876,6 @@ function handleTypedSig(){
   document.getElementById('signatureStatusField').value=sigSigned?'Signed':'Not Signed';
   updateSigStatus();
 }
-
 function updateSigStatus(){
   const el=document.getElementById('sigStatusLabel');
   if(!el)return;
@@ -879,33 +898,22 @@ function populateReview(){
   const rows=(l,val)=>`<div class="review-row"><span>${l}</span><span>${val||'—'}</span></div>`;
   document.getElementById('reviewContainer').innerHTML=`
     <div class="review-section"><h4>Business Information</h4>
-      ${rows('Legal Name',v('Company'))}
-      ${rows('Address',bizAddr)}
-      ${rows('Tax ID (EIN)',v('LEADCF4'))}
-      ${rows('Years in Business',v('LEADCF5'))}
-      ${rows('Business Phone',v('Phone'))}
-      ${rows('Annual Revenue',v('Annual Revenue'))}
-      ${rows('Structure',v('LEADCF30'))}
-      ${rows('Industry',v('Industry'))}
+      ${rows('Legal Name',v('Company'))}${rows('Address',bizAddr)}
+      ${rows('Tax ID (EIN)',v('LEADCF4'))}${rows('Years in Business',v('LEADCF5'))}
+      ${rows('Business Phone',v('Phone'))}${rows('Annual Revenue',v('Annual Revenue'))}
+      ${rows('Structure',v('LEADCF30'))}${rows('Industry',v('Industry'))}
     </div>
     <div class="review-section"><h4>Primary Owner / Guarantor</h4>
-      ${rows('First Name',v('First Name'))}
-      ${rows('Last Name',v('Last Name'))}
-      ${rows('Title',v('Designation'))}
-      ${rows('% Ownership',v('LEADCF67'))}
-      ${rows('Email',v('Email'))}
-      ${rows('Mobile Phone',v('Mobile'))}
-      ${rows('Date of Birth',v('LEADCF116'))}
-      ${rows('SSN',v('LEADCF6'))}
+      ${rows('First Name',v('First Name'))}${rows('Last Name',v('Last Name'))}
+      ${rows('Title',v('Designation'))}${rows('% Ownership',v('LEADCF67'))}
+      ${rows('Email',v('Email'))}${rows('Mobile Phone',v('Mobile'))}
+      ${rows('Date of Birth',v('LEADCF116'))}${rows('SSN',v('LEADCF6'))}
       ${rows('Home Address',homeAddr)}
     </div>
     <div class="review-section"><h4>Equipment Information</h4>
-      ${rows('Year',v('LEADCF26'))}
-      ${rows('Make',v('LEADCF28'))}
-      ${rows('Model',v('LEADCF29'))}
-      ${rows('Equipment Cost',v('LEADCF66'))}
-      ${rows('Vendor / Dealer',v('LEADCF3'))}
-      ${rows('Additional Notes',v('LEADCF27'))}
+      ${rows('Year',v('LEADCF26'))}${rows('Make',v('LEADCF28'))}
+      ${rows('Model',v('LEADCF29'))}${rows('Equipment Cost',v('LEADCF66'))}
+      ${rows('Vendor / Dealer',v('LEADCF3'))}${rows('Additional Notes',v('LEADCF27'))}
     </div>
     <div class="review-section"><h4>Signature</h4>
       ${rows('Status',sigSigned?'✓ Signed':'Not signed')}
@@ -918,18 +926,12 @@ function populateReview(){
 // ============= SUBMIT =============
 function handleFormSubmit(e){
   e.preventDefault();
-  // Build form data
-  const form = document.getElementById('applicationForm');
-  const formData = new FormData(form);
-  // Set signature status
-  formData.set('LEADCF31', sigSigned ? 'Signed' : 'Not Signed');
-  // Submit to Zoho via AJAX so we stay on the page
-  fetch('https://crm.zoho.com/crm/WebToLeadForm', {
-    method: 'POST',
-    body: formData,
-    mode: 'no-cors'
-  }).catch(()=>{});
-  // Show our own success screen immediately regardless
+  // Bot check: silently show success but skip the real POST
+  if(isBotApplication()){showSuccessScreen();return false;}
+  const form=document.getElementById('applicationForm');
+  const formData=new FormData(form);
+  formData.set('LEADCF31',sigSigned?'Signed':'Not Signed');
+  fetch('https://crm.zoho.com/crm/WebToLeadForm',{method:'POST',body:formData,mode:'no-cors'}).catch(()=>{});
   showSuccessScreen();
   return false;
 }
@@ -942,20 +944,34 @@ function showSuccessScreen(){
 }
 
 function handleContactSubmit(e){
-  // Form submits to hidden iframe; we just show feedback and reset
-  const form = e.target;
-  const btn = form.querySelector('button[type="submit"]');
-  const originalText = btn.textContent;
-  btn.textContent = 'Sending...';
-  btn.disabled = true;
+  e.preventDefault();
+  const form=e.target;
+  const btn=form.querySelector('button[type="submit"]');
+  const orig=btn.textContent;
+  btn.textContent='Sending...';
+  btn.disabled=true;
 
-  // Give iframe time to receive the post, then show success
-  setTimeout(() => {
+  // Bot check: fake success, skip the real POST
+  if(isBotContact()){
+    setTimeout(()=>{
+      alert('Thank you — your message has been received. We\'ll be in touch shortly.');
+      form.reset();
+      document.getElementById('cf_ts').value=Date.now();
+      btn.textContent=orig;
+      btn.disabled=false;
+    },1500);
+    return;
+  }
+
+  // Real user: submit to Zoho via hidden iframe, then confirm
+  form.submit();
+  setTimeout(()=>{
     alert('Thank you — your message has been received. We\'ll be in touch shortly.');
     form.reset();
-    btn.textContent = originalText;
-    btn.disabled = false;
-  }, 1500);
+    document.getElementById('cf_ts').value=Date.now();
+    btn.textContent=orig;
+    btn.disabled=false;
+  },1500);
 }
 </script>
 </body>
