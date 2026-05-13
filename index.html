@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Credo Capital — Equipment Finance</title>
+<!-- reCAPTCHA v2 -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <style>
   :root{
@@ -694,6 +696,17 @@
           <h3>Review & Submit</h3>
           <p>Please confirm your information before submitting. A Credo Capital representative will be in touch within 24–48 hours.</p>
           <div id="reviewContainer"></div>
+          <!-- reCAPTCHA v2 checkbox -->
+          <div style="margin-top:1.25rem">
+            <div class="g-recaptcha"
+                 data-sitekey="6LenlOgsAAAAAMDRyPR-ZUuufJGalHAWrmOzjvmu"
+                 data-theme="light"
+                 data-callback="onRecaptchaSuccess"
+                 data-expired-callback="onRecaptchaExpired"
+                 id="appRecaptcha">
+            </div>
+            <p id="recaptchaError" style="display:none;color:#c44;font-size:.8rem;margin-top:.4rem">Please complete the CAPTCHA before submitting.</p>
+          </div>
           <p style="font-size:.85rem;color:var(--muted);margin-top:1rem;padding:1rem;background:var(--paper);border-radius:3px;line-height:1.6">By submitting this application you confirm all information is accurate and authorize Credo Capital to process your request and submit to lending partners on your behalf.</p>
         </div>
 
@@ -765,6 +778,11 @@ function showPage(id){
 // Stamp the contact form load time immediately
 document.getElementById('cf_ts').value = Date.now();
 
+// reCAPTCHA state for application modal
+var recaptchaVerified = false;
+function onRecaptchaSuccess(token) { recaptchaVerified = true; document.getElementById('recaptchaError').style.display='none'; }
+function onRecaptchaExpired() { recaptchaVerified = false; }
+
 /**
  * Returns true if the contact form submission looks like a bot:
  *  - Honeypot field (#hp_website) is filled in, OR
@@ -812,6 +830,8 @@ function closeApplicationModal(){
   document.body.style.overflow='';
   currentStep=1;
   sigSigned=false;
+  recaptchaVerified=false;
+  if(window.grecaptcha){try{grecaptcha.reset();}catch(e){}}
   document.getElementById('applicationForm').reset();
   document.getElementById('successScreen').classList.remove('active');
   document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
@@ -928,6 +948,11 @@ function handleFormSubmit(e){
   e.preventDefault();
   // Bot check: silently show success but skip the real POST
   if(isBotApplication()){showSuccessScreen();return false;}
+  // reCAPTCHA check
+  if(!recaptchaVerified){
+    document.getElementById('recaptchaError').style.display='block';
+    return false;
+  }
   const form=document.getElementById('applicationForm');
   const formData=new FormData(form);
   formData.set('LEADCF31',sigSigned?'Signed':'Not Signed');
