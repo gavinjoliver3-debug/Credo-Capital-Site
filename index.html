@@ -457,46 +457,104 @@
         <div class="contact-form-box">
           <h3>Send a Message</h3>
           <p class="form-intro">Have a question before applying? Fill out the form below and we'll be in touch.</p>
-          <!--
-            BOT PROTECTION (Contact Form):
-            1. #hp_website — honeypot: must be empty on submit
-            2. #cf_ts — time check: must take >3s to fill out
-          -->
-          <form class="contact-form" id="contactForm" action="https://forms.zohopublic.com/truemachinerybrokeragegm1/form/CustomerContactRequestForm/formperma/zraOJkVKDh4HDdvji96Mw5RWka9NmlFCLbL75676cZw/htmlRecords/submit" method="POST" enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="handleContactSubmit(event)" target="hidden_iframe">
-            <input type="hidden" name="zf_referrer_name" value="credocapitalca.com">
-            <input type="hidden" name="zf_redirect_url" value="">
-            <input type="hidden" name="zc_gad" value="">
 
-            <!-- HONEYPOT: off-screen, invisible to humans; bots fill it automatically -->
-            <div class="hp-field" aria-hidden="true">
-              <label for="hp_website">Leave this blank</label>
-              <input type="text" id="hp_website" name="hp_website" tabindex="-1" autocomplete="off" value="">
-            </div>
-            <!-- TIME STAMP: set on page load, checked on submit -->
-            <input type="hidden" id="cf_ts" value="">
+          <!-- Zoho CRM Web-to-Lead Contact Form -->
+
+          <div class="wf_customMessageBox" id="wf_splash" style="display:none">
+            <div class="wf_customCircle"><div class="wf_customCheckMark"></div></div>
+            <span id="wf_splash_info"></span>
+          </div>
+
+          <form id="webform6965298000000945019" name="WebToLeads6965298000000945019" accept-charset="UTF-8" class="contact-form">
+            <input type="text" style="display:none;" name="xnQsjsdp" value="3bc60d7092e59ccae51776fed4403b346f3d5c04920c2fafe5acca6ff916607c">
+            <input type="hidden" name="zc_gad" id="zc_gad_contact" value="">
+            <input type="text" style="display:none;" name="xmIwtLD" value="d79dbdebad85aeb5b4f633fb872caff1627c5422b67bb7939b05fa1ae3a9e2c4387a3d9ea05a4f42b55dbfc688881bba">
+            <input type="text" style="display:none;" name="actionType" value="TGVhZHM=">
+            <input type="text" style="display:none;" name="returnURL" value="null">
+            <input type="text" style="display:none;" name="aG9uZXlwb3Q" value="">
 
             <div class="field-row">
-              <div class="field"><label>First Name</label><input type="text" name="SingleLine" maxlength="255" required placeholder="First name"></div>
-              <div class="field"><label>Last Name</label><input type="text" name="SingleLine1" maxlength="255" required placeholder="Last name"></div>
+              <div class="field"><label>First Name *</label><input type="text" id="First_Name" name="First Name" maxlength="40" required placeholder="First name"></div>
+              <div class="field"><label>Last Name *</label><input type="text" id="Last_Name" name="Last Name" maxlength="80" required placeholder="Last name"></div>
             </div>
-            <div class="field"><label>Email</label><input type="email" name="Email" maxlength="255" required placeholder="you@example.com"></div>
-            <div class="field"><label>Phone</label><input type="tel" name="PhoneNumber_countrycode" maxlength="20" placeholder="(XXX) XXX-XXXX"></div>
-            <div class="field"><label>Company Name</label><input type="text" name="SingleLine2" maxlength="255" required placeholder="Your business name"></div>
-            <div class="field"><label>How Can We Help?</label><textarea name="MultiLine" maxlength="65535" required placeholder="Tell us about your equipment financing needs..."></textarea></div>
-            <!-- reCAPTCHA v2 checkbox -->
+            <div class="field"><label>Company Name *</label><input type="text" id="Company" name="Company" maxlength="200" required placeholder="Your business name"></div>
+            <div class="field"><label>Phone</label><input type="tel" id="Phone" name="Phone" maxlength="30" placeholder="(XXX) XXX-XXXX"></div>
+            <div class="field"><label>Email</label><input type="text" ftype="email" autocomplete="false" id="Email" name="Email" maxlength="100" placeholder="you@example.com"></div>
+            <div class="field"><label>How Can We Help?</label><textarea id="LEADCF34" name="LEADCF34" placeholder="Tell us about your equipment financing needs..."></textarea></div>
+
+            <!-- reCAPTCHA -->
             <div style="margin-bottom:1rem">
               <div class="g-recaptcha"
-                   data-sitekey="6Ld85ugsAAAAAPZ77uRVV6y0T7SNg-S63ZdiO5EB"
+                   data-sitekey="6LcOlfAsAAAAADqQP0wYapU1wyxpImLpsAi5j-hZ"
                    data-theme="light"
-                   data-callback="onContactRecaptchaSuccess"
-                   data-expired-callback="onContactRecaptchaExpired"
-                   id="contactRecaptcha">
+                   data-callback="rccallback6965298000000945019"
+                   captcha-verified="false"
+                   id="recap6965298000000945019">
               </div>
-              <p id="contactRecaptchaError" style="display:none;color:#c44;font-size:.8rem;margin-top:.4rem">Please complete the CAPTCHA before sending.</p>
+              <div id="recapErr6965298000000945019" style="font-size:.8rem;color:#c44;visibility:hidden;">Captcha validation failed. If you are not a robot then please try again.</div>
             </div>
-            <button type="submit" class="btn-primary">Send Message</button>
+
+            <button type="submit" class="btn-primary" style="width:100%">Send Message</button>
           </form>
-          <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+          <script>
+            function rccallback6965298000000945019(){
+              if(document.getElementById('recap6965298000000945019')!=undefined){document.getElementById('recap6965298000000945019').setAttribute('captcha-verified',true);}
+              if(document.getElementById('recapErr6965298000000945019')!=undefined&&document.getElementById('recapErr6965298000000945019').style.visibility=='visible'){document.getElementById('recapErr6965298000000945019').style.visibility='hidden';}
+            }
+            function reCaptchaAlert6965298000000945019(){
+              var recap=document.getElementById('recap6965298000000945019');
+              if(recap!=undefined&&recap.getAttribute('captcha-verified')=='false'){document.getElementById('recapErr6965298000000945019').style.visibility='visible';return false;}
+              return true;
+            }
+            function validateEmail6965298000000945019(){
+              var form=document.forms['WebToLeads6965298000000945019'];
+              var emailFld=form.querySelectorAll('[ftype=email]');
+              for(var i=0;i<emailFld.length;i++){
+                var emailVal=emailFld[i].value;
+                if((emailVal.replace(/^\s+|\s+$/g,'')).length!=0){
+                  var atpos=emailVal.indexOf('@');var dotpos=emailVal.lastIndexOf('.');
+                  if(atpos<1||dotpos<atpos+2||dotpos+2>=emailVal.length){alert('Please enter a valid email address.');emailFld[i].focus();return false;}
+                }
+              }
+              return true;
+            }
+            function checkMandatory6965298000000945019(){
+              var mndFileds=['Company','First Name','Last Name'];
+              var fldLangVal=['Company Name','First Name','Last Name'];
+              for(var i=0;i<mndFileds.length;i++){
+                var fieldObj=document.forms['WebToLeads6965298000000945019'][mndFileds[i]];
+                if(fieldObj){
+                  if(((fieldObj.value).replace(/^\s+|\s+$/g,'')).length==0){alert(fldLangVal[i]+' cannot be empty.');fieldObj.focus();return false;}
+                }
+              }
+              if(!validateEmail6965298000000945019()){return false;}
+              if(!reCaptchaAlert6965298000000945019()){return false;}
+              document.querySelector('#webform6965298000000945019 .btn-primary').setAttribute('disabled',true);
+              return true;
+            }
+            document.getElementById('webform6965298000000945019').addEventListener('submit',function(e){
+              e.preventDefault();
+              var ismandatory=checkMandatory6965298000000945019();
+              if(ismandatory){
+                var formData=new FormData(this);
+                var xhr=new XMLHttpRequest();
+                xhr.open('POST','https://crm.zoho.com/crm/WebToLeadForm',true);
+                xhr.onload=function(){
+                  var splashdom=document.getElementById('wf_splash');
+                  document.getElementById('wf_splash_info').innerText='Thank you! Your message has been received. We\'ll be in touch shortly.';
+                  document.getElementById('webform6965298000000945019').reset();
+                  if(window.grecaptcha){try{grecaptcha.reset();}catch(err){}}
+                  splashdom.style.display='';
+                  setTimeout(function(){splashdom.style.display='none';},5000);
+                  document.querySelector('#webform6965298000000945019 .btn-primary').removeAttribute('disabled');
+                };
+                xhr.onerror=function(){alert('An error occurred. Please try again.');};
+                xhr.send(formData);
+              }
+            });
+          </script>
+          <script id="wf_anal" src="https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=2f7a83617ef730c1e8ea15ba7785be03b1a4f3ee88b2e5f3347c96b9d6ab988fa23fe371974678bfff3899da0f1db742gid32193ae4429574a4d1df787bee939fd8ddc774dd855ebdacff5cb34172ba6deegid40302e46e11895d239bcdbd0327a6bc72ba6de4da7de5590b1673d925e8df912gid0b82f8ea2f2eeb75283a5bf3150d56bf6f24eaf3fdda575e991d66f1652789f8&tw=9ce54b96beba6f1b5f71401ff7f927eaba0fe82014383b9e24ec14a7f9011775"></script>
         </div>
       </div>
     </div>
@@ -786,29 +844,11 @@ function showPage(id){
 }
 
 // ============= BOT PROTECTION =============
-// Stamp the contact form load time immediately
-document.getElementById('cf_ts').value = Date.now();
 
 // reCAPTCHA state for application modal
 var recaptchaVerified = false;
 function onRecaptchaSuccess(token) { recaptchaVerified = true; document.getElementById('recaptchaError').style.display='none'; }
 function onRecaptchaExpired() { recaptchaVerified = false; }
-
-// reCAPTCHA state for contact form
-var contactRecaptchaVerified = false;
-function onContactRecaptchaSuccess(token) { contactRecaptchaVerified = true; document.getElementById('contactRecaptchaError').style.display='none'; }
-function onContactRecaptchaExpired() { contactRecaptchaVerified = false; }
-
-/**
- * Returns true if the contact form submission looks like a bot:
- *  - Honeypot field (#hp_website) is filled in, OR
- *  - Less than 3 seconds elapsed since the page loaded
- */
-function isBotContact() {
-  if (document.getElementById('hp_website').value.trim() !== '') return true;
-  if (Date.now() - parseInt(document.getElementById('cf_ts').value, 10) < 3000) return true;
-  return false;
-}
 
 /**
  * Returns true if the application form submission looks like a bot:
@@ -982,48 +1022,6 @@ function showSuccessScreen(){
   document.getElementById('successScreen').classList.add('active');
   document.getElementById('modalFooter').style.display='none';
   document.getElementById('progressBar').style.display='none';
-}
-
-function handleContactSubmit(e){
-  e.preventDefault();
-  const form=e.target;
-  const btn=form.querySelector('button[type="submit"]');
-  const orig=btn.textContent;
-
-  // reCAPTCHA check
-  if(!contactRecaptchaVerified){
-    document.getElementById('contactRecaptchaError').style.display='block';
-    return;
-  }
-
-  btn.textContent='Sending...';
-  btn.disabled=true;
-
-  // Bot check: fake success, skip the real POST
-  if(isBotContact()){
-    setTimeout(()=>{
-      alert('Thank you — your message has been received. We\'ll be in touch shortly.');
-      form.reset();
-      contactRecaptchaVerified=false;
-      if(window.grecaptcha){try{grecaptcha.reset(document.getElementById('contactRecaptcha'));}catch(e){}}
-      document.getElementById('cf_ts').value=Date.now();
-      btn.textContent=orig;
-      btn.disabled=false;
-    },1500);
-    return;
-  }
-
-  // Real user: submit to Zoho via hidden iframe, then confirm
-  form.submit();
-  setTimeout(()=>{
-    alert('Thank you — your message has been received. We\'ll be in touch shortly.');
-    form.reset();
-    contactRecaptchaVerified=false;
-    if(window.grecaptcha){try{grecaptcha.reset(document.getElementById('contactRecaptcha'));}catch(e){}}
-    document.getElementById('cf_ts').value=Date.now();
-    btn.textContent=orig;
-    btn.disabled=false;
-  },1500);
 }
 </script>
 </body>
