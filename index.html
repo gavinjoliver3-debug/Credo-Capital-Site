@@ -220,12 +220,7 @@
   .footer-bottom{border-top:1px solid rgba(212,165,116,.2);padding-top:2rem;text-align:center;font-size:.8rem;color:#8b8778}
   .footer-bottom .verse{font-family:Georgia,serif;font-style:italic;color:var(--gold-light);margin-bottom:.75rem}
 
-  /* =====================================================
-     HONEYPOT — positioned off-screen so bots see the
-     field in the DOM but real users never interact with it.
-     Using position:absolute off-screen is more reliable
-     than display:none (some bots skip display:none fields).
-  ===================================================== */
+  /* HONEYPOT */
   .hp-field{position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none}
 
   @media(max-width:960px){
@@ -459,9 +454,7 @@
           <p class="form-intro">Have a question before applying? Fill out the form below and we'll be in touch.</p>
 
           <!-- Zoho CRM Web-to-Lead Contact Form -->
-
-          <div class="wf_customMessageBox" id="wf_splash" style="display:none">
-            <div class="wf_customCircle"><div class="wf_customCheckMark"></div></div>
+          <div class="wf_customMessageBox" id="wf_splash" style="display:none;position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#F5FAF5;border:1px solid #A9D3AB;color:#132C14;padding:10px 15px;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,0.25);z-index:11000">
             <span id="wf_splash_info"></span>
           </div>
 
@@ -533,13 +526,12 @@
                 e.preventDefault();
                 return false;
               }
-              // Let form submit natively to hidden iframe
               var splashdom=document.getElementById('wf_splash');
               document.getElementById('wf_splash_info').innerText='Thank you! Your message has been received. We\'ll be in touch shortly.';
               setTimeout(function(){
                 document.getElementById('webform6965298000000945019').reset();
                 if(window.grecaptcha){try{grecaptcha.reset();}catch(err){}}
-                splashdom.style.display='';
+                splashdom.style.display='block';
                 setTimeout(function(){splashdom.style.display='none';},5000);
                 document.querySelector('#webform6965298000000945019 .btn-primary').removeAttribute('disabled');
               },500);
@@ -603,7 +595,7 @@
       </div>
     </div>
 
-    <form id="applicationForm" name="WebToLeads6965298000000740051" action="https://crm.zoho.com/crm/WebToLeadForm" method="POST" accept-charset="UTF-8" onsubmit="return handleFormSubmit(event)">
+    <form id="applicationForm" name="WebToLeads6965298000000740051" action="https://crm.zoho.com/crm/WebToLeadForm" method="POST" accept-charset="UTF-8" target="hidden_app_iframe" onsubmit="return handleFormSubmit(event)">
 
       <!-- ZOHO HIDDEN TOKENS -->
       <input type="text" style="display:none;" name="xnQsjsdp" value="fc834f2599fab1a08fe48ed89e7ab202a80e5744f65512f958a48449767a74f2">
@@ -611,8 +603,8 @@
       <input type="text" style="display:none;" name="xmIwtLD" value="1b5552e5764844f061d76d7f26bc29a0a7916814498c1bd13d4f41c6a728d4d7ef661a601a3de51ebfcec107bb01797c">
       <input type="text" style="display:none;" name="actionType" value="TGVhZHM=">
       <input type="text" style="display:none;" name="returnURL" value="null">
-      <input type="hidden" name="Description" id="descriptionField">
-      <input type="hidden" name="Signature_Status" id="signatureStatusField" value="Not Signed">
+      <!-- Honeypot -->
+      <input type="text" class="hp-field" name="aG9uZXlwb3Q" value="" tabindex="-1" autocomplete="off">
 
       <div class="modal-body">
 
@@ -622,27 +614,31 @@
           <p>Tell us about your business. All fields are required.</p>
           <div class="form-grid cols-2">
             <div class="field-group"><label>Legal Business Name *</label><input type="text" name="Company" required placeholder="Legal business name"></div>
-            <div class="field-group"><label>Federal Tax ID (EIN) *</label><input type="text" name="Federal_Tax_ID" required placeholder="XX-XXXXXXX"></div>
+            <div class="field-group"><label>Federal Tax ID (EIN) *</label><input type="text" name="LEADCF4" required placeholder="XX-XXXXXXX"></div>
           </div>
           <div class="form-grid"><div class="field-group"><label>Business Street Address *</label><input type="text" name="Street" required placeholder="Street address"></div></div>
           <div class="form-grid cols-3">
             <div class="field-group"><label>City *</label><input type="text" name="City" required placeholder="City"></div>
             <div class="field-group"><label>State *</label><input type="text" name="State" required placeholder="State"></div>
-            <div class="field-group"><label>Zip Code *</label><input type="text" name="Zip_Code" required placeholder="Zip"></div>
+            <div class="field-group"><label>Zip Code *</label><input type="text" name="Zip Code" required placeholder="Zip"></div>
           </div>
           <div class="form-grid cols-2">
-            <div class="field-group"><label>Years in Business *</label><input type="text" name="Years_in_Business" required placeholder="e.g. 8"></div>
+            <div class="field-group"><label>Years in Business *</label><input type="text" name="LEADCF5" required placeholder="e.g. 8"></div>
             <div class="field-group"><label>Business Phone *</label><input type="tel" name="Phone" required placeholder="(XXX) XXX-XXXX"></div>
           </div>
           <div class="form-grid cols-2">
-            <div class="field-group"><label>Annual Revenue *</label><input type="text" name="Annual_Revenue" required placeholder="$"></div>
+            <div class="field-group"><label>Annual Revenue *</label><input type="text" name="Annual Revenue" required placeholder="$"></div>
             <div class="field-group">
               <label>Business Structure *</label>
-              <select name="Business_Structure" required>
+              <select name="LEADCF30" required>
                 <option value="">Select...</option>
-                <option>LLC</option><option>S-Corp</option><option>C-Corp</option>
-                <option>Sole Proprietorship</option><option>Partnership</option>
-                <option>Non-Profit</option><option>Other</option>
+                <option value="LLC">LLC</option>
+                <option value="S-Corp">S-Corp</option>
+                <option value="C-Corp">C-Corp</option>
+                <option value="Sole Proprietorship">Sole Proprietorship</option>
+                <option value="Partnership">Partnership</option>
+                <option value="Non-Profit">Non-Profit</option>
+                <option value="Other">Other</option>
               </select>
             </div>
           </div>
@@ -651,11 +647,16 @@
               <label>Industry *</label>
               <select name="Industry" required>
                 <option value="">Select...</option>
-                <option>General Construction</option><option>Grading</option>
-                <option>Excavation</option><option>Landscaping</option>
-                <option>Development</option><option>Local Haul</option>
-                <option>Long Haul</option><option>Demolition</option>
-                <option>Utilities</option><option>Other</option>
+                <option value="General Construction">General Construction</option>
+                <option value="Grading">Grading</option>
+                <option value="Excavation">Excavation</option>
+                <option value="Landscaping">Landscaping</option>
+                <option value="Development">Development</option>
+                <option value="Local Haul">Local Haul</option>
+                <option value="Long Haul">Long Haul</option>
+                <option value="Demolition">Demolition</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Other">Other</option>
               </select>
             </div>
           </div>
@@ -673,21 +674,21 @@
             </div>
             <div class="form-grid cols-2">
               <div class="field-group"><label>Title *</label><input type="text" name="Designation" required placeholder="e.g. President / CEO"></div>
-              <div class="field-group"><label>% Ownership *</label><input type="text" name="of_Ownership" required placeholder="e.g. 100"></div>
+              <div class="field-group"><label>% Ownership *</label><input type="text" name="LEADCF67" required placeholder="e.g. 100" maxlength="5"></div>
             </div>
             <div class="form-grid cols-2">
-              <div class="field-group"><label>Email *</label><input type="email" name="Email" required placeholder="email@example.com"></div>
+              <div class="field-group"><label>Email *</label><input type="email" ftype="email" name="Email" required placeholder="email@example.com"></div>
               <div class="field-group"><label>Mobile Phone *</label><input type="tel" name="Mobile" required placeholder="(XXX) XXX-XXXX"></div>
             </div>
             <div class="form-grid cols-2">
-              <div class="field-group"><label>Date of Birth *</label><input type="text" name="Birthday" required placeholder="MMM D, YYYY"></div>
-              <div class="field-group"><label>SSN *</label><input type="text" name="SSN" required placeholder="XXX-XX-XXXX"></div>
+              <div class="field-group"><label>Date of Birth *</label><input type="text" name="LEADCF116" required placeholder="MMM D, YYYY"></div>
+              <div class="field-group"><label>SSN *</label><input type="text" name="LEADCF6" required placeholder="XXX-XX-XXXX"></div>
             </div>
-            <div class="form-grid"><div class="field-group"><label>Home Street Address *</label><input type="text" name="Personal_Street" required placeholder="Street address"></div></div>
+            <div class="form-grid"><div class="field-group"><label>Home Street Address *</label><input type="text" name="LEADCF8" required placeholder="Street address"></div></div>
             <div class="form-grid cols-3">
-              <div class="field-group"><label>City *</label><input type="text" name="Personal_City" required placeholder="City"></div>
-              <div class="field-group"><label>State *</label><input type="text" name="Personal_State" required placeholder="State"></div>
-              <div class="field-group"><label>Zip Code *</label><input type="text" name="Personal_Zip_Code" required placeholder="Zip"></div>
+              <div class="field-group"><label>City *</label><input type="text" name="LEADCF10" required placeholder="City"></div>
+              <div class="field-group"><label>State *</label><input type="text" name="LEADCF9" required placeholder="State"></div>
+              <div class="field-group"><label>Zip Code *</label><input type="text" name="LEADCF11" required placeholder="Zip"></div>
             </div>
           </div>
         </div>
@@ -697,16 +698,16 @@
           <h3>Equipment Information</h3>
           <p>Details about the equipment you're looking to finance.</p>
           <div class="form-grid cols-3">
-            <div class="field-group"><label>Year *</label><input type="text" name="Equipment_Information" required placeholder="YYYY"></div>
-            <div class="field-group"><label>Make *</label><input type="text" name="Equipment_Make" required placeholder="e.g. Caterpillar"></div>
-            <div class="field-group"><label>Model *</label><input type="text" name="Equipment_Model" required placeholder="e.g. 320"></div>
+            <div class="field-group"><label>Year *</label><input type="text" name="LEADCF26" required placeholder="YYYY"></div>
+            <div class="field-group"><label>Make *</label><input type="text" name="LEADCF28" required placeholder="e.g. Caterpillar"></div>
+            <div class="field-group"><label>Model *</label><input type="text" name="LEADCF29" required placeholder="e.g. 320"></div>
           </div>
           <div class="form-grid cols-2">
-            <div class="field-group"><label>Equipment Cost *</label><input type="text" name="Equipment_Cost" required placeholder="$"></div>
-            <div class="field-group"><label>Vendor / Dealer Name *</label><input type="text" name="Vendor_Name" required placeholder="Dealer name"></div>
+            <div class="field-group"><label>Equipment Cost *</label><input type="text" name="LEADCF66" required placeholder="$"></div>
+            <div class="field-group"><label>Vendor / Dealer Name *</label><input type="text" name="LEADCF3" required placeholder="Dealer name"></div>
           </div>
           <div class="form-grid">
-            <div class="field-group"><label>Additional Notes</label><textarea name="Equipment_Notes" placeholder="Attachments, multiple units, condition, timing needs, etc." style="min-height:100px"></textarea></div>
+            <div class="field-group"><label>Additional Notes</label><textarea name="LEADCF27" placeholder="Attachments, multiple units, condition, timing needs, etc." style="min-height:100px" maxlength="255"></textarea></div>
           </div>
         </div>
 
@@ -719,22 +720,24 @@
           </div>
           <label class="auth-check">
             <input type="checkbox" id="authConsent" required>
-            <label for="authConsent">I have read and agree to the authorization above. All information provided is true and correct to the best of my knowledge.</label>
+            <span>I have read and agree to the authorization above. All information provided is true and correct to the best of my knowledge.</span>
           </label>
           <div class="principal-card">
             <div class="principal-card-header"><span class="principal-card-title">Owner Signature</span></div>
             <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.6">By typing your full legal name below, you are providing your electronic signature, which has the same legal effect as a handwritten signature under the federal E-SIGN Act.</p>
             <div class="form-grid cols-2" style="margin-bottom:1rem">
-              <div class="field-group"><label>Print Name *</label><input type="text" name="Signature_Print_Name" id="sigPrintName" required placeholder="Print full legal name"></div>
-              <div class="field-group"><label>Date *</label><input type="text" name="Signature_Date" id="sigDate" required placeholder="MMM D, YYYY"></div>
+              <div class="field-group"><label>Print Name *</label><input type="text" name="LEADCF33" id="sigPrintName" required placeholder="Print full legal name"></div>
+              <div class="field-group"><label>Date *</label><input type="text" name="LEADCF117" id="sigDate" required placeholder="MMM D, YYYY"></div>
             </div>
             <div class="form-grid">
               <div class="field-group">
                 <label>Type Full Name as Signature *</label>
-                <input type="text" name="Signature" id="sigTyped" required placeholder="Type your full legal name to sign" style="font-family:Georgia,serif;font-style:italic;font-size:1.15rem;color:var(--forest-dark);padding:.9rem 1rem">
+                <input type="text" name="LEADCF32" id="sigTyped" required placeholder="Type your full legal name to sign" style="font-family:Georgia,serif;font-style:italic;font-size:1.15rem;color:var(--forest-dark);padding:.9rem 1rem">
                 <span class="sig-status" id="sigStatusLabel">Not yet signed</span>
               </div>
             </div>
+            <!-- Hidden signature status field (Zoho LEADCF31) -->
+            <input type="hidden" name="LEADCF31" id="signatureStatusField" value="Not Signed">
           </div>
         </div>
 
@@ -751,7 +754,7 @@
           <div class="success-icon">✓</div>
           <h3>Application Received</h3>
           <p>Thank you for trusting Credo Capital with your financing. We will be in touch with you as soon as possible. For time-sensitive matters, call Gavin directly at (909) 705-2647.</p>
-          <button class="btn-primary" onclick="closeApplicationModal()">Close</button>
+          <button type="button" class="btn-primary" onclick="closeApplicationModal()">Close</button>
         </div>
 
       </div>
@@ -762,8 +765,10 @@
         <button type="submit" class="btn-submit" id="btnSubmit" style="display:none">Submit Application</button>
       </div>
     </form>
+    <iframe name="hidden_app_iframe" style="display:none;"></iframe>
   </div>
 </div>
+
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-inner">
@@ -820,7 +825,7 @@ function openApplicationModal(){
   updateStep();
   const today=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
   const sd=document.getElementById('sigDate');
-  if(sd)sd.value=today;
+  if(sd && !sd.value) sd.value=today;
   setTimeout(()=>{
     const s=document.getElementById('sigTyped');
     if(s&&!s._init){s.addEventListener('input',handleTypedSig);s._init=true;}
@@ -907,56 +912,44 @@ function updateSigStatus(){
 function populateReview(){
   const form=document.getElementById('applicationForm');
   const v=name=>{const el=form.elements[name];return el&&el.value?el.value:'—';};
-  const bizAddr=`${v('Street')}, ${v('City')}, ${v('State')} ${v('Zip_Code')}`;
-  const homeAddr=`${v('Personal_Street')}, ${v('Personal_City')}, ${v('Personal_State')} ${v('Personal_Zip_Code')}`;
-  document.getElementById('descriptionField').value=[
-    `Signature: ${sigSigned?'Signed':'Not Signed'}`,
-    `Signature Print Name: ${v('Signature_Print_Name')}`,
-    `Signature Date: ${v('Signature_Date')}`,
-    `Equipment Notes: ${v('Equipment_Notes')}`
-  ].join('\n');
+  const bizAddr=`${v('Street')}, ${v('City')}, ${v('State')} ${v('Zip Code')}`;
+  const homeAddr=`${v('LEADCF8')}, ${v('LEADCF10')}, ${v('LEADCF9')} ${v('LEADCF11')}`;
   const rows=(l,val)=>`<div class="review-row"><span>${l}</span><span>${val||'—'}</span></div>`;
   document.getElementById('reviewContainer').innerHTML=`
     <div class="review-section"><h4>Business Information</h4>
       ${rows('Legal Name',v('Company'))}${rows('Address',bizAddr)}
-      ${rows('Tax ID (EIN)',v('Federal_Tax_ID'))}${rows('Years in Business',v('Years_in_Business'))}
-      ${rows('Business Phone',v('Phone'))}${rows('Annual Revenue',v('Annual_Revenue'))}
-      ${rows('Structure',v('Business_Structure'))}${rows('Industry',v('Industry'))}
+      ${rows('Tax ID (EIN)',v('LEADCF4'))}${rows('Years in Business',v('LEADCF5'))}
+      ${rows('Business Phone',v('Phone'))}${rows('Annual Revenue',v('Annual Revenue'))}
+      ${rows('Structure',v('LEADCF30'))}${rows('Industry',v('Industry'))}
     </div>
     <div class="review-section"><h4>Primary Owner / Guarantor</h4>
       ${rows('First Name',v('First Name'))}${rows('Last Name',v('Last Name'))}
-      ${rows('Title',v('Designation'))}${rows('% Ownership',v('of_Ownership'))}
+      ${rows('Title',v('Designation'))}${rows('% Ownership',v('LEADCF67'))}
       ${rows('Email',v('Email'))}${rows('Mobile Phone',v('Mobile'))}
-      ${rows('Date of Birth',v('Birthday'))}${rows('SSN',v('SSN'))}
+      ${rows('Date of Birth',v('LEADCF116'))}${rows('SSN',v('LEADCF6'))}
       ${rows('Home Address',homeAddr)}
     </div>
     <div class="review-section"><h4>Equipment Information</h4>
-      ${rows('Year',v('Equipment_Information'))}${rows('Make',v('Equipment_Make'))}
-      ${rows('Model',v('Equipment_Model'))}${rows('Equipment Cost',v('Equipment_Cost'))}
-      ${rows('Vendor / Dealer',v('Vendor_Name'))}${rows('Additional Notes',v('Equipment_Notes'))}
+      ${rows('Year',v('LEADCF26'))}${rows('Make',v('LEADCF28'))}
+      ${rows('Model',v('LEADCF29'))}${rows('Equipment Cost',v('LEADCF66'))}
+      ${rows('Vendor / Dealer',v('LEADCF3'))}${rows('Additional Notes',v('LEADCF27'))}
     </div>
     <div class="review-section"><h4>Signature</h4>
       ${rows('Status',sigSigned?'✓ Signed':'Not signed')}
-      ${rows('Print Name',v('Signature_Print_Name'))}
-      ${rows('Signature',`<span style="font-family:Georgia,serif;font-style:italic">${v('Signature')}</span>`)}
-      ${rows('Date',v('Signature_Date'))}
+      ${rows('Print Name',v('LEADCF33'))}
+      ${rows('Signature',`<span style="font-family:Georgia,serif;font-style:italic">${v('LEADCF32')}</span>`)}
+      ${rows('Date',v('LEADCF117'))}
     </div>`;
 }
 
 // ============= SUBMIT =============
 function handleFormSubmit(e){
-  e.preventDefault();
-  const form = document.getElementById('applicationForm');
-  const formData = new FormData(form);
-  formData.set('Signature_Status', sigSigned ? 'Signed' : 'Not Signed');
-  // Submit to Zoho via fetch with no-cors — exactly as original working version
-  fetch('https://crm.zoho.com/crm/WebToLeadForm', {
-    method: 'POST',
-    body: formData,
-    mode: 'no-cors'
-  }).catch(()=>{});
-  showSuccessScreen();
-  return false;
+  // Ensure signature status is current
+  document.getElementById('signatureStatusField').value = sigSigned ? 'Signed' : 'Not Signed';
+  // Let the form submit natively to the hidden iframe (target="hidden_app_iframe")
+  // Show success after a brief delay
+  setTimeout(showSuccessScreen, 400);
+  return true;
 }
 
 function showSuccessScreen(){
