@@ -994,12 +994,19 @@ function populateReview(){
 // ============= SUBMIT =============
 function handleFormSubmit(e){
   e.preventDefault();
-  // Bot check: silently show success but skip the real POST
-  if(isBotApplication()){showSuccessScreen();return false;}
+  // Honeypot check only — skip time check as it can falsely trigger during testing
+  if(document.getElementById('hp_url').value.trim() !== ''){showSuccessScreen();return false;}
   const form=document.getElementById('applicationForm');
-  // Set signature status
+  // Populate description field before submitting
+  const v=name=>{const el=form.elements[name];return el&&el.value?el.value:'—';};
+  document.getElementById('descriptionField').value=[
+    `Signature: ${sigSigned?'Signed':'Not Signed'}`,
+    `Signature Print Name: ${v('LEADCF33')}`,
+    `Signature Date: ${v('LEADCF117')}`,
+    `Equipment Notes: ${v('LEADCF27')}`
+  ].join('\n');
   document.getElementById('signatureStatusField').value=sigSigned?'Signed':'Not Signed';
-  // Submit the form natively to Zoho via hidden iframe
+  // Submit natively to Zoho CRM via hidden iframe
   form.target='hidden_app_iframe';
   form.submit();
   showSuccessScreen();
