@@ -605,7 +605,7 @@
       </div>
     </div>
 
-    <form id="applicationForm" action="https://crm.zoho.com/crm/WebToLeadForm" method="POST" accept-charset="UTF-8" onsubmit="return handleFormSubmit(event)">
+    <form id="applicationForm" action="https://crm.zoho.com/crm/WebToLeadForm" method="POST" accept-charset="UTF-8" target="hidden_app_iframe" onsubmit="return handleFormSubmit(event)">
 
       <!-- ZOHO HIDDEN TOKENS -->
       <input type="text" style="display:none;" name="xnQsjsdp" value="32f25ddefafad526c38f70a3c05c2d5565f18b4e9358f399004f8ae82a9d3d0c">
@@ -993,9 +993,12 @@ function populateReview(){
 
 // ============= SUBMIT =============
 function handleFormSubmit(e){
-  e.preventDefault();
   // Honeypot check only
-  if(document.getElementById('hp_url').value.trim() !== ''){showSuccessScreen();return false;}
+  if(document.getElementById('hp_url').value.trim() !== ''){
+    e.preventDefault();
+    showSuccessScreen();
+    return false;
+  }
   const form=document.getElementById('applicationForm');
   // Populate description and signature fields before submitting
   const v=name=>{const el=form.elements[name];return el&&el.value?el.value:'—';};
@@ -1006,14 +1009,10 @@ function handleFormSubmit(e){
     `Equipment Notes: ${v('LEADCF27')}`
   ].join('\n');
   document.getElementById('signatureStatusField').value=sigSigned?'Signed':'Not Signed';
-  // Submit to Zoho CRM using XMLHttpRequest (same as Zoho's generated code but without jQuery)
-  var formData=new FormData(form);
-  var xhr=new XMLHttpRequest();
-  xhr.open('POST','https://crm.zoho.com/crm/WebToLeadForm',true);
-  xhr.onload=function(){showSuccessScreen();};
-  xhr.onerror=function(){showSuccessScreen();};
-  xhr.send(formData);
-  return false;
+  // Allow the form to submit natively to the hidden iframe (set in form's target attribute)
+  // Show success screen after a brief delay to let submission complete
+  setTimeout(showSuccessScreen, 500);
+  return true;
 }
 
 function showSuccessScreen(){
