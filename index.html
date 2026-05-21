@@ -6,8 +6,6 @@
 <title>Credo Capital — Equipment Finance</title>
 <!-- reCAPTCHA v2 -->
 <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaApiLoad&render=explicit" async defer></script>
-<!-- jQuery required for Zoho form submission -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 <style>
   :root{
@@ -616,12 +614,6 @@
       <input type="hidden" name="Description" id="descriptionField">
       <input type="hidden" name="LEADCF31" id="signatureStatusField" value="Not Signed">
 
-      <!-- HONEYPOT -->
-      <div class="hp-field" aria-hidden="true">
-        <label for="hp_url">Leave this blank</label>
-        <input type="text" id="hp_url" name="hp_url" tabindex="-1" autocomplete="off" value="">
-      </div>
-
       <div class="modal-body">
 
         <!-- STEP 1: BUSINESS INFORMATION -->
@@ -956,37 +948,16 @@ function populateReview(){
 // ============= SUBMIT =============
 function handleFormSubmit(e){
   e.preventDefault();
-  // Honeypot check
-  if(document.getElementById('hp_url').value.trim()!==''){
-    showSuccessScreen();
-    return false;
-  }
-  // Populate description and signature fields
-  const form=document.getElementById('applicationForm');
-  const v=name=>{const el=form.elements[name];return el&&el.value?el.value:'—';};
-  document.getElementById('descriptionField').value=[
-    `Signature: ${sigSigned?'Signed':'Not Signed'}`,
-    `Signature Print Name: ${v('LEADCF33')}`,
-    `Signature Date: ${v('LEADCF117')}`,
-    `Equipment Notes: ${v('LEADCF27')}`
-  ].join('\n');
-  document.getElementById('signatureStatusField').value=sigSigned?'Signed':'Not Signed';
-  // Submit using Zoho's exact jQuery AJAX method
-  var formData=new FormData(form);
-  $.ajax({
-    url:'https://crm.zoho.com/crm/WebToLeadForm',
-    type:'POST',
-    data:formData,
-    cache:false,
-    contentType:false,
-    processData:false,
-    success:function(data){
-      showSuccessScreen();
-    },
-    error:function(){
-      showSuccessScreen();
-    }
-  });
+  const form = document.getElementById('applicationForm');
+  const formData = new FormData(form);
+  formData.set('LEADCF31', sigSigned ? 'Signed' : 'Not Signed');
+  // Submit to Zoho via fetch with no-cors — exactly as original working version
+  fetch('https://crm.zoho.com/crm/WebToLeadForm', {
+    method: 'POST',
+    body: formData,
+    mode: 'no-cors'
+  }).catch(()=>{});
+  showSuccessScreen();
   return false;
 }
 
