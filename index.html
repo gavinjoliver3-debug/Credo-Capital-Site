@@ -997,9 +997,11 @@ function handleFormSubmit(e){
   // Bot check: silently show success but skip the real POST
   if(isBotApplication()){showSuccessScreen();return false;}
   const form=document.getElementById('applicationForm');
-  const formData=new FormData(form);
-  formData.set('LEADCF31',sigSigned?'Signed':'Not Signed');
-  fetch('https://crm.zoho.com/crm/WebToLeadForm',{method:'POST',body:formData,mode:'no-cors'}).catch(()=>{});
+  // Set signature status
+  document.getElementById('signatureStatusField').value=sigSigned?'Signed':'Not Signed';
+  // Submit the form natively to Zoho via hidden iframe
+  form.target='hidden_app_iframe';
+  form.submit();
   showSuccessScreen();
   return false;
 }
@@ -1011,5 +1013,7 @@ function showSuccessScreen(){
   document.getElementById('progressBar').style.display='none';
 }
 </script>
+<iframe name="hidden_app_iframe" style="display:none;"></iframe>
+
 </body>
 </html>
