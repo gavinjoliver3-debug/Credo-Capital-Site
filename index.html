@@ -994,10 +994,10 @@ function populateReview(){
 // ============= SUBMIT =============
 function handleFormSubmit(e){
   e.preventDefault();
-  // Honeypot check only — skip time check as it can falsely trigger during testing
+  // Honeypot check only
   if(document.getElementById('hp_url').value.trim() !== ''){showSuccessScreen();return false;}
   const form=document.getElementById('applicationForm');
-  // Populate description field before submitting
+  // Populate description and signature fields before submitting
   const v=name=>{const el=form.elements[name];return el&&el.value?el.value:'—';};
   document.getElementById('descriptionField').value=[
     `Signature: ${sigSigned?'Signed':'Not Signed'}`,
@@ -1006,10 +1006,13 @@ function handleFormSubmit(e){
     `Equipment Notes: ${v('LEADCF27')}`
   ].join('\n');
   document.getElementById('signatureStatusField').value=sigSigned?'Signed':'Not Signed';
-  // Submit natively to Zoho CRM via hidden iframe
-  form.target='hidden_app_iframe';
-  form.submit();
-  showSuccessScreen();
+  // Submit to Zoho CRM using XMLHttpRequest (same as Zoho's generated code but without jQuery)
+  var formData=new FormData(form);
+  var xhr=new XMLHttpRequest();
+  xhr.open('POST','https://crm.zoho.com/crm/WebToLeadForm',true);
+  xhr.onload=function(){showSuccessScreen();};
+  xhr.onerror=function(){showSuccessScreen();};
+  xhr.send(formData);
   return false;
 }
 
