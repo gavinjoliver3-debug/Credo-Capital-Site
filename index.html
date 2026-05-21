@@ -465,7 +465,7 @@
             <span id="wf_splash_info"></span>
           </div>
 
-          <form id="webform6965298000000945019" name="WebToLeads6965298000000945019" accept-charset="UTF-8" class="contact-form">
+          <form id="webform6965298000000945019" name="WebToLeads6965298000000945019" accept-charset="UTF-8" class="contact-form" action="https://crm.zoho.com/crm/WebToLeadForm" method="POST" target="hidden_contact_iframe">
             <input type="text" style="display:none;" name="xnQsjsdp" value="3bc60d7092e59ccae51776fed4403b346f3d5c04920c2fafe5acca6ff916607c">
             <input type="hidden" name="zc_gad" id="zc_gad_contact" value="">
             <input type="text" style="display:none;" name="xmIwtLD" value="d79dbdebad85aeb5b4f633fb872caff1627c5422b67bb7939b05fa1ae3a9e2c4387a3d9ea05a4f42b55dbfc688881bba">
@@ -528,27 +528,25 @@
               return true;
             }
             document.getElementById('webform6965298000000945019').addEventListener('submit',function(e){
-              e.preventDefault();
               var ismandatory=checkMandatory6965298000000945019();
-              if(ismandatory){
-                var formData=new FormData(this);
-                var xhr=new XMLHttpRequest();
-                xhr.open('POST','https://crm.zoho.com/crm/WebToLeadForm',true);
-                xhr.onload=function(){
-                  var splashdom=document.getElementById('wf_splash');
-                  document.getElementById('wf_splash_info').innerText='Thank you! Your message has been received. We\'ll be in touch shortly.';
-                  document.getElementById('webform6965298000000945019').reset();
-                  if(window.grecaptcha){try{grecaptcha.reset();}catch(err){}}
-                  splashdom.style.display='';
-                  setTimeout(function(){splashdom.style.display='none';},5000);
-                  document.querySelector('#webform6965298000000945019 .btn-primary').removeAttribute('disabled');
-                };
-                xhr.onerror=function(){alert('An error occurred. Please try again.');};
-                xhr.send(formData);
+              if(!ismandatory){
+                e.preventDefault();
+                return false;
               }
+              // Let form submit natively to hidden iframe
+              var splashdom=document.getElementById('wf_splash');
+              document.getElementById('wf_splash_info').innerText='Thank you! Your message has been received. We\'ll be in touch shortly.';
+              setTimeout(function(){
+                document.getElementById('webform6965298000000945019').reset();
+                if(window.grecaptcha){try{grecaptcha.reset();}catch(err){}}
+                splashdom.style.display='';
+                setTimeout(function(){splashdom.style.display='none';},5000);
+                document.querySelector('#webform6965298000000945019 .btn-primary').removeAttribute('disabled');
+              },500);
             });
           </script>
           <script id="wf_anal" src="https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=2f7a83617ef730c1e8ea15ba7785be03b1a4f3ee88b2e5f3347c96b9d6ab988fa23fe371974678bfff3899da0f1db742gid32193ae4429574a4d1df787bee939fd8ddc774dd855ebdacff5cb34172ba6deegid40302e46e11895d239bcdbd0327a6bc72ba6de4da7de5590b1673d925e8df912gid0b82f8ea2f2eeb75283a5bf3150d56bf6f24eaf3fdda575e991d66f1652789f8&tw=9ce54b96beba6f1b5f71401ff7f927eaba0fe82014383b9e24ec14a7f9011775"></script>
+          <iframe name="hidden_contact_iframe" style="display:none;"></iframe>
         </div>
       </div>
     </div>
@@ -586,30 +584,193 @@
 
 <!-- APPLICATION MODAL -->
 <div class="modal-overlay" id="appModal">
-  <div class="modal" style="max-width:660px">
+  <div class="modal">
     <div class="modal-header">
       <h2>Credit <span>Application</span></h2>
       <button class="modal-close" onclick="closeApplicationModal()">×</button>
     </div>
-    <div style="overflow-y:auto;max-height:80vh;-webkit-overflow-scrolling:touch;">
-      <script>
-        function wfa_pstMesgFrmFom(evt){
-          if(evt.origin==='https://crm.zoho.com'||evt.origin==='https://crm.zohopublic.com'){
-            var loc_obj=JSON.stringify({origin:window.location.origin,pathname:window.location.pathname,search:window.location.search,hash:window.location.hash});
-            evt.source.postMessage(('prnt_wnd_pg_lc_rc_frm_prwindow_'+loc_obj),evt.origin);
-          }
-        }
-        window.addEventListener('message',wfa_pstMesgFrmFom,false);
-      </script>
-      <iframe
-        width="100%"
-        height="2480px"
-        style="border:none;display:block;"
-        src="https://crm.zoho.com/crm/WebFormServeServlet?rid=4d62b1b1b4a83420bfb895b723408a13df299b1b2526ca2a6dbebcf3c2fdfccbd8551ae2e3e553a6a4082ff7fe77b8d4gid8da21eb502f26c0b5394ca12cdf5a7f95be503b757ff27239af7460dbd82b4f0">
-      </iframe>
+    <div class="progress-bar" id="progressBar">
+      <div class="progress-track">
+        <div class="progress-seg current"></div>
+        <div class="progress-seg"></div>
+        <div class="progress-seg"></div>
+        <div class="progress-seg"></div>
+        <div class="progress-seg"></div>
+      </div>
+      <div class="progress-label">
+        <span>Step <strong id="currentStepNum">1</strong> of 5</span>
+        <span id="currentStepName">Business Information</span>
+      </div>
     </div>
+
+    <form id="applicationForm" action="https://crm.zoho.com/crm/WebToLeadForm" method="POST" accept-charset="UTF-8" target="hidden_app_iframe" onsubmit="return handleFormSubmit(event)">
+
+      <!-- ZOHO HIDDEN TOKENS -->
+      <input type="text" style="display:none;" name="xnQsjsdp" value="32f25ddefafad526c38f70a3c05c2d5565f18b4e9358f399004f8ae82a9d3d0c">
+      <input type="hidden" name="zc_gad" id="zc_gad" value="">
+      <input type="text" style="display:none;" name="xmIwtLD" value="ae3ac4d83148f9978f7b552135c3376f97f9d56519fe06dd66d0d736549fb30532f55e288d5267f9f58f06349157732e">
+      <input type="text" style="display:none;" name="actionType" value="TGVhZHM=">
+      <input type="text" style="display:none;" name="returnURL" value="null">
+      <input type="hidden" name="Description" id="descriptionField">
+      <input type="hidden" name="LEADCF31" id="signatureStatusField" value="Not Signed">
+
+      <!-- HONEYPOT -->
+      <div class="hp-field" aria-hidden="true">
+        <label for="hp_url">Leave this blank</label>
+        <input type="text" id="hp_url" name="hp_url" tabindex="-1" autocomplete="off" value="">
+      </div>
+
+      <div class="modal-body">
+
+        <!-- STEP 1: BUSINESS INFORMATION -->
+        <div class="form-step active" data-step="1">
+          <h3>Business Information</h3>
+          <p>Tell us about your business. All fields are required.</p>
+          <div class="form-grid cols-2">
+            <div class="field-group"><label>Legal Business Name *</label><input type="text" name="Company" required placeholder="Legal business name"></div>
+            <div class="field-group"><label>Federal Tax ID (EIN) *</label><input type="text" name="LEADCF4" required placeholder="XX-XXXXXXX"></div>
+          </div>
+          <div class="form-grid"><div class="field-group"><label>Business Street Address *</label><input type="text" name="Street" required placeholder="Street address"></div></div>
+          <div class="form-grid cols-3">
+            <div class="field-group"><label>City *</label><input type="text" name="City" required placeholder="City"></div>
+            <div class="field-group"><label>State *</label><input type="text" name="State" required placeholder="State"></div>
+            <div class="field-group"><label>Zip Code *</label><input type="text" name="Zip Code" required placeholder="Zip"></div>
+          </div>
+          <div class="form-grid cols-2">
+            <div class="field-group"><label>Years in Business *</label><input type="text" name="LEADCF5" required placeholder="e.g. 8"></div>
+            <div class="field-group"><label>Business Phone *</label><input type="tel" name="Phone" required placeholder="(XXX) XXX-XXXX"></div>
+          </div>
+          <div class="form-grid cols-2">
+            <div class="field-group"><label>Annual Revenue *</label><input type="text" name="Annual Revenue" required placeholder="$"></div>
+            <div class="field-group">
+              <label>Business Structure *</label>
+              <select name="LEADCF30" required>
+                <option value="">Select...</option>
+                <option>LLC</option><option>S-Corp</option><option>C-Corp</option>
+                <option>Sole Proprietorship</option><option>Partnership</option>
+                <option>Non-Profit</option><option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="field-group">
+              <label>Industry *</label>
+              <select name="Industry" required>
+                <option value="">Select...</option>
+                <option>General Construction</option><option>Grading</option>
+                <option>Excavation</option><option>Landscaping</option>
+                <option>Development</option><option>Local Haul</option>
+                <option>Long Haul</option><option>Demolition</option>
+                <option>Utilities</option><option>Other</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: BUSINESS PRINCIPAL -->
+        <div class="form-step" data-step="2">
+          <h3>Business Principal</h3>
+          <p>Information about the primary owner / guarantor.</p>
+          <div class="principal-card">
+            <div class="principal-card-header"><span class="principal-card-title">Primary Owner / Guarantor</span></div>
+            <div class="form-grid cols-2">
+              <div class="field-group"><label>First Name *</label><input type="text" name="First Name" required placeholder="First name"></div>
+              <div class="field-group"><label>Last Name *</label><input type="text" name="Last Name" required placeholder="Last name"></div>
+            </div>
+            <div class="form-grid cols-2">
+              <div class="field-group"><label>Title *</label><input type="text" name="Designation" required placeholder="e.g. President / CEO"></div>
+              <div class="field-group"><label>% Ownership *</label><input type="text" name="LEADCF67" required placeholder="e.g. 100"></div>
+            </div>
+            <div class="form-grid cols-2">
+              <div class="field-group"><label>Email *</label><input type="email" name="Email" required placeholder="email@example.com"></div>
+              <div class="field-group"><label>Mobile Phone *</label><input type="tel" name="Mobile" required placeholder="(XXX) XXX-XXXX"></div>
+            </div>
+            <div class="form-grid cols-2">
+              <div class="field-group"><label>Date of Birth *</label><input type="text" name="LEADCF116" required placeholder="MMM D, YYYY"></div>
+              <div class="field-group"><label>SSN *</label><input type="text" name="LEADCF6" required placeholder="XXX-XX-XXXX"></div>
+            </div>
+            <div class="form-grid"><div class="field-group"><label>Home Street Address *</label><input type="text" name="LEADCF8" required placeholder="Street address"></div></div>
+            <div class="form-grid cols-3">
+              <div class="field-group"><label>City *</label><input type="text" name="LEADCF10" required placeholder="City"></div>
+              <div class="field-group"><label>State *</label><input type="text" name="LEADCF9" required placeholder="State"></div>
+              <div class="field-group"><label>Zip Code *</label><input type="text" name="LEADCF11" required placeholder="Zip"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: EQUIPMENT -->
+        <div class="form-step" data-step="3">
+          <h3>Equipment Information</h3>
+          <p>Details about the equipment you're looking to finance.</p>
+          <div class="form-grid cols-3">
+            <div class="field-group"><label>Year *</label><input type="text" name="LEADCF26" required placeholder="YYYY"></div>
+            <div class="field-group"><label>Make *</label><input type="text" name="LEADCF28" required placeholder="e.g. Caterpillar"></div>
+            <div class="field-group"><label>Model *</label><input type="text" name="LEADCF29" required placeholder="e.g. 320"></div>
+          </div>
+          <div class="form-grid cols-2">
+            <div class="field-group"><label>Equipment Cost *</label><input type="text" name="LEADCF66" required placeholder="$"></div>
+            <div class="field-group"><label>Vendor / Dealer Name *</label><input type="text" name="LEADCF3" required placeholder="Dealer name"></div>
+          </div>
+          <div class="form-grid">
+            <div class="field-group"><label>Additional Notes</label><textarea name="LEADCF27" placeholder="Attachments, multiple units, condition, timing needs, etc." style="min-height:100px"></textarea></div>
+          </div>
+        </div>
+
+        <!-- STEP 4: AUTHORIZATION & SIGNATURE -->
+        <div class="form-step" data-step="4">
+          <h3>Authorization & Signature</h3>
+          <p>Please read the authorization carefully, then sign below.</p>
+          <div class="auth-box">
+            <p>The undersigned represents that all information provided with this Application is true and correct and hereby authorizes Lessor/Secured party to obtain from third parties, including Applicant's bank, information it deems necessary to arrive at a decision regarding this application. By signing below, the undersigned individual(s) as principal of and/or guarantor for the applicant, authorizes Lessor/Secured party, its designee, assigns or potential assigns, to review his/her personal credit profile provided by a national credit bureau in considering this application and for the purpose of update, renewal, or extension of credit to the Applicant or the collection of any resultant accounts. I authorize all deposit, borrowing, financial and trade information to be released to Lessor/Secured Party by telephone or fax. A photocopy or fax of this authorization shall be valid as the original. To help fight terrorism and money laundering, the information you provide may be verified to allow us to identify you.</p>
+          </div>
+          <label class="auth-check">
+            <input type="checkbox" id="authConsent" required>
+            <label for="authConsent">I have read and agree to the authorization above. All information provided is true and correct to the best of my knowledge.</label>
+          </label>
+          <div class="principal-card">
+            <div class="principal-card-header"><span class="principal-card-title">Owner Signature</span></div>
+            <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.6">By typing your full legal name below, you are providing your electronic signature, which has the same legal effect as a handwritten signature under the federal E-SIGN Act.</p>
+            <div class="form-grid cols-2" style="margin-bottom:1rem">
+              <div class="field-group"><label>Print Name *</label><input type="text" name="LEADCF33" id="sigPrintName" required placeholder="Print full legal name"></div>
+              <div class="field-group"><label>Date *</label><input type="text" name="LEADCF117" id="sigDate" required placeholder="MMM D, YYYY"></div>
+            </div>
+            <div class="form-grid">
+              <div class="field-group">
+                <label>Type Full Name as Signature *</label>
+                <input type="text" name="LEADCF32" id="sigTyped" required placeholder="Type your full legal name to sign" style="font-family:Georgia,serif;font-style:italic;font-size:1.15rem;color:var(--forest-dark);padding:.9rem 1rem">
+                <span class="sig-status" id="sigStatusLabel">Not yet signed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 5: REVIEW -->
+        <div class="form-step" data-step="5">
+          <h3>Review & Submit</h3>
+          <p>Please confirm your information before submitting. A Credo Capital representative will be in touch within 24–48 hours.</p>
+          <div id="reviewContainer"></div>
+          <p style="font-size:.85rem;color:var(--muted);margin-top:1rem;padding:1rem;background:var(--paper);border-radius:3px;line-height:1.6">By submitting this application you confirm all information is accurate and authorize Credo Capital to process your request and submit to lending partners on your behalf.</p>
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="success-screen" id="successScreen">
+          <div class="success-icon">✓</div>
+          <h3>Application Received</h3>
+          <p>Thank you for trusting Credo Capital with your financing. We will be in touch with you as soon as possible. For time-sensitive matters, call Gavin directly at (909) 705-2647.</p>
+          <button class="btn-primary" onclick="closeApplicationModal()">Close</button>
+        </div>
+
+      </div>
+
+      <div class="modal-footer" id="modalFooter">
+        <button type="button" class="btn-back" onclick="prevStep()" id="btnBack" disabled>← Back</button>
+        <button type="button" class="btn-next" onclick="nextStep()" id="btnNext">Continue →</button>
+        <button type="submit" class="btn-submit" id="btnSubmit" style="display:none">Submit Application</button>
+      </div>
+    </form>
   </div>
 </div>
+<iframe name="hidden_app_iframe" style="display:none;"></iframe>
 
 <!-- FOOTER -->
 <footer class="footer">
@@ -656,45 +817,16 @@ function showPage(id){
   window.scrollTo({top:0,behavior:'instant'});
 }
 
-// ============= BOT PROTECTION =============
-
-// Called when reCAPTCHA API finishes loading
-function onRecaptchaApiLoad(){
-  // Contact form widget only
-  grecaptcha.render('recap6965298000000945019',{
-    'sitekey':'6Ld85ugsAAAAAPZ77uRVV6y0T7SNg-S63ZdiO5EB',
-    'theme':'light',
-    'callback': 'rccallback6965298000000945019',
-    'expired-callback': function(){ document.getElementById('recap6965298000000945019').setAttribute('captcha-verified','false'); }
-  });
-}
-
-// reCAPTCHA state
-var appRecaptchaWidgetId = null;
-
-/**
- * Returns true if the application form submission looks like a bot:
- *  - Honeypot field (#hp_url) is filled in, OR
- *  - Less than 5 seconds elapsed since the modal opened
- */
-function isBotApplication() {
-  if (document.getElementById('hp_url').value.trim() !== '') return true;
-  if (Date.now() - parseInt(document.getElementById('af_ts').value, 10) < 5000) return true;
-  return false;
-}
-
-// ============= MODAL =============
+// ============= APPLICATION MODAL =============
 let currentStep=1, totalSteps=5, sigSigned=false;
 const stepNames={1:'Business Information',2:'Business Principal',3:'Equipment Information',4:'Authorization & Signature',5:'Review & Submit'};
 
 function openApplicationModal(){
   document.getElementById('appModal').classList.add('active');
   document.body.style.overflow='hidden';
-  // Record modal open time for bot time-check
-  document.getElementById('af_ts').value = Date.now();
   currentStep=1;
   updateStep();
-  const today=new Date().toISOString().split('T')[0];
+  const today=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
   const sd=document.getElementById('sigDate');
   if(sd)sd.value=today;
   setTimeout(()=>{
@@ -708,8 +840,6 @@ function closeApplicationModal(){
   document.body.style.overflow='';
   currentStep=1;
   sigSigned=false;
-  recaptchaVerified=false;
-  if(window.grecaptcha && appRecaptchaWidgetId !== null){try{grecaptcha.reset(appRecaptchaWidgetId);}catch(e){}}
   document.getElementById('applicationForm').reset();
   document.getElementById('successScreen').classList.remove('active');
   document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
@@ -722,7 +852,7 @@ function closeApplicationModal(){
 }
 
 document.getElementById('appModal').addEventListener('click',function(e){if(e.target===this)closeApplicationModal()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('appModal').classList.contains('active'))closeApplicationModal()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.getElementById('appModal').classList.contains('active'))closeApplicationModal()});
 
 function updateStep(){
   document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
@@ -823,14 +953,14 @@ function populateReview(){
 
 // ============= SUBMIT =============
 function handleFormSubmit(e){
-  // Honeypot check only
-  if(document.getElementById('hp_url').value.trim() !== ''){
+  // Honeypot check
+  if(document.getElementById('hp_url').value.trim()!==''){
     e.preventDefault();
     showSuccessScreen();
     return false;
   }
+  // Populate fields before submit
   const form=document.getElementById('applicationForm');
-  // Populate description and signature fields before submitting
   const v=name=>{const el=form.elements[name];return el&&el.value?el.value:'—';};
   document.getElementById('descriptionField').value=[
     `Signature: ${sigSigned?'Signed':'Not Signed'}`,
@@ -839,9 +969,8 @@ function handleFormSubmit(e){
     `Equipment Notes: ${v('LEADCF27')}`
   ].join('\n');
   document.getElementById('signatureStatusField').value=sigSigned?'Signed':'Not Signed';
-  // Allow the form to submit natively to the hidden iframe (set in form's target attribute)
-  // Show success screen after a brief delay to let submission complete
-  setTimeout(showSuccessScreen, 500);
+  // Submit natively to Zoho via hidden iframe
+  setTimeout(showSuccessScreen,500);
   return true;
 }
 
@@ -851,8 +980,19 @@ function showSuccessScreen(){
   document.getElementById('modalFooter').style.display='none';
   document.getElementById('progressBar').style.display='none';
 }
+
+// ============= CONTACT FORM reCAPTCHA =============
+function onRecaptchaApiLoad(){
+  if(document.getElementById('recap6965298000000945019')){
+    grecaptcha.render('recap6965298000000945019',{
+      'sitekey':'6Ld85ugsAAAAAPZ77uRVV6y0T7SNg-S63ZdiO5EB',
+      'theme':'light',
+      'callback':'rccallback6965298000000945019',
+      'expired-callback':function(){document.getElementById('recap6965298000000945019').setAttribute('captcha-verified','false');}
+    });
+  }
+}
 </script>
-<iframe name="hidden_app_iframe" style="display:none;"></iframe>
 
 </body>
 </html>
