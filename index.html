@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Credo Capital — Equipment Finance</title>
 <!-- reCAPTCHA v2 -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaApiLoad&render=explicit" async defer></script>
 
 <style>
   :root{
@@ -484,13 +484,7 @@
 
             <!-- reCAPTCHA -->
             <div style="margin-bottom:1rem">
-              <div class="g-recaptcha"
-                   data-sitekey="6Ld85ugsAAAAAPZ77uRVV6y0T7SNg-S63ZdiO5EB"
-                   data-theme="light"
-                   data-callback="rccallback6965298000000945019"
-                   captcha-verified="false"
-                   id="recap6965298000000945019">
-              </div>
+              <div id="recap6965298000000945019"></div>
               <div id="recapErr6965298000000945019" style="font-size:.8rem;color:#c44;visibility:hidden;">Captcha validation failed. If you are not a robot then please try again.</div>
             </div>
 
@@ -765,17 +759,6 @@
           <h3>Review & Submit</h3>
           <p>Please confirm your information before submitting. A Credo Capital representative will be in touch within 24–48 hours.</p>
           <div id="reviewContainer"></div>
-          <!-- reCAPTCHA v2 checkbox -->
-          <div style="margin-top:1.25rem">
-            <div class="g-recaptcha"
-                 data-sitekey="6Ld85ugsAAAAAPZ77uRVV6y0T7SNg-S63ZdiO5EB"
-                 data-theme="light"
-                 data-callback="onRecaptchaSuccess"
-                 data-expired-callback="onRecaptchaExpired"
-                 id="appRecaptcha">
-            </div>
-            <p id="recaptchaError" style="display:none;color:#c44;font-size:.8rem;margin-top:.4rem">Please complete the CAPTCHA before submitting.</p>
-          </div>
           <p style="font-size:.85rem;color:var(--muted);margin-top:1rem;padding:1rem;background:var(--paper);border-radius:3px;line-height:1.6">By submitting this application you confirm all information is accurate and authorize Credo Capital to process your request and submit to lending partners on your behalf.</p>
         </div>
 
@@ -845,10 +828,19 @@ function showPage(id){
 
 // ============= BOT PROTECTION =============
 
-// reCAPTCHA state for application modal
-var recaptchaVerified = false;
-function onRecaptchaSuccess(token) { recaptchaVerified = true; document.getElementById('recaptchaError').style.display='none'; }
-function onRecaptchaExpired() { recaptchaVerified = false; }
+// Called when reCAPTCHA API finishes loading
+function onRecaptchaApiLoad(){
+  // Contact form widget only
+  grecaptcha.render('recap6965298000000945019',{
+    'sitekey':'6Ld85ugsAAAAAPZ77uRVV6y0T7SNg-S63ZdiO5EB',
+    'theme':'light',
+    'callback': 'rccallback6965298000000945019',
+    'expired-callback': function(){ document.getElementById('recap6965298000000945019').setAttribute('captcha-verified','false'); }
+  });
+}
+
+// reCAPTCHA state
+var appRecaptchaWidgetId = null;
 
 /**
  * Returns true if the application form submission looks like a bot:
@@ -887,7 +879,7 @@ function closeApplicationModal(){
   currentStep=1;
   sigSigned=false;
   recaptchaVerified=false;
-  if(window.grecaptcha){try{grecaptcha.reset();}catch(e){}}
+  if(window.grecaptcha && appRecaptchaWidgetId !== null){try{grecaptcha.reset(appRecaptchaWidgetId);}catch(e){}}
   document.getElementById('applicationForm').reset();
   document.getElementById('successScreen').classList.remove('active');
   document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
@@ -1004,11 +996,6 @@ function handleFormSubmit(e){
   e.preventDefault();
   // Bot check: silently show success but skip the real POST
   if(isBotApplication()){showSuccessScreen();return false;}
-  // reCAPTCHA check
-  if(!recaptchaVerified){
-    document.getElementById('recaptchaError').style.display='block';
-    return false;
-  }
   const form=document.getElementById('applicationForm');
   const formData=new FormData(form);
   formData.set('LEADCF31',sigSigned?'Signed':'Not Signed');
