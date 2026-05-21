@@ -6,6 +6,8 @@
 <title>Credo Capital — Equipment Finance</title>
 <!-- reCAPTCHA v2 -->
 <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaApiLoad&render=explicit" async defer></script>
+<!-- jQuery required for Zoho form submission -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 <style>
   :root{
@@ -603,7 +605,7 @@
       </div>
     </div>
 
-    <form id="applicationForm" action="https://crm.zoho.com/crm/WebToLeadForm" method="POST" accept-charset="UTF-8" target="hidden_app_iframe" onsubmit="return handleFormSubmit(event)">
+    <form id="applicationForm" name="WebToLeads6965298000000740051" action="https://crm.zoho.com/crm/WebToLeadForm" method="POST" accept-charset="UTF-8" target="hidden_app_iframe" onsubmit="return handleFormSubmit(event)">
 
       <!-- ZOHO HIDDEN TOKENS -->
       <input type="text" style="display:none;" name="xnQsjsdp" value="fc834f2599fab1a08fe48ed89e7ab202a80e5744f65512f958a48449767a74f2">
@@ -953,13 +955,13 @@ function populateReview(){
 
 // ============= SUBMIT =============
 function handleFormSubmit(e){
+  e.preventDefault();
   // Honeypot check
   if(document.getElementById('hp_url').value.trim()!==''){
-    e.preventDefault();
     showSuccessScreen();
     return false;
   }
-  // Populate fields before submit
+  // Populate description and signature fields
   const form=document.getElementById('applicationForm');
   const v=name=>{const el=form.elements[name];return el&&el.value?el.value:'—';};
   document.getElementById('descriptionField').value=[
@@ -969,9 +971,23 @@ function handleFormSubmit(e){
     `Equipment Notes: ${v('LEADCF27')}`
   ].join('\n');
   document.getElementById('signatureStatusField').value=sigSigned?'Signed':'Not Signed';
-  // Submit natively to Zoho via hidden iframe
-  setTimeout(showSuccessScreen,500);
-  return true;
+  // Submit using Zoho's exact jQuery AJAX method
+  var formData=new FormData(form);
+  $.ajax({
+    url:'https://crm.zoho.com/crm/WebToLeadForm',
+    type:'POST',
+    data:formData,
+    cache:false,
+    contentType:false,
+    processData:false,
+    success:function(data){
+      showSuccessScreen();
+    },
+    error:function(){
+      showSuccessScreen();
+    }
+  });
+  return false;
 }
 
 function showSuccessScreen(){
