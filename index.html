@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Credo Capital — Equipment Finance</title>
-<!-- reCAPTCHA v2 -->
-<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaApiLoad&render=explicit" async defer></script>
+
 
 <style>
   :root{
@@ -459,9 +458,9 @@
           </div>
 
           <form id="webform6965298000000945019" name="WebToLeads6965298000000945019" accept-charset="UTF-8" class="contact-form" action="https://crm.zoho.com/crm/WebToLeadForm" method="POST" target="hidden_contact_iframe">
-            <input type="text" style="display:none;" name="xnQsjsdp" value="3bc60d7092e59ccae51776fed4403b346f3d5c04920c2fafe5acca6ff916607c">
+            <input type="text" style="display:none;" name="xnQsjsdp" value="10d76bf5789f1b077fb29dec6485fc3881a8cf03d94d9b54881dd58a366d825b">
             <input type="hidden" name="zc_gad" id="zc_gad_contact" value="">
-            <input type="text" style="display:none;" name="xmIwtLD" value="d79dbdebad85aeb5b4f633fb872caff1627c5422b67bb7939b05fa1ae3a9e2c4387a3d9ea05a4f42b55dbfc688881bba">
+            <input type="text" style="display:none;" name="xmIwtLD" value="6df523751e850078a9e331f526acb2add59c57c15932765a879dc65dd9c96fd422c89e035f3e0359b5e25135798281fd">
             <input type="text" style="display:none;" name="actionType" value="TGVhZHM=">
             <input type="text" style="display:none;" name="returnURL" value="null">
             <input type="text" style="display:none;" name="aG9uZXlwb3Q" value="">
@@ -475,25 +474,10 @@
             <div class="field"><label>Email</label><input type="text" ftype="email" autocomplete="false" id="Email" name="Email" maxlength="100" placeholder="you@example.com"></div>
             <div class="field"><label>How Can We Help?</label><textarea id="LEADCF34" name="LEADCF34" placeholder="Tell us about your equipment financing needs..."></textarea></div>
 
-            <!-- reCAPTCHA -->
-            <div style="margin-bottom:1rem">
-              <div id="recap6965298000000945019"></div>
-              <div id="recapErr6965298000000945019" style="font-size:.8rem;color:#c44;visibility:hidden;">Captcha validation failed. If you are not a robot then please try again.</div>
-            </div>
-
             <button type="submit" class="btn-primary" style="width:100%">Send Message</button>
           </form>
 
           <script>
-            function rccallback6965298000000945019(){
-              if(document.getElementById('recap6965298000000945019')!=undefined){document.getElementById('recap6965298000000945019').setAttribute('captcha-verified',true);}
-              if(document.getElementById('recapErr6965298000000945019')!=undefined&&document.getElementById('recapErr6965298000000945019').style.visibility=='visible'){document.getElementById('recapErr6965298000000945019').style.visibility='hidden';}
-            }
-            function reCaptchaAlert6965298000000945019(){
-              var recap=document.getElementById('recap6965298000000945019');
-              if(recap!=undefined&&recap.getAttribute('captcha-verified')=='false'){document.getElementById('recapErr6965298000000945019').style.visibility='visible';return false;}
-              return true;
-            }
             function validateEmail6965298000000945019(){
               var form=document.forms['WebToLeads6965298000000945019'];
               var emailFld=form.querySelectorAll('[ftype=email]');
@@ -516,7 +500,6 @@
                 }
               }
               if(!validateEmail6965298000000945019()){return false;}
-              if(!reCaptchaAlert6965298000000945019()){return false;}
               document.querySelector('#webform6965298000000945019 .btn-primary').setAttribute('disabled',true);
               return true;
             }
@@ -530,7 +513,6 @@
               document.getElementById('wf_splash_info').innerText='Thank you! Your message has been received. We\'ll be in touch shortly.';
               setTimeout(function(){
                 document.getElementById('webform6965298000000945019').reset();
-                if(window.grecaptcha){try{grecaptcha.reset();}catch(err){}}
                 splashdom.style.display='block';
                 setTimeout(function(){splashdom.style.display='none';},5000);
                 document.querySelector('#webform6965298000000945019 .btn-primary').removeAttribute('disabled');
@@ -598,9 +580,9 @@
     <form id="applicationForm" name="WebToLeads6965298000000740051" action="https://crm.zoho.com/crm/WebToLeadForm" method="POST" accept-charset="UTF-8" target="hidden_app_iframe" onsubmit="return handleFormSubmit(event)">
 
       <!-- ZOHO HIDDEN TOKENS -->
-      <input type="text" style="display:none;" name="xnQsjsdp" value="fc834f2599fab1a08fe48ed89e7ab202a80e5744f65512f958a48449767a74f2">
+      <input type="text" style="display:none;" name="xnQsjsdp" value="f6474c61686d8e28af35fc6686fe5fd4af86d66820c09ed7e887928e15506498">
       <input type="hidden" name="zc_gad" id="zc_gad" value="">
-      <input type="text" style="display:none;" name="xmIwtLD" value="1b5552e5764844f061d76d7f26bc29a0a7916814498c1bd13d4f41c6a728d4d7ef661a601a3de51ebfcec107bb01797c">
+      <input type="text" style="display:none;" name="xmIwtLD" value="93a71dbeb3b448d9386d047a4f373536a97802aa016918b809abb3f9908b2eb182a20ed01eaf490ae063216231ad5c73">
       <input type="text" style="display:none;" name="actionType" value="TGVhZHM=">
       <input type="text" style="display:none;" name="returnURL" value="null">
       <!-- Honeypot -->
@@ -747,11 +729,6 @@
           <p>Please confirm your information before submitting. A Credo Capital representative will be in touch within 24–48 hours.</p>
           <div id="reviewContainer"></div>
           <p style="font-size:.85rem;color:var(--muted);margin-top:1rem;padding:1rem;background:var(--paper);border-radius:3px;line-height:1.6">By submitting this application you confirm all information is accurate and authorize Credo Capital to process your request and submit to lending partners on your behalf.</p>
-          <div style="margin-top:1.5rem;padding:1.25rem;background:var(--white);border:1px solid var(--border);border-radius:3px">
-            <label style="font-size:.68rem;color:var(--forest-dark);font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.75rem;display:block">Security Verification *</label>
-            <div id="recap6965298000000740051"></div>
-            <div id="recapErr6965298000000740051" style="font-size:.8rem;color:#c44;visibility:hidden;margin-top:.5rem">Please complete the reCAPTCHA verification before submitting.</div>
-          </div>
         </div>
 
         <!-- SUCCESS -->
@@ -878,8 +855,6 @@ function updateStep(){
     document.getElementById('btnNext').style.display='none';
     document.getElementById('btnSubmit').style.display='inline-block';
     populateReview();
-    // Render reCAPTCHA on step 5
-    setTimeout(renderAppRecaptcha, 150);
   } else {
     document.getElementById('btnNext').style.display='inline-block';
     document.getElementById('btnSubmit').style.display='none';
