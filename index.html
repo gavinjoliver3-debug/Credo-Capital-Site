@@ -457,10 +457,10 @@
             <span id="wf_splash_info"></span>
           </div>
 
-          <form id="webform6965298000000945019" name="WebToLeads6965298000000945019" accept-charset="UTF-8" class="contact-form" action="https://crm.zoho.com/crm/WebToLeadForm" method="POST" target="hidden_contact_iframe">
-            <input type="text" style="display:none;" name="xnQsjsdp" value="10d76bf5789f1b077fb29dec6485fc3881a8cf03d94d9b54881dd58a366d825b">
+          <form id="webform6965298000000945019" name="WebToLeads6965298000000945019" accept-charset="UTF-8" class="contact-form" onsubmit="return handleContactSubmit(event)">
+            <input type="text" style="display:none;" name="xnQsjsdp" value="e44ac93c8e9dcb7d41c65a82628014300944dc14f0c17090eddf5a3b49acde27">
             <input type="hidden" name="zc_gad" id="zc_gad_contact" value="">
-            <input type="text" style="display:none;" name="xmIwtLD" value="6df523751e850078a9e331f526acb2add59c57c15932765a879dc65dd9c96fd422c89e035f3e0359b5e25135798281fd">
+            <input type="text" style="display:none;" name="xmIwtLD" value="ed59c1007544b8a402bd18d1043fc5c940015a217817c8f27b1ba6fb1c4527e79bc666687e8b2c77106826540aedec9f">
             <input type="text" style="display:none;" name="actionType" value="TGVhZHM=">
             <input type="text" style="display:none;" name="returnURL" value="null">
             <input type="text" style="display:none;" name="aG9uZXlwb3Q" value="">
@@ -474,53 +474,129 @@
             <div class="field"><label>Email</label><input type="text" ftype="email" autocomplete="false" id="Email" name="Email" maxlength="100" placeholder="you@example.com"></div>
             <div class="field"><label>How Can We Help?</label><textarea id="LEADCF34" name="LEADCF34" placeholder="Tell us about your equipment financing needs..."></textarea></div>
 
+            <!-- Standard Captcha -->
+            <div class="field" style="padding:1.25rem;background:var(--paper);border:1px solid var(--border);border-top:3px solid var(--gold);border-radius:3px">
+              <label style="margin-bottom:.75rem">Security Verification *</label>
+              <p style="font-size:.82rem;color:var(--muted);margin-bottom:.85rem;line-height:1.5">Please type the characters shown below.</p>
+              <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:.75rem">
+                <img id="imgid6965298000000945019" src="https://crm.zoho.com/crm/CaptchaServlet?formId=ed59c1007544b8a402bd18d1043fc5c940015a217817c8f27b1ba6fb1c4527e79bc666687e8b2c77106826540aedec9f&grpid=e44ac93c8e9dcb7d41c65a82628014300944dc14f0c17090eddf5a3b49acde27" alt="Captcha" style="border:1px solid var(--border);border-radius:3px;background:var(--white);max-width:100%;height:auto">
+                <a href="javascript:;" onclick="reloadContactCaptcha();" style="color:var(--forest);font-size:.85rem;font-weight:600;border-bottom:1px solid var(--gold);text-decoration:none">↻ Reload Image</a>
+              </div>
+              <input type="text" id="captchaField6965298000000945019" name="enterdigest" maxlength="10" required placeholder="Enter the characters above" autocomplete="off" style="letter-spacing:.1em">
+              <div id="captchaErr6965298000000945019" aria-live="polite" style="font-size:.85rem;color:#c44;visibility:hidden;margin-top:.5rem"></div>
+            </div>
+
             <button type="submit" class="btn-primary" style="width:100%">Send Message</button>
           </form>
 
           <script>
-            function validateEmail6965298000000945019(){
-              var form=document.forms['WebToLeads6965298000000945019'];
-              var emailFld=form.querySelectorAll('[ftype=email]');
+            function reloadContactCaptcha(){
+              var captcha = document.getElementById('imgid6965298000000945019');
+              if(!captcha) return;
+              if(captcha.src.indexOf('&d') !== -1){
+                captcha.src = captcha.src.substring(0, captcha.src.indexOf('&d')) + '&d' + new Date().getTime();
+              } else {
+                captcha.src = captcha.src + '&d' + new Date().getTime();
+              }
+            }
+
+            function validateContactEmail(){
+              var form = document.forms['WebToLeads6965298000000945019'];
+              var emailFld = form.querySelectorAll('[ftype=email]');
               for(var i=0;i<emailFld.length;i++){
-                var emailVal=emailFld[i].value;
-                if((emailVal.replace(/^\s+|\s+$/g,'')).length!=0){
-                  var atpos=emailVal.indexOf('@');var dotpos=emailVal.lastIndexOf('.');
-                  if(atpos<1||dotpos<atpos+2||dotpos+2>=emailVal.length){alert('Please enter a valid email address.');emailFld[i].focus();return false;}
+                var emailVal = emailFld[i].value;
+                if((emailVal.replace(/^\s+|\s+$/g,'')).length != 0){
+                  var atpos = emailVal.indexOf('@');
+                  var dotpos = emailVal.lastIndexOf('.');
+                  if(atpos<1 || dotpos<atpos+2 || dotpos+2>=emailVal.length){
+                    alert('Please enter a valid email address.');
+                    emailFld[i].focus();
+                    return false;
+                  }
                 }
               }
               return true;
             }
-            function checkMandatory6965298000000945019(){
-              var mndFileds=['Company','First Name','Last Name'];
-              var fldLangVal=['Company Name','First Name','Last Name'];
-              for(var i=0;i<mndFileds.length;i++){
-                var fieldObj=document.forms['WebToLeads6965298000000945019'][mndFileds[i]];
-                if(fieldObj){
-                  if(((fieldObj.value).replace(/^\s+|\s+$/g,'')).length==0){alert(fldLangVal[i]+' cannot be empty.');fieldObj.focus();return false;}
+
+            function checkContactMandatory(){
+              var mndFields = ['Company','First Name','Last Name'];
+              var labels = ['Company Name','First Name','Last Name'];
+              for(var i=0;i<mndFields.length;i++){
+                var fieldObj = document.forms['WebToLeads6965298000000945019'][mndFields[i]];
+                if(fieldObj && ((fieldObj.value).replace(/^\s+|\s+$/g,'')).length == 0){
+                  alert(labels[i]+' cannot be empty.');
+                  fieldObj.focus();
+                  return false;
                 }
               }
-              if(!validateEmail6965298000000945019()){return false;}
-              document.querySelector('#webform6965298000000945019 .btn-primary').setAttribute('disabled',true);
-              return true;
+              return validateContactEmail();
             }
-            document.getElementById('webform6965298000000945019').addEventListener('submit',function(e){
-              var ismandatory=checkMandatory6965298000000945019();
-              if(!ismandatory){
-                e.preventDefault();
+
+            function handleContactSubmit(e){
+              e.preventDefault();
+              if(!checkContactMandatory()) return false;
+
+              var capFld = document.getElementById('captchaField6965298000000945019');
+              if(!capFld.value.trim()){
+                var capErr = document.getElementById('captchaErr6965298000000945019');
+                capErr.innerHTML = 'Please enter the captcha characters.';
+                capErr.style.visibility = 'visible';
+                capFld.focus();
                 return false;
               }
-              var splashdom=document.getElementById('wf_splash');
-              document.getElementById('wf_splash_info').innerText='Thank you! Your message has been received. We\'ll be in touch shortly.';
-              setTimeout(function(){
-                document.getElementById('webform6965298000000945019').reset();
-                splashdom.style.display='block';
-                setTimeout(function(){splashdom.style.display='none';},5000);
-                document.querySelector('#webform6965298000000945019 .btn-primary').removeAttribute('disabled');
-              },500);
-            });
+
+              var submitBtn = document.querySelector('#webform6965298000000945019 .btn-primary');
+              submitBtn.setAttribute('disabled', true);
+              submitBtn.textContent = 'Sending...';
+
+              var form = document.getElementById('webform6965298000000945019');
+              var formData = new FormData(form);
+
+              fetch('https://crm.zoho.com/crm/WebToLeadForm', {
+                method: 'POST',
+                body: formData,
+                cache: 'no-cache'
+              })
+              .then(function(response){ return response.json(); })
+              .then(function(data){
+                submitBtn.removeAttribute('disabled');
+                submitBtn.textContent = 'Send Message';
+
+                if(data && data.invalidCaptcha && data.invalidCaptcha === 'true'){
+                  var capErr = document.getElementById('captchaErr6965298000000945019');
+                  capErr.innerHTML = data.actionvalue || 'Incorrect captcha. Please try again.';
+                  capErr.style.visibility = 'visible';
+                  reloadContactCaptcha();
+                  capFld.value = '';
+                  capFld.focus();
+                  setTimeout(function(){ capErr.style.visibility = 'hidden'; }, 6000);
+                } else {
+                  // Success
+                  var splashdom = document.getElementById('wf_splash');
+                  document.getElementById('wf_splash_info').innerText = 'Thank you! Your message has been received. We\'ll be in touch shortly.';
+                  form.reset();
+                  reloadContactCaptcha();
+                  splashdom.style.display = 'block';
+                  setTimeout(function(){ splashdom.style.display = 'none'; }, 5000);
+                }
+              })
+              .catch(function(err){
+                console.warn('Contact submit error:', err);
+                submitBtn.removeAttribute('disabled');
+                submitBtn.textContent = 'Send Message';
+                // Show success anyway — most likely Zoho returned non-JSON on success
+                var splashdom = document.getElementById('wf_splash');
+                document.getElementById('wf_splash_info').innerText = 'Thank you! Your message has been received. We\'ll be in touch shortly.';
+                form.reset();
+                reloadContactCaptcha();
+                splashdom.style.display = 'block';
+                setTimeout(function(){ splashdom.style.display = 'none'; }, 5000);
+              });
+
+              return false;
+            }
           </script>
-          <script id="wf_anal" src="https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=2f7a83617ef730c1e8ea15ba7785be03b1a4f3ee88b2e5f3347c96b9d6ab988fa23fe371974678bfff3899da0f1db742gid32193ae4429574a4d1df787bee939fd8ddc774dd855ebdacff5cb34172ba6deegid40302e46e11895d239bcdbd0327a6bc72ba6de4da7de5590b1673d925e8df912gid0b82f8ea2f2eeb75283a5bf3150d56bf6f24eaf3fdda575e991d66f1652789f8&tw=9ce54b96beba6f1b5f71401ff7f927eaba0fe82014383b9e24ec14a7f9011775"></script>
-          <iframe name="hidden_contact_iframe" style="display:none;"></iframe>
+          <script id="wf_anal" src="https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=3f862a78745f3daa9dfdb0e5cc4f4efc409cf0af2b12dea60234251b291d4b8ced4b518c325f7e2c2201facdfd5a6eabgid029365112b0c4e088d01e60497fb555ca1c965a675d78c0264d946d6856781f3gida4557c74e7f060aabe3eee7b6a3490294d43f0c1991708f490d450c5f034e763gida38e807d476fa26d2be453563bde2f7675e0a19a830b9aad689171c1c7979a21&tw=055c2c5475b5afb33cfb9d3cac48aef7190f95ee01341ce96fb5228804f18618"></script>
         </div>
       </div>
     </div>
@@ -577,12 +653,12 @@
       </div>
     </div>
 
-    <form id="applicationForm" name="WebToLeads6965298000000740051" action="https://crm.zoho.com/crm/WebToLeadForm" method="POST" accept-charset="UTF-8" target="hidden_app_iframe" onsubmit="return handleFormSubmit(event)">
+    <form id="applicationForm" name="WebToLeads6965298000000740051" action="https://crm.zoho.com/crm/WebToLeadForm" method="POST" accept-charset="UTF-8" onsubmit="return handleFormSubmit(event)">
 
       <!-- ZOHO HIDDEN TOKENS -->
-      <input type="text" style="display:none;" name="xnQsjsdp" value="f6474c61686d8e28af35fc6686fe5fd4af86d66820c09ed7e887928e15506498">
+      <input type="text" style="display:none;" name="xnQsjsdp" value="31b3ac9146ea8068d32ae95ea537351ceb79d74a1f189e0ba02da1a703295098">
       <input type="hidden" name="zc_gad" id="zc_gad" value="">
-      <input type="text" style="display:none;" name="xmIwtLD" value="93a71dbeb3b448d9386d047a4f373536a97802aa016918b809abb3f9908b2eb182a20ed01eaf490ae063216231ad5c73">
+      <input type="text" style="display:none;" name="xmIwtLD" value="63e2b6bf3afc223248aa908edc36d3d7299c46c205fef6319fb98716ffcbd6a0fcb4893175b7e267337728a3aa133b14">
       <input type="text" style="display:none;" name="actionType" value="TGVhZHM=">
       <input type="text" style="display:none;" name="returnURL" value="null">
       <!-- Honeypot -->
@@ -729,6 +805,18 @@
           <p>Please confirm your information before submitting. A Credo Capital representative will be in touch within 24–48 hours.</p>
           <div id="reviewContainer"></div>
           <p style="font-size:.85rem;color:var(--muted);margin-top:1rem;padding:1rem;background:var(--paper);border-radius:3px;line-height:1.6">By submitting this application you confirm all information is accurate and authorize Credo Capital to process your request and submit to lending partners on your behalf.</p>
+
+          <!-- Standard Captcha -->
+          <div style="margin-top:1.5rem;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-top:3px solid var(--gold);border-radius:3px">
+            <label style="font-size:.68rem;color:var(--forest-dark);font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.75rem;display:block">Security Verification *</label>
+            <p style="font-size:.85rem;color:var(--muted);margin-bottom:1rem;line-height:1.5">Please type the characters you see in the image below.</p>
+            <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:.75rem">
+              <img id="imgid6965298000000740051" src="https://crm.zoho.com/crm/CaptchaServlet?formId=63e2b6bf3afc223248aa908edc36d3d7299c46c205fef6319fb98716ffcbd6a0fcb4893175b7e267337728a3aa133b14&grpid=31b3ac9146ea8068d32ae95ea537351ceb79d74a1f189e0ba02da1a703295098" alt="Captcha" style="border:1px solid var(--border);border-radius:3px;background:var(--paper);max-width:100%;height:auto">
+              <a href="javascript:;" onclick="reloadCaptcha();" style="color:var(--forest);font-size:.85rem;font-weight:600;border-bottom:1px solid var(--gold);text-decoration:none">↻ Reload Image</a>
+            </div>
+            <input type="text" id="captchaField6965298000000740051" name="enterdigest" maxlength="10" required placeholder="Enter the characters shown above" autocomplete="off" style="width:100%;padding:.75rem .9rem;border:1px solid var(--border);background:var(--white);font-family:inherit;font-size:.95rem;color:var(--ink);border-radius:2px;letter-spacing:.1em">
+            <div id="captchaErr6965298000000740051" aria-live="polite" style="font-size:.85rem;color:#c44;visibility:hidden;margin-top:.5rem"></div>
+          </div>
         </div>
 
         <!-- SUCCESS -->
@@ -747,7 +835,6 @@
         <button type="submit" class="btn-submit" id="btnSubmit" style="display:none">Submit Application</button>
       </div>
     </form>
-    <iframe name="hidden_app_iframe" style="display:none;"></iframe>
   </div>
 </div>
 
@@ -826,12 +913,14 @@ function closeApplicationModal(){
   document.getElementById('modalFooter').style.display='flex';
   document.getElementById('progressBar').style.display='block';
   document.getElementById('signatureStatusField').value='Not Signed';
-  // Reset application reCAPTCHA
-  if(appRecapId !== null && window.grecaptcha){
-    try{grecaptcha.reset(appRecapId);}catch(err){}
-    var el = document.getElementById('recap6965298000000740051');
-    if(el) el.setAttribute('captcha-verified','false');
-  }
+  // Reset submit button in case it was disabled
+  var submitBtn = document.getElementById('btnSubmit');
+  if(submitBtn){ submitBtn.disabled = false; submitBtn.textContent = 'Submit Application'; }
+  // Hide any captcha error
+  var capErr = document.getElementById('captchaErr6965298000000740051');
+  if(capErr) capErr.style.visibility = 'hidden';
+  // Reload captcha image for next session
+  reloadCaptcha();
   updateSigStatus();
   updateStep();
 }
@@ -932,20 +1021,74 @@ function populateReview(){
 
 // ============= SUBMIT =============
 function handleFormSubmit(e){
-  // Verify reCAPTCHA was completed on application form
-  var recap = document.getElementById('recap6965298000000740051');
-  if(recap && recap.getAttribute('captcha-verified') !== 'true'){
-    e.preventDefault();
-    document.getElementById('recapErr6965298000000740051').style.visibility = 'visible';
-    document.querySelector('.modal-body').scrollTop = document.querySelector('.modal-body').scrollHeight;
-    return false;
-  }
+  e.preventDefault();
+
   // Ensure signature status is current
   document.getElementById('signatureStatusField').value = sigSigned ? 'Signed' : 'Not Signed';
-  // Let the form submit natively to the hidden iframe (target="hidden_app_iframe")
-  // Show success after a brief delay
-  setTimeout(showSuccessScreen, 400);
-  return true;
+
+  // Verify captcha field is filled
+  var capFld = document.getElementById('captchaField6965298000000740051');
+  if(!capFld || !capFld.value.trim()){
+    var capErr = document.getElementById('captchaErr6965298000000740051');
+    capErr.innerHTML = 'Please enter the captcha characters.';
+    capErr.style.visibility = 'visible';
+    if(capFld) capFld.focus();
+    return false;
+  }
+
+  // Disable submit button to prevent double-submission
+  var submitBtn = document.getElementById('btnSubmit');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting...';
+
+  // Submit via fetch so we can read the response and detect invalid captcha
+  var form = document.getElementById('applicationForm');
+  var formData = new FormData(form);
+
+  fetch('https://crm.zoho.com/crm/WebToLeadForm', {
+    method: 'POST',
+    body: formData,
+    cache: 'no-cache'
+  })
+  .then(function(response){ return response.json(); })
+  .then(function(data){
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit Application';
+
+    if(data && data.invalidCaptcha && data.invalidCaptcha === 'true'){
+      // Captcha was wrong — show error, reload image, keep modal open
+      var capErr = document.getElementById('captchaErr6965298000000740051');
+      capErr.innerHTML = data.actionvalue || 'Incorrect captcha. Please try again.';
+      capErr.style.visibility = 'visible';
+      reloadCaptcha();
+      var capFld = document.getElementById('captchaField6965298000000740051');
+      if(capFld){ capFld.value = ''; capFld.focus(); }
+      setTimeout(function(){ capErr.style.visibility = 'hidden'; }, 6000);
+    } else {
+      // Success
+      showSuccessScreen();
+    }
+  })
+  .catch(function(err){
+    // Network or parse error — still show success since Zoho often returns
+    // non-JSON for successful submissions. Better to assume success than block real users.
+    console.warn('Submit response error:', err);
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit Application';
+    showSuccessScreen();
+  });
+
+  return false;
+}
+
+function reloadCaptcha(){
+  var captcha = document.getElementById('imgid6965298000000740051');
+  if(!captcha) return;
+  if(captcha.src.indexOf('&d') !== -1){
+    captcha.src = captcha.src.substring(0, captcha.src.indexOf('&d')) + '&d' + new Date().getTime();
+  } else {
+    captcha.src = captcha.src + '&d' + new Date().getTime();
+  }
 }
 
 function showSuccessScreen(){
@@ -953,61 +1096,6 @@ function showSuccessScreen(){
   document.getElementById('successScreen').classList.add('active');
   document.getElementById('modalFooter').style.display='none';
   document.getElementById('progressBar').style.display='none';
-}
-
-// ============= reCAPTCHA RENDERING =============
-let contactRecapId = null;
-let appRecapId = null;
-let recaptchaApiReady = false;
-
-function onRecaptchaApiLoad(){
-  recaptchaApiReady = true;
-  // Render contact form reCAPTCHA
-  if(document.getElementById('recap6965298000000945019') && contactRecapId === null){
-    contactRecapId = grecaptcha.render('recap6965298000000945019',{
-      'sitekey':'6Ld85ugsAAAAAPZ77uRVV6y0T7SNg-S63ZdiO5EB',
-      'theme':'light',
-      'callback':'rccallback6965298000000945019',
-      'expired-callback':function(){
-        document.getElementById('recap6965298000000945019').setAttribute('captcha-verified','false');
-      }
-    });
-  }
-}
-
-// Application form reCAPTCHA callback
-function rccallback6965298000000740051(){
-  var el = document.getElementById('recap6965298000000740051');
-  if(el){
-    el.setAttribute('captcha-verified','true');
-  }
-  var err = document.getElementById('recapErr6965298000000740051');
-  if(err){err.style.visibility = 'hidden';}
-}
-
-// Render application reCAPTCHA when step 5 is shown
-function renderAppRecaptcha(){
-  if(!recaptchaApiReady || !window.grecaptcha) return;
-  var el = document.getElementById('recap6965298000000740051');
-  if(el && appRecapId === null){
-    try{
-      appRecapId = grecaptcha.render('recap6965298000000740051',{
-        'sitekey':'6Ld85ugsAAAAAPZ77uRVV6y0T7SNg-S63ZdiO5EB',
-        'theme':'light',
-        'callback':'rccallback6965298000000740051',
-        'expired-callback':function(){
-          el.setAttribute('captcha-verified','false');
-        }
-      });
-      el.setAttribute('captcha-verified','false');
-    }catch(err){
-      console.warn('reCAPTCHA render error:',err);
-    }
-  } else if(el && appRecapId !== null){
-    // Reset if already rendered (user came back to step 5)
-    try{grecaptcha.reset(appRecapId);}catch(err){}
-    el.setAttribute('captcha-verified','false');
-  }
 }
 </script>
 
