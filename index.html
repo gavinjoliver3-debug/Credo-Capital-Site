@@ -457,7 +457,7 @@
             <span id="wf_splash_info"></span>
           </div>
 
-          <form id="webform6965298000000945019" name="WebToLeads6965298000000945019" accept-charset="UTF-8" class="contact-form" onsubmit="return handleContactSubmit(event)">
+          <form id="webform6965298000000945019" name="WebToLeads6965298000000945019" accept-charset="UTF-8" class="contact-form" action="javascript:void(0);" method="POST">
             <input type="text" style="display:none;" name="xnQsjsdp" value="e44ac93c8e9dcb7d41c65a82628014300944dc14f0c17090eddf5a3b49acde27">
             <input type="hidden" name="zc_gad" id="zc_gad_contact" value="">
             <input type="text" style="display:none;" name="xmIwtLD" value="ed59c1007544b8a402bd18d1043fc5c940015a217817c8f27b1ba6fb1c4527e79bc666687e8b2c77106826540aedec9f">
@@ -532,13 +532,17 @@
               return validateContactEmail();
             }
 
-            function handleContactSubmit(e){
+            // Bind submit handler reliably
+            document.getElementById('webform6965298000000945019').addEventListener('submit', function(e){
               e.preventDefault();
+              e.stopPropagation();
+
               if(!checkContactMandatory()) return false;
 
               var capFld = document.getElementById('captchaField6965298000000945019');
+              var capErr = document.getElementById('captchaErr6965298000000945019');
+
               if(!capFld.value.trim()){
-                var capErr = document.getElementById('captchaErr6965298000000945019');
                 capErr.innerHTML = 'Please enter the captcha characters.';
                 capErr.style.visibility = 'visible';
                 capFld.focus();
@@ -557,44 +561,46 @@
                 body: formData,
                 cache: 'no-cache'
               })
-              .then(function(response){ return response.json(); })
+              .then(function(response){
+                return response.text().then(function(text){
+                  // Try to parse as JSON, fall back to text
+                  try { return JSON.parse(text); }
+                  catch(err){ return { raw: text }; }
+                });
+              })
               .then(function(data){
                 submitBtn.removeAttribute('disabled');
                 submitBtn.textContent = 'Send Message';
 
                 if(data && data.invalidCaptcha && data.invalidCaptcha === 'true'){
-                  var capErr = document.getElementById('captchaErr6965298000000945019');
+                  // Captcha wrong — show error inline
                   capErr.innerHTML = data.actionvalue || 'Incorrect captcha. Please try again.';
                   capErr.style.visibility = 'visible';
                   reloadContactCaptcha();
                   capFld.value = '';
                   capFld.focus();
-                  setTimeout(function(){ capErr.style.visibility = 'hidden'; }, 6000);
+                  // Don't auto-hide this error so the user sees it
                 } else {
                   // Success
+                  capErr.style.visibility = 'hidden';
                   var splashdom = document.getElementById('wf_splash');
                   document.getElementById('wf_splash_info').innerText = 'Thank you! Your message has been received. We\'ll be in touch shortly.';
                   form.reset();
                   reloadContactCaptcha();
-                  splashdom.style.display = 'block';
-                  setTimeout(function(){ splashdom.style.display = 'none'; }, 5000);
+                  splashdom.style.display = 'flex';
+                  setTimeout(function(){ splashdom.style.display = 'none'; }, 6000);
                 }
               })
               .catch(function(err){
                 console.warn('Contact submit error:', err);
                 submitBtn.removeAttribute('disabled');
                 submitBtn.textContent = 'Send Message';
-                // Show success anyway — most likely Zoho returned non-JSON on success
-                var splashdom = document.getElementById('wf_splash');
-                document.getElementById('wf_splash_info').innerText = 'Thank you! Your message has been received. We\'ll be in touch shortly.';
-                form.reset();
-                reloadContactCaptcha();
-                splashdom.style.display = 'block';
-                setTimeout(function(){ splashdom.style.display = 'none'; }, 5000);
+                capErr.innerHTML = 'Submission failed. Please check your connection and try again.';
+                capErr.style.visibility = 'visible';
               });
 
               return false;
-            }
+            });
           </script>
           <script id="wf_anal" src="https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=3f862a78745f3daa9dfdb0e5cc4f4efc409cf0af2b12dea60234251b291d4b8ced4b518c325f7e2c2201facdfd5a6eabgid029365112b0c4e088d01e60497fb555ca1c965a675d78c0264d946d6856781f3gida4557c74e7f060aabe3eee7b6a3490294d43f0c1991708f490d450c5f034e763gida38e807d476fa26d2be453563bde2f7675e0a19a830b9aad689171c1c7979a21&tw=055c2c5475b5afb33cfb9d3cac48aef7190f95ee01341ce96fb5228804f18618"></script>
         </div>
