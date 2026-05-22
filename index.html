@@ -747,6 +747,11 @@
           <p>Please confirm your information before submitting. A Credo Capital representative will be in touch within 24–48 hours.</p>
           <div id="reviewContainer"></div>
           <p style="font-size:.85rem;color:var(--muted);margin-top:1rem;padding:1rem;background:var(--paper);border-radius:3px;line-height:1.6">By submitting this application you confirm all information is accurate and authorize Credo Capital to process your request and submit to lending partners on your behalf.</p>
+          <div style="margin-top:1.5rem;padding:1.25rem;background:var(--white);border:1px solid var(--border);border-radius:3px">
+            <label style="font-size:.68rem;color:var(--forest-dark);font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.75rem;display:block">Security Verification *</label>
+            <div id="recap6965298000000740051"></div>
+            <div id="recapErr6965298000000740051" style="font-size:.8rem;color:#c44;visibility:hidden;margin-top:.5rem">Please complete the reCAPTCHA verification before submitting.</div>
+          </div>
         </div>
 
         <!-- SUCCESS -->
@@ -844,6 +849,12 @@ function closeApplicationModal(){
   document.getElementById('modalFooter').style.display='flex';
   document.getElementById('progressBar').style.display='block';
   document.getElementById('signatureStatusField').value='Not Signed';
+  // Reset application reCAPTCHA
+  if(appRecapId !== null && window.grecaptcha){
+    try{grecaptcha.reset(appRecapId);}catch(err){}
+    var el = document.getElementById('recap6965298000000740051');
+    if(el) el.setAttribute('captcha-verified','false');
+  }
   updateSigStatus();
   updateStep();
 }
@@ -867,6 +878,8 @@ function updateStep(){
     document.getElementById('btnNext').style.display='none';
     document.getElementById('btnSubmit').style.display='inline-block';
     populateReview();
+    // Render reCAPTCHA on step 5
+    setTimeout(renderAppRecaptcha, 150);
   } else {
     document.getElementById('btnNext').style.display='inline-block';
     document.getElementById('btnSubmit').style.display='none';
@@ -944,6 +957,14 @@ function populateReview(){
 
 // ============= SUBMIT =============
 function handleFormSubmit(e){
+  // Verify reCAPTCHA was completed on application form
+  var recap = document.getElementById('recap6965298000000740051');
+  if(recap && recap.getAttribute('captcha-verified') !== 'true'){
+    e.preventDefault();
+    document.getElementById('recapErr6965298000000740051').style.visibility = 'visible';
+    document.querySelector('.modal-body').scrollTop = document.querySelector('.modal-body').scrollHeight;
+    return false;
+  }
   // Ensure signature status is current
   document.getElementById('signatureStatusField').value = sigSigned ? 'Signed' : 'Not Signed';
   // Let the form submit natively to the hidden iframe (target="hidden_app_iframe")
@@ -959,15 +980,58 @@ function showSuccessScreen(){
   document.getElementById('progressBar').style.display='none';
 }
 
-// ============= CONTACT FORM reCAPTCHA =============
+// ============= reCAPTCHA RENDERING =============
+let contactRecapId = null;
+let appRecapId = null;
+let recaptchaApiReady = false;
+
 function onRecaptchaApiLoad(){
-  if(document.getElementById('recap6965298000000945019')){
-    grecaptcha.render('recap6965298000000945019',{
+  recaptchaApiReady = true;
+  // Render contact form reCAPTCHA
+  if(document.getElementById('recap6965298000000945019') && contactRecapId === null){
+    contactRecapId = grecaptcha.render('recap6965298000000945019',{
       'sitekey':'6Ld85ugsAAAAAPZ77uRVV6y0T7SNg-S63ZdiO5EB',
       'theme':'light',
       'callback':'rccallback6965298000000945019',
-      'expired-callback':function(){document.getElementById('recap6965298000000945019').setAttribute('captcha-verified','false');}
+      'expired-callback':function(){
+        document.getElementById('recap6965298000000945019').setAttribute('captcha-verified','false');
+      }
     });
+  }
+}
+
+// Application form reCAPTCHA callback
+function rccallback6965298000000740051(){
+  var el = document.getElementById('recap6965298000000740051');
+  if(el){
+    el.setAttribute('captcha-verified','true');
+  }
+  var err = document.getElementById('recapErr6965298000000740051');
+  if(err){err.style.visibility = 'hidden';}
+}
+
+// Render application reCAPTCHA when step 5 is shown
+function renderAppRecaptcha(){
+  if(!recaptchaApiReady || !window.grecaptcha) return;
+  var el = document.getElementById('recap6965298000000740051');
+  if(el && appRecapId === null){
+    try{
+      appRecapId = grecaptcha.render('recap6965298000000740051',{
+        'sitekey':'6Ld85ugsAAAAAPZ77uRVV6y0T7SNg-S63ZdiO5EB',
+        'theme':'light',
+        'callback':'rccallback6965298000000740051',
+        'expired-callback':function(){
+          el.setAttribute('captcha-verified','false');
+        }
+      });
+      el.setAttribute('captcha-verified','false');
+    }catch(err){
+      console.warn('reCAPTCHA render error:',err);
+    }
+  } else if(el && appRecapId !== null){
+    // Reset if already rendered (user came back to step 5)
+    try{grecaptcha.reset(appRecapId);}catch(err){}
+    el.setAttribute('captcha-verified','false');
   }
 }
 </script>
